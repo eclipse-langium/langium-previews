@@ -1,0 +1,564 @@
+<!doctype html><html lang=en class=color-toggle-hidden>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=color-scheme content="light dark">
+<meta name=description content="Planning Sketching the Grammar Adding Commands Adding Expressions Adding Terminals     In this tutorial we will be talking about writing a grammar for your language in Langium. As a motivating example, we&rsquo;ll be describing how to write a grammar for the MiniLogo language. If you&rsquo;re not familiar with MiniLogo, it&rsquo;s a smaller implementation of the Logo programming language. Logo itself is a lot like Turtle from Python.">
+<title>Writing a Grammar | Langium</title>
+<link rel=icon type=image/svg+xml href=../../assets/nib.svg>
+<link rel=icon type=image/png sizes=32x32 href=../../favicon/32px.png>
+<link rel=icon type=image/png sizes=16x16 href=../../favicon/16px.png>
+<meta property="og:title" content="Writing a Grammar">
+<meta property="og:description" content="Planning Sketching the Grammar Adding Commands Adding Expressions Adding Terminals     In this tutorial we will be talking about writing a grammar for your language in Langium. As a motivating example, we&rsquo;ll be describing how to write a grammar for the MiniLogo language. If you&rsquo;re not familiar with MiniLogo, it&rsquo;s a smaller implementation of the Logo programming language. Logo itself is a lot like Turtle from Python.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/tutorials/writing_a_grammar/"><meta property="article:section" content="tutorials">
+<meta property="article:modified_time" content="2023-12-19T15:15:35+01:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Writing a Grammar">
+<meta name=twitter:description content="Planning Sketching the Grammar Adding Commands Adding Expressions Adding Terminals     In this tutorial we will be talking about writing a grammar for your language in Langium. As a motivating example, we&rsquo;ll be describing how to write a grammar for the MiniLogo language. If you&rsquo;re not familiar with MiniLogo, it&rsquo;s a smaller implementation of the Logo programming language. Logo itself is a lot like Turtle from Python.">
+<script src=../../js/darkmode-ce906ea916.min.js></script>
+<link rel=preload as=font href=../../fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload as=font href=../../fonts/LiberationSans.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload href=../../main-61795ecfac.min.css as=style>
+<link rel=stylesheet href=../../main-61795ecfac.min.css media=all>
+<link rel=preload href=../../mobile-e214817c8f.min.css as=style>
+<link rel=stylesheet href=../../mobile-e214817c8f.min.css media="screen and (max-width: 45rem)">
+<link rel=preload href=../../print-f79fc3e5d7.min.css as=style>
+<link rel=stylesheet href=../../print-f79fc3e5d7.min.css media=print>
+<link rel=preload href=../../custom.css as=style>
+<link rel=stylesheet href=../../custom.css media=all>
+<link rel=stylesheet href=../../prism/prism.css>
+<script src=../../prism/prism.js></script>
+<script src=../../prism/langium-prism.js></script>
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"TechArticle","articleSection":"tutorials","name":"Writing a Grammar","headline":"Writing a Grammar","alternativeHeadline":"","description":"Planning Sketching the Grammar Adding Commands Adding Expressions Adding Terminals     In this tutorial we will be talking about writing a grammar for your language in Langium. As a motivating example, we\u0026rsquo;ll be describing how to write a grammar for the MiniLogo language. If you\u0026rsquo;re not familiar with MiniLogo, it\u0026rsquo;s a smaller implementation of the Logo programming language. Logo itself is a lot like Turtle from Python.","inLanguage":"en","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"\/tutorials\/writing_a_grammar\/"},"copyrightHolder":"Langium","copyrightYear":"0001","dateCreated":"0001-01-01T00:00:00.00Z","datePublished":"0001-01-01T00:00:00.00Z","dateModified":"2023-12-19T15:15:35.00Z","publisher":{"@type":"Organization","name":"Langium","url":"/","logo":{"@type":"ImageObject","url":"\/brand.svg","width":"32","height":"32"}},"url":"\/tutorials\/writing_a_grammar\/","wordCount":"2553","genre":[]}</script>
+</head>
+<body itemscope itemtype=https://schema.org/WebPage><svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_back" xmlns="http://www.w3.org/2000/svg"><path d="M24 10.526v2.947H5.755l8.351 8.421-2.105 2.105-12-12 12-12 2.105 2.105-8.351 8.421H24z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_left_alt" xmlns="http://www.w3.org/2000/svg"><path d="M5.965 10.526V6.035L0 12l5.965 5.965v-4.491H24v-2.947H5.965z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_right_alt" xmlns="http://www.w3.org/2000/svg"><path d="M18.035 10.526V6.035L24 12l-5.965 5.965v-4.491H0v-2.947h18.035z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_bitbucket" xmlns="http://www.w3.org/2000/svg"><path d="M15.905 13.355c.189 1.444-1.564 2.578-2.784 1.839-1.375-.602-1.375-2.784-.034-3.403 1.151-.705 2.818.223 2.818 1.564zm1.907-.361c-.309-2.44-3.076-4.056-5.328-3.042-1.426.636-2.389 2.148-2.32 3.747.086 2.097 2.08 3.815 4.176 3.626s3.729-2.234 3.472-4.331zm4.108-9.315c-.756-.997-2.045-1.169-3.179-1.358-3.214-.516-6.513-.533-9.727.034-1.066.172-2.269.361-2.939 1.323 1.1 1.031 2.664 1.186 4.073 1.358 2.544.327 5.156.344 7.699.017 1.426-.172 3.008-.309 4.073-1.375zm.979 17.788c-.481 1.684-.206 3.953-1.994 4.932-3.076 1.701-6.806 1.89-10.191 1.289-1.787-.327-3.884-.894-4.864-2.578-.43-1.65-.705-3.334-.98-5.018l.103-.275.309-.155c5.121 3.386 12.288 3.386 17.427.0.808.241.206 1.22.189 1.805zM26.01 4.951c-.584 3.764-1.255 7.51-1.908 11.257-.189 1.1-1.255 1.719-2.148 2.183-3.214 1.615-6.96 1.89-10.483 1.512-2.389-.258-4.829-.894-6.771-2.389-.911-.705-.911-1.908-1.083-2.922-.602-3.523-1.289-7.046-1.719-10.604.206-1.547 1.942-2.217 3.231-2.698C6.848.654 8.686.362 10.508.19c3.884-.378 7.854-.241 11.618.859 1.341.395 2.784.945 3.695 2.097.412.533.275 1.203.189 1.805z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_bookmark" xmlns="http://www.w3.org/2000/svg"><path d="M15.268 4.392q.868.0 1.532.638t.664 1.506v17.463l-7.659-3.268-7.608 3.268V6.536q0-.868.664-1.506t1.532-.638h10.876zm4.34 14.144V4.392q0-.868-.638-1.532t-1.506-.664H6.537q0-.868.664-1.532T8.733.0h10.876q.868.0 1.532.664t.664 1.532v17.412z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_auto" xmlns="http://www.w3.org/2000/svg"><path d="M16.846 18.938h2.382L15.22 7.785h-2.44L8.772 18.938h2.382l.871-2.44h3.95zm7.087-9.062L27.999 14l-4.066 4.124v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809zm-11.385 4.937L14 10.282l1.452 4.531h-2.904z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_dark" xmlns="http://www.w3.org/2000/svg"><path d="M14 21.435q3.079.0 5.257-2.178T21.435 14t-2.178-5.257T14 6.565q-1.51.0-3.079.697 1.917.871 3.108 2.701T15.22 14t-1.191 4.037-3.108 2.701q1.568.697 3.079.697zm9.933-11.559L27.999 14l-4.066 4.124v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_light" xmlns="http://www.w3.org/2000/svg"><path d="M14 21.435q3.079.0 5.257-2.178T21.435 14t-2.178-5.257T14 6.565 8.743 8.743 6.565 14t2.178 5.257T14 21.435zm9.933-3.311v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809L27.999 14z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_check" xmlns="http://www.w3.org/2000/svg"><path d="M8.885 20.197 25.759 3.323l2.24 2.24L8.885 24.677.0 15.792l2.24-2.24z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_cloud_off" xmlns="http://www.w3.org/2000/svg"><path d="M9.023 10.5H7q-1.914.0-3.281 1.395t-1.367 3.309 1.367 3.281T7 19.852h11.375zM3.5 4.976l1.477-1.477L24.5 23.022l-1.477 1.477-2.352-2.297H6.999q-2.898.0-4.949-2.051t-2.051-4.949q0-2.844 1.969-4.867t4.758-2.133zm19.086 5.578q2.242.164 3.828 1.832T28 16.351q0 3.008-2.461 4.758l-1.695-1.695q1.805-.984 1.805-3.063.0-1.422-1.039-2.461t-2.461-1.039h-1.75v-.602q0-2.68-1.859-4.539t-4.539-1.859q-1.531.0-2.953.711l-1.75-1.695Q11.431 3.5 14.001 3.5q2.953.0 5.496 2.078t3.09 4.977z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_code" xmlns="http://www.w3.org/2000/svg"><path d="M9.917 24.5a1.75 1.75.0 10-3.501.001 1.75 1.75.0 003.501-.001zm0-21a1.75 1.75.0 10-3.501.001A1.75 1.75.0 009.917 3.5zm11.666 2.333a1.75 1.75.0 10-3.501.001 1.75 1.75.0 003.501-.001zm1.75.0a3.502 3.502.0 01-1.75 3.026c-.055 6.581-4.721 8.039-7.82 9.023-2.898.911-3.846 1.349-3.846 3.117v.474a3.502 3.502.0 011.75 3.026c0 1.932-1.568 3.5-3.5 3.5s-3.5-1.568-3.5-3.5c0-1.294.711-2.424 1.75-3.026V6.526A3.502 3.502.0 014.667 3.5c0-1.932 1.568-3.5 3.5-3.5s3.5 1.568 3.5 3.5a3.502 3.502.0 01-1.75 3.026v9.06c.93-.456 1.914-.766 2.807-1.039 3.391-1.075 5.323-1.878 5.359-5.687a3.502 3.502.0 01-1.75-3.026c0-1.932 1.568-3.5 3.5-3.5s3.5 1.568 3.5 3.5z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_copy" xmlns="http://www.w3.org/2000/svg"><path d="M23.502 25.438V7.626H9.562v17.812h13.94zm0-20.315q1.013.0 1.787.745t.774 1.757v17.812q0 1.013-.774 1.787t-1.787.774H9.562q-1.013.0-1.787-.774t-.774-1.787V7.625q0-1.013.774-1.757t1.787-.745h13.94zM19.689.0v2.562H4.438v17.812H1.936V2.562q0-1.013.745-1.787T4.438.001h15.251z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_date" xmlns="http://www.w3.org/2000/svg"><path d="M27.192 28.844V11.192H4.808v17.652h22.384zm0-25.689q1.277.0 2.253.976t.976 2.253v22.459q0 1.277-.976 2.216t-2.253.939H4.808q-1.352.0-2.291-.901t-.939-2.253V6.385q0-1.277.939-2.253t2.291-.976h1.577V.001h3.23v3.155h12.769V.001h3.23v3.155h1.577zm-3.155 11.267v3.155h-3.23v-3.155h3.23zm-6.46.0v3.155h-3.155v-3.155h3.155zm-6.384.0v3.155h-3.23v-3.155h3.23z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_download" xmlns="http://www.w3.org/2000/svg"><path d="M2.866 28.209h26.269v3.79H2.866v-3.79zm26.268-16.925L16 24.418 2.866 11.284h7.493V.001h11.283v11.283h7.493z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_email" xmlns="http://www.w3.org/2000/svg"><path d="M28.845 9.615v-3.23L16 14.422 3.155 6.385v3.23L16 17.577zm0-6.46q1.277.0 2.216.977T32 6.385v19.23q0 1.277-.939 2.253t-2.216.977H3.155q-1.277.0-2.216-.977T0 25.615V6.385q0-1.277.939-2.253t2.216-.977h25.69z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_git" xmlns="http://www.w3.org/2000/svg"><path d="M27.472 12.753 15.247.529a1.803 1.803.0 00-2.55.0l-2.84 2.84 2.137 2.137a2.625 2.625.0 013.501 3.501l3.499 3.499a2.625 2.625.0 11-1.237 1.237l-3.499-3.499c-.083.04-.169.075-.257.106v7.3a2.626 2.626.0 11-1.75.0v-7.3a2.626 2.626.0 01-1.494-3.607L8.62 4.606l-8.09 8.09a1.805 1.805.0 000 2.551l12.225 12.224a1.803 1.803.0 002.55.0l12.168-12.168a1.805 1.805.0 000-2.551z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_github" xmlns="http://www.w3.org/2000/svg"><path d="M16 .394c8.833.0 15.999 7.166 15.999 15.999.0 7.062-4.583 13.062-10.937 15.187-.813.146-1.104-.354-1.104-.771.0-.521.021-2.25.021-4.396.0-1.5-.5-2.458-1.083-2.958 3.562-.396 7.312-1.75 7.312-7.896.0-1.75-.625-3.167-1.646-4.291.167-.417.708-2.042-.167-4.25-1.333-.417-4.396 1.646-4.396 1.646a15.032 15.032.0 00-8 0S8.937 6.602 7.603 7.018c-.875 2.208-.333 3.833-.167 4.25-1.021 1.125-1.646 2.542-1.646 4.291.0 6.125 3.729 7.5 7.291 7.896-.458.417-.875 1.125-1.021 2.146-.917.417-3.25 1.125-4.646-1.333-.875-1.521-2.458-1.646-2.458-1.646-1.562-.021-.104.979-.104.979 1.042.479 1.771 2.333 1.771 2.333.938 2.854 5.396 1.896 5.396 1.896.0 1.333.021 2.583.021 2.979.0.417-.292.917-1.104.771C4.582 29.455-.001 23.455-.001 16.393-.001 7.56 7.165.394 15.998.394zM6.063 23.372c.042-.083-.021-.187-.146-.25-.125-.042-.229-.021-.271.042-.042.083.021.187.146.25.104.062.229.042.271-.042zm.646.709c.083-.062.062-.208-.042-.333-.104-.104-.25-.146-.333-.062-.083.062-.062.208.042.333.104.104.25.146.333.062zm.625.937c.104-.083.104-.25.0-.396-.083-.146-.25-.208-.354-.125-.104.062-.104.229.0.375s.271.208.354.146zm.875.875c.083-.083.042-.271-.083-.396-.146-.146-.333-.167-.417-.062-.104.083-.062.271.083.396.146.146.333.167.417.062zm1.187.521c.042-.125-.083-.271-.271-.333-.167-.042-.354.021-.396.146s.083.271.271.312c.167.062.354.0.396-.125zm1.313.104c0-.146-.167-.25-.354-.229-.187.0-.333.104-.333.229.0.146.146.25.354.229.187.0.333-.104.333-.229zm1.208-.208c-.021-.125-.187-.208-.375-.187-.187.042-.312.167-.292.312.021.125.187.208.375.167s.312-.167.292-.292z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_gitlab" xmlns="http://www.w3.org/2000/svg"><path d="M1.629 11.034 14 26.888.442 17.048a1.09 1.09.0 01-.39-1.203l1.578-4.811zm7.217.0h10.309l-5.154 15.854zM5.753 1.475l3.093 9.559H1.63l3.093-9.559a.548.548.0 011.031.0zm20.618 9.559 1.578 4.811c.141.437-.016.922-.39 1.203l-13.558 9.84 12.371-15.854zm0 0h-7.216l3.093-9.559a.548.548.0 011.031.0z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_heart" xmlns="http://www.w3.org/2000/svg"><path d="M16 29.714a1.11 1.11.0 01-.786-.321L4.072 18.643c-.143-.125-4.071-3.714-4.071-8 0-5.232 3.196-8.357 8.535-8.357 3.125.0 6.053 2.464 7.464 3.857 1.411-1.393 4.339-3.857 7.464-3.857 5.339.0 8.535 3.125 8.535 8.357.0 4.286-3.928 7.875-4.089 8.035L16.785 29.392c-.214.214-.5.321-.786.321z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_home" xmlns="http://www.w3.org/2000/svg"><path d="M24.003 15.695v8.336c0 .608-.504 1.111-1.111 1.111h-6.669v-6.669h-4.446v6.669H5.108a1.119 1.119.0 01-1.111-1.111v-8.336c0-.035.017-.069.017-.104L14 7.359l9.986 8.232a.224.224.0 01.017.104zm3.873-1.198-1.077 1.285a.578.578.0 01-.365.191h-.052a.547.547.0 01-.365-.122L14 5.831 1.983 15.851a.594.594.0 01-.417.122.578.578.0 01-.365-.191L.124 14.497a.57.57.0 01.069-.781L12.679 3.314c.729-.608 1.91-.608 2.64.0l4.237 3.543V3.471c0-.313.243-.556.556-.556h3.334c.313.0.556.243.556.556v7.085l3.803 3.161c.226.191.26.556.069.781z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_keyborad_arrow_down" xmlns="http://www.w3.org/2000/svg"><path d="M3.281 5.36 14 16.079 24.719 5.36 28 8.641l-14 14-14-14z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_keyborad_arrow_left" xmlns="http://www.w3.org/2000/svg"><path d="M25.875 28.25 22.125 32 6.126 16.001 22.125.002l3.75 3.75-12.25 12.25z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_keyborad_arrow_right" xmlns="http://www.w3.org/2000/svg"><path d="M6.125 28.25 18.375 16 6.125 3.75 9.875.0l15.999 15.999L9.875 31.998z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_keyborad_arrow_up" xmlns="http://www.w3.org/2000/svg"><path d="M24.719 22.64 14 11.921 3.281 22.64.0 19.359l14-14 14 14z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_link" xmlns="http://www.w3.org/2000/svg"><path d="M24.037 7.963q3.305.0 5.634 2.366T32 16t-2.329 5.671-5.634 2.366h-6.46v-3.08h6.46q2.028.0 3.493-1.465t1.465-3.493-1.465-3.493-3.493-1.465h-6.46v-3.08h6.46zM9.615 17.578v-3.155h12.77v3.155H9.615zM3.005 16q0 2.028 1.465 3.493t3.493 1.465h6.46v3.08h-6.46q-3.305.0-5.634-2.366T0 16.001t2.329-5.671 5.634-2.366h6.46v3.08h-6.46q-2.028.0-3.493 1.465t-1.465 3.493z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_menu" xmlns="http://www.w3.org/2000/svg"><path d="M.001 5.334h31.998v3.583H.001V5.334zm0 12.416v-3.5h31.998v3.5H.001zm0 8.916v-3.583h31.998v3.583H.001z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_notification" xmlns="http://www.w3.org/2000/svg"><path d="M22.615 19.384l2.894 2.894v1.413H2.49v-1.413l2.894-2.894V12.25q0-3.365 1.716-5.856t4.745-3.231v-1.01q0-.875.606-1.514T13.999.0t1.548.639.606 1.514v1.01q3.029.74 4.745 3.231t1.716 5.856v7.134zM14 27.999q-1.211.0-2.053-.808t-.841-2.019h5.788q0 1.144-.875 1.986T14 27.999z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_path" xmlns="http://www.w3.org/2000/svg"><path d="M28 12.62h-9.793V8.414h-2.826v11.173h2.826v-4.206H28V26.62h-9.793v-4.206H12.62v-14H9.794v4.206H.001V1.381h9.793v4.206h8.413V1.381H28V12.62z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_person" xmlns="http://www.w3.org/2000/svg"><path d="M16 20.023q5.052.0 10.526 2.199t5.473 5.754v4.023H0v-4.023q0-3.555 5.473-5.754t10.526-2.199zM16 16q-3.275.0-5.614-2.339T8.047 8.047t2.339-5.661T16 0t5.614 2.386 2.339 5.661-2.339 5.614T16 16z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_search" xmlns="http://www.w3.org/2000/svg"><path d="M11.925 20.161q3.432.0 5.834-2.402t2.402-5.834-2.402-5.834-5.834-2.402-5.834 2.402-2.402 5.834 2.402 5.834 5.834 2.402zm10.981.0L32 29.255 29.255 32l-9.094-9.094v-1.458l-.515-.515q-3.26 2.831-7.721 2.831-4.976.0-8.45-3.432T.001 11.925t3.474-8.45 8.45-3.474 8.407 3.474 3.432 8.45q0 1.802-.858 4.075t-1.973 3.646l.515.515h1.458z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_shield" xmlns="http://www.w3.org/2000/svg"><path d="M22.167 15.166V3.5h-8.166v20.726c.93-.492 2.424-1.349 3.883-2.497 1.95-1.531 4.284-3.919 4.284-6.562zm3.499-13.999v14c0 7.674-10.737 12.523-11.192 12.724-.146.073-.31.109-.474.109s-.328-.036-.474-.109c-.456-.201-11.192-5.049-11.192-12.724v-14C2.334.529 2.863.0 3.501.0H24.5c.638.0 1.167.529 1.167 1.167z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_tags" xmlns="http://www.w3.org/2000/svg"><path d="M6.606 7.549c0-1.047-.84-1.887-1.887-1.887s-1.887.84-1.887 1.887.84 1.887 1.887 1.887 1.887-.84 1.887-1.887zm15.732 8.493c0 .501-.206.988-.546 1.327l-7.239 7.254c-.354.339-.84.546-1.342.546s-.988-.206-1.327-.546L1.342 14.066C.59 13.329.0 11.899.0 10.852V4.718a1.9 1.9.0 011.887-1.887h6.134c1.047.0 2.477.59 3.229 1.342L21.792 14.7c.339.354.546.84.546 1.342zm5.661.0c0 .501-.206.988-.546 1.327l-7.239 7.254c-.354.339-.84.546-1.342.546-.767.0-1.15-.354-1.651-.87l6.93-6.93c.339-.339.546-.826.546-1.327s-.206-.988-.546-1.342L13.609 4.173c-.752-.752-2.182-1.342-3.229-1.342h3.303c1.047.0 2.477.59 3.229 1.342L27.454 14.7c.339.354.546.84.546 1.342z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_timer" xmlns="http://www.w3.org/2000/svg"><path d="M16 29q4.428.0 7.536-3.143t3.107-7.571-3.107-7.536T16 7.643 8.464 10.75t-3.107 7.536 3.107 7.571T16 29zM26.714 9.786q1.214 1.571 2.107 4.036t.893 4.464q0 5.643-4 9.678T16 32t-9.714-4.036-4-9.678 4-9.678T16 4.572q1.929.0 4.464.929t4.107 2.143l2.143-2.214q1.143.929 2.143 2.143zM14.5 19.857v-9.143h3v9.143h-3zM20.571.001v3.071h-9.143V.001h9.143z"/></symbol></svg>
+<div class=wrapper>
+<input type=checkbox class=hidden id=menu-control>
+<input type=checkbox class=hidden id=menu-header-control>
+<header class=gdoc-header>
+<div class="container flex align-center justify-between">
+<label for=menu-control class=gdoc-nav__control><svg class="icon gdoc_menu"><title>Open Nav Menu</title><use xlink:href="#gdoc_menu"/></svg><svg class="icon gdoc_arrow_back"><title>Close Nav Menu</title><use xlink:href="#gdoc_arrow_back"/></svg>
+</label>
+<a class=gdoc-header__link href=../../>
+<span class="gdoc-brand flex align-center">
+<img class=gdoc-brand__img style=width:10rem;height:2rem src=../../assets/langium_logo_w_nib.svg alt>
+</span>
+</a>
+<div class=gdoc-menu-header>
+<span class=gdoc-menu-header__items>
+<span>
+<a href=https://github.com/eclipse-langium/langium class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
+</a>
+</span>
+<span id=gdoc-dark-mode><svg class="icon gdoc_brightness_dark"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_dark"/></svg><svg class="icon gdoc_brightness_light"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_light"/></svg><svg class="icon gdoc_brightness_auto"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_auto"/></svg>
+</span>
+<span class=gdoc-menu-header__home>
+<a href=../../ class=gdoc-header__link><svg class="icon gdoc_home"><title>Back to homepage</title><use xlink:href="#gdoc_home"/></svg>
+</a>
+</span>
+<span class=gdoc-menu-header__control>
+<label for=menu-header-control><svg class="icon gdoc_keyborad_arrow_right"><use xlink:href="#gdoc_keyborad_arrow_right"/><title>Close Menu Bar</title></svg>
+</label>
+</span>
+</span>
+<label for=menu-header-control class=gdoc-menu-header__control><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/><title>Open Menu Bar</title></svg>
+</label>
+</div>
+</div>
+</header>
+<main class="container flex flex-even">
+<aside class=gdoc-nav>
+<nav>
+<div class=gdoc-search><svg class="icon gdoc_search"><use xlink:href="#gdoc_search"/></svg>
+<input type=text id=gdoc-search-input class=gdoc-search__input placeholder=Search... aria-label=Search maxlength=64>
+<div class="gdoc-search__spinner spinner hidden"></div>
+<ul id=gdoc-search-results class=gdoc-search__list></ul>
+</div>
+<section class=gdoc-nav--main>
+<h2>Navigation</h2>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../playground/ class=gdoc-nav__entry>
+Playground
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/ class=gdoc-nav__entry>
+Documentation
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../docs/langium-overview/ class=gdoc-nav__entry>
+Langium Overview
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/getting-started/ class=gdoc-nav__entry>
+Getting Started
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/grammar-language/ class=gdoc-nav__entry>
+The Grammar Language
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/sematic-model/ class=gdoc-nav__entry>
+Semantic Model Inference
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/configuration-services/ class=gdoc-nav__entry>
+Configuration via Services
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/document-lifecycle/ class=gdoc-nav__entry>
+Document Lifecycle
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/ class=gdoc-nav__entry>
+Guides
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../guides/code-bundling/ class=gdoc-nav__entry>
+Code Bundling
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/scoping/ class=gdoc-nav__entry>
+Scoping
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../guides/scoping/qualified-name/ class=gdoc-nav__entry>
+Qualified Name Scoping
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/scoping/class-member/ class=gdoc-nav__entry>
+Class Member Scoping
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/builtin-library/ class=gdoc-nav__entry>
+Builtin Libraries
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/formatting/ class=gdoc-nav__entry>
+Formatting
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/multiple-languages/ class=gdoc-nav__entry>
+Multiple dependent languages
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/ class=gdoc-nav__entry>
+Tutorials
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../tutorials/writing_a_grammar/ class="gdoc-nav__entry is-active">
+Writing a Grammar
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/validation/ class=gdoc-nav__entry>
+Validation
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/customizing_cli/ class=gdoc-nav__entry>
+Customizing the CLI
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/generation/ class=gdoc-nav__entry>
+Generation
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/building_an_extension/ class=gdoc-nav__entry>
+Building an Extension
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/langium_and_monaco/ class=gdoc-nav__entry>
+Langium + Monaco Editor
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/generation_in_the_web/ class=gdoc-nav__entry>
+Generation in the Web
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../showcase/ class=gdoc-nav__entry>
+Langium Showcase
+</a>
+</span>
+<ul class=gdoc-nav__list>
+</ul>
+</li>
+</ul>
+</section>
+<section class=gdoc-nav--more>
+<h2>More</h2>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex><svg class="icon gdoc_download"><use xlink:href="#gdoc_download"/></svg>
+<a href=https://www.npmjs.com/package/langium class=gdoc-nav__entry>
+Get npm Package
+</a>
+</span>
+</li>
+<li>
+<span class=flex><svg class="icon gdoc_github"><use xlink:href="#gdoc_github"/></svg>
+<a href=https://github.com/eclipse-langium/langium class=gdoc-nav__entry>
+View Source
+</a>
+</span>
+</li>
+</ul>
+</section>
+</nav>
+</aside>
+<div class=gdoc-page>
+<div class="gdoc-page__header flex flex-wrap
+justify-between" itemprop=breadcrumb>
+<div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
+<ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=../../><span itemprop=name>Langium</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/tutorials/ href=../../tutorials/><span itemprop=name>Tutorials</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Writing a Grammar</span><meta itemprop=position content="3"></li>
+</ol>
+</div>
+<div>
+<span class=editpage><svg class="icon gdoc_code"><use xlink:href="#gdoc_code"/></svg>
+<a href=https://github.com/eclipse-langium/langium-website/blob/main/hugo/content/tutorials/writing_a_grammar.md>
+Edit this page
+</a>
+</span>
+</div>
+</div>
+<article class="gdoc-markdown gdoc-markdown__align--left">
+<h1>Writing a Grammar</h1>
+<div class="gdoc-toc gdoc-toc__level--3"><nav id=TableOfContents><ul>
+<li><a href=#planning>Planning</a></li>
+<li><a href=#sketching-the-grammar>Sketching the Grammar</a></li>
+<li><a href=#adding-commands>Adding Commands</a></li>
+<li><a href=#adding-expressions>Adding Expressions</a></li>
+<li><a href=#adding-terminals>Adding Terminals</a></li>
+</ul></nav><hr></div>
+<p>In this tutorial we will be talking about writing a grammar for your language in Langium. As a motivating example, we&rsquo;ll be describing how to write a grammar for the MiniLogo language. If you&rsquo;re not familiar with MiniLogo, it&rsquo;s a smaller implementation of the Logo programming language. Logo itself is a lot like Turtle from Python. Ultimately, we&rsquo;ll be using MiniLogo to express drawing instructions that can be used to draw on a canvas.</p>
+<p>We&rsquo;ve already written an implementation of <a class=gdoc-markdown__link href=https://github.com/langium/langium-minilogo>MiniLogo on Github using Langium</a>. This tutorial will be following along with this project, by walking through the grammar implementation step by step. Later tutorials will also follow along with MiniLogo to create an easy to follow series.</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=planning>
+Planning
+<a data-clipboard-text=/tutorials/writing_a_grammar/#planning class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Planning" href=#planning><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Before we get started writing the grammar, we&rsquo;ll want to first identify a couple important aspects of our language. Namely, these are:</p>
+<ul>
+<li>The Semantic Domain</li>
+<li>The Concrete Syntax</li>
+</ul>
+<p>The Semantic Domain describes the types of values that will be produced by evaluating our language. In the case of MiniLogo our semantic domain is going to have a single part, an updated drawing state that contains information on:</p>
+<ul>
+<li>position</li>
+<li>whether we&rsquo;re drawing or not</li>
+<li>color of the drawing stroke</li>
+</ul>
+<p>We&rsquo;ll also be producing values and updating an environment as well, which are important to keep in mind.</p>
+<p>Basically, a MiniLogo program can be considered equivalent to a series of transformations on some drawing context. This goal for MiniLogo will guide our design throughout these tutorials.</p>
+<p>In addition, we&rsquo;ll want to get an idea of what our concrete syntax will be. This step can be done on paper if you like, but the overall goal is to get a feel for how you want the language to look. Your choice of concrete syntax will also drive your grammar&rsquo;s design. If your design is chosen well, it can simplify the way your grammar is constructed. If your syntax is complex, the grammar may also be complex as well. Not only this, but it&rsquo;s also important to try and strike a balance between syntax that is special to your language, and syntax that is at least somewhat shared with other languages. The more unfamiliar the language appears, the more likely your users will struggle trying to pick it up.</p>
+<p>In our case, we&rsquo;re going to use a C-like concrete syntax. This will make it easy to understand the structure of our programs for most users. This is also chosen because it allows us to use curly braces to delimit blocks of code, which is quite easy to implement in Langium. You could also go for a Python style language, where whitespace has significance in determining which block some code belongs to. Unfortunately, this is not as easy to do out of the box with Langium, due to it ignoring whitespace by default, but it can be configured to work for such languages.</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=sketching-the-grammar>
+Sketching the Grammar
+<a data-clipboard-text=/tutorials/writing_a_grammar/#sketching-the-grammar class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Sketching the Grammar" href=#sketching-the-grammar><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Now that we have an idea of our semantics and our concrete syntax, we can then start writing out a grammar. Conveniently, MiniLogo already has a grammar and concrete syntax described, and that in turn is based off of the <a class=gdoc-markdown__link href=https://el.media.mit.edu/logo-foundation/what_is_logo/logo_programming.html>Logo programming language</a>. <a class=gdoc-markdown__link href=https://web.engr.oregonstate.edu/~walkiner/teaching/cs381-wi21/minilogo.html>MiniLogo</a> itself was designed by Eric Walkingshaw at Oregon State University, and was used to teach students. It&rsquo;s not something that we&rsquo;ve created, but rather something that we found to be an ideal demonstration of Langium&rsquo;s capabilities, while also remaining friendly for newcomers.</p>
+<p>As an aside, our version of MiniLogo will be an <em>approximation</em> of Dr. Walkingshaw&rsquo;s version. We won&rsquo;t adhere to it completely, and we won&rsquo;t be incorporating some elements, such as variable declarations.</p>
+<p>To get started sketching the grammar we&rsquo;ll be using the <strong>Hello World</strong> example from the yeoman generator. You can read about how to get this setup in the <a class=gdoc-markdown__link href=../../docs/getting-started/>Getting Started</a> section of our docs. We&rsquo;ll be working with a fresh from the generator using only the defaults, and building up from that. We&rsquo;ll begin by modifying the default grammar file, and updating it to work for MiniLogo. You can find this file under <strong>src/language/hello-world.langium</strong> in your new project. If you used a name other than the default, the file will still be there, but using your custom name instead.</p>
+<p>We&rsquo;ll be overriding the existing langium grammar file completely, so delete the old contents before we begin.</p>
+<p>The first line that we&rsquo;ll then add is the declaration of our grammar.</p>
+<pre><code class=language-langium>grammar MiniLogo
+</code></pre>
+<p>This simply describes the name of the grammar that will be proceeding, and is required.</p>
+<p>Next, we&rsquo;ll need to describe an entry rule. This will be a parser rule that must be matched first when recognizing a MiniLogo program. This rule is particularly special, because it will become the root of the resulting abstract syntax tree, which captures the essential structure of our program. For MiniLogo, our entry rule Will be <code>Model</code>. You could also make it <code>Program</code>, but whatever you choose it should capture the same notion. Regardless of your choice, this rule should match any number of Statements and/or Definitions to follow the MiniLogo specification.</p>
+<pre><code class=language-langium>entry Model: (stmts+=Stmt | defs+=Def)*;
+</code></pre>
+<p>Each instance of a statement will be stored under the <code>stmts</code> property as an element of an Array. The same will be done for Definitions using <code>defs</code> as well. Note the trailing <code>*</code> after the grouping, which means technically a program containing <em>nothing</em> is also a valid MiniLogo program.</p>
+<p>To iterate on this a little bit further we&rsquo;ll need to describe what a Statement (Stmt) and a Definition (Def) are in the context of MiniLogo.</p>
+<p>First, let&rsquo;s talk about <strong>Definitions</strong>. A definition corresponds to:</p>
+<ul>
+<li>a name</li>
+<li>a list of parameters</li>
+<li>a block of <em>statements</em></li>
+</ul>
+<p>And we want definitions to look like so in our concrete syntax:</p>
+<pre><code class=language-minilogo>def myDef() {
+    ...
+}
+...
+def anotherDef(x,y,z) {
+    ...
+}
+</code></pre>
+<p>We can recognize this concrete syntax, and capture the relevant information for our AST, with the following rule:</p>
+<pre><code class=language-langium>Def: 'def' name=ID '(' (params+=Param (',' params+=Param)*)? ')' Block;
+</code></pre>
+<p>As an additional note, much like regular expressions we use modifiers in our grammar to indicate that definitions can take any number of comma separated parameters.</p>
+<p>You may be wondering what <code>Block</code> is as well. Block corresponds to a rule <em>fragment</em>, which is akin to a reusable rule body. It&rsquo;s not a rule itself, but an reusable piece that can be reused to complete rules. It&rsquo;s particularly handy when you find yourself writing the same pattern repeatedly, and want to factor it out.</p>
+<pre><code class=language-langium>fragment Block: '{' body+=Stmt* '}';
+</code></pre>
+<p>Then we have <strong>Statements</strong>, which consist of Commands or Macros.</p>
+<pre><code class=language-langium>Stmt: Cmd | Macro;
+</code></pre>
+<p>A <strong>Command</strong> describes an action that transforms the drawing state (which connects to our semantic domain from before). The commands in MiniLogo can be expressed like so:</p>
+<pre><code class=language-langium>Cmd: Pen | Move | Color | For;
+</code></pre>
+<p>Where each command is also a separate rule:</p>
+<ul>
+<li><strong>Pen</strong>: Corresponds to a command that turns on/off drawing</li>
+<li><strong>Move</strong>: Updates the position of the pen (relatively)</li>
+<li><strong>Color</strong>: Sets the stroke color of what is drawn</li>
+<li><strong>For</strong>: A standard for loop control flow</li>
+</ul>
+<p>These commands describe the essential drawing instructions that we will be representing. We&rsquo;ll go over those in a moment.</p>
+<p>A statement can also be a <strong>Macro</strong>. A Macro has 2 distinct parts:</p>
+<ul>
+<li>a reference to a Definition (more on this shortly, think of it like a &lsquo;function&rsquo; for now)</li>
+<li>a list of arguments to apply this definition to</li>
+</ul>
+<p>In our concrete syntax, we want macros to look like this:</p>
+<pre><code class=language-minilogo>myMacro()
+...
+anotherMacro(1, 2, 3 * 3)
+</code></pre>
+<p>We can encode this in MiniLogo like so:</p>
+<pre><code class=language-langium>Macro:  def=[Def:ID] '(' (args+=Expr (',' args+=Expr)*)? ')';
+</code></pre>
+<p>In this case <code>def</code> will be a <strong>Cross Reference</strong> to an existing Definition. This is a special syntax that says <em>def will be assigned to a Definition object at runtime identified by an ID terminal token</em>. Although we haven&rsquo;t introduced this terminal yet, it&rsquo;s a simple rule that captures literal strings as tokens. It&rsquo;s also important to note that cross references implicitly utilize the <code>name</code> property to hookup the cross reference to the target object.</p>
+<p>We also want to add the notion of a Parameter, which is quite simple to write in:</p>
+<pre><code class=language-langium>Param: name=ID;
+</code></pre>
+<p>As you may have guessed, by using the <code>name</code> property for a parameter, we&rsquo;re allowing Langium to automatically setup cross references for parameters as well.</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=adding-commands>
+Adding Commands
+<a data-clipboard-text=/tutorials/writing_a_grammar/#adding-commands class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Adding Commands" href=#adding-commands><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>For the commands, we&rsquo;ll go through each one, and show examples of the concrete syntax we&rsquo;re trying to capture:</p>
+<p><strong>Pen</strong> needs to have two modes, up and down. So it should capture syntax like this:</p>
+<pre><code class=language-minilogo>pen(up)
+...
+pen(down)
+</code></pre>
+<p>We can express this with the following parser rule.</p>
+<pre><code class=language-langium>Pen:    'pen' '(' mode=('up' | 'down') ')';
+</code></pre>
+<p><strong>Move</strong> commands will take a pair of expressions, corresponding to the x and y components, and can look like so:</p>
+<pre><code class=language-minilogo>move(1,5)
+...
+move(x * 10, y * 10)
+</code></pre>
+<p>We haven&rsquo;t defined it yet, but we can use an <strong>Expr</strong> rule to represent where our expressions will go, and capture this command like this:</p>
+<pre><code class=language-langium>Move:   'move' '(' ex=Expr ',' ey=Expr ')';
+</code></pre>
+<p>We&rsquo;ll define expressions shortly.</p>
+<p>Simple for loops can be defined too, which should look like this:</p>
+<pre><code class=language-minilogo>for x = 0 to 10 {
+    ...
+}
+</code></pre>
+<p>Again, we don&rsquo;t have <strong>Expr</strong> defined yet, but we can still use it here. Also, since we have a block of statements, we can reuse that <code>Block</code> fragment that was defined earlier.</p>
+<pre><code class=language-langium>For: 'for' var=Param '=' e1=Expr 'to' e2=Expr Block;
+</code></pre>
+<p><strong>Color</strong> commands are the last one to add, and they&rsquo;ll change the stroke color in a few ways. The first is by setting the RGB components as integers directly:</p>
+<pre><code class=language-minilogo>color(128,64,255)
+</code></pre>
+<p>The second is by passing in the name of a stroke color:</p>
+<pre><code class=language-minilogo>color(blue)
+</code></pre>
+<p>The last is by passing a hexadecimal value:</p>
+<pre><code class=language-minilogo>color(#66CCFF)
+...
+color(#6cf)
+</code></pre>
+<p>The corresponding rule for this syntax is a special case where we have 3 different overloaded forms of the same command. To capture all of these forms, we can use two different sets of properties:</p>
+<ul>
+<li>r,g,b values for each color</li>
+<li>a single color value that can be either an ID or HEX</li>
+</ul>
+<p>We can encode this like so:</p>
+<pre><code class=language-langium>Color:  'color' '(' ((r = Expr ',' g=Expr ',' b=Expr) | color=ID | color=HEX) ')';
+</code></pre>
+<p>What&rsquo;s interesting here is that the color & r,g,b properties are <em>both</em> optional. Since in either case only one or the other will be defined. With the two forms, this is enough information to quickly determine what kind of color command we have, and to handle it correctly later on.</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=adding-expressions>
+Adding Expressions
+<a data-clipboard-text=/tutorials/writing_a_grammar/#adding-expressions class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Adding Expressions" href=#adding-expressions><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Now we&rsquo;re at the core of our language, <strong>Expressions</strong>. In MiniLogo we want to be able to express not only literal values, but also references and arithmetic operations such as addition, subtraction, multiplication, and division. When implementing expressions, we need to keep in mind that Langium is based off of Chevrotain, which produces top-down parsers. This means we have to watch out for cases that lead to left-recursion. In order to avoid this, we need to be careful not to define a rule with itself on the left-hand side. For example, something like <code>Expr: e1=Expr ...</code> would not work, because the parser would infinitely try to parse another expression forever.</p>
+<p>However, we can work around this. We can introduce expressions and avoid left-recursion by writing them from the bottom up in terms of order of operations. We&rsquo;ll start with <code>Add</code> (which also includes subtraction):</p>
+<pre><code class=language-langium>Expr: Add;
+</code></pre>
+<p>Then writing a rule to handle the addition (and subtraction) case.</p>
+<pre><code class=language-langium>Add  infers Expr: 
+    Mult ({infer BinExpr.e1=current} op=('+'|'-') e2=Mult)*;
+</code></pre>
+<p>To explain a bit, the <code>Add</code> rule introduces:</p>
+<ul>
+<li>a parser rule that produces an <strong>Expr</strong> instance (that&rsquo;s what the infers is doing here)</li>
+<li>starts by recognizing a <code>Mult</code> instance</li>
+<li><em>then</em> if there&rsquo;s a binary operator to parse
+<ul>
+<li>rewrite this parsed object into a <strong>BinExpr</strong> that will <em>extend</em> <strong>Expr</strong> (that&rsquo;s what the second <code>{infer ...}</code> is doing)</li>
+<li>also capture the first <code>Mult</code> under the <code>e1</code> property (that&rsquo;s what the <code>current</code> keyword refers to)</li>
+<li>capture the operand +/-</li>
+<li>capture the following <code>Mult</code> instance (the right hand side of our binary expression)</li>
+</ul>
+</li>
+<li><em>else</em> simply returns the result of <code>Mult</code> (the case where we don&rsquo;t have a binary expression)</li>
+</ul>
+<p>We can then repeat this pattern with the <code>Mult</code> rule:</p>
+<pre><code class=language-langium>Mult infers Expr: 
+    PrimExpr ({infer BinExpr.e1=current} op=('*'|'/') e2=PrimExpr)*;
+</code></pre>
+<p>Lastly we can then introduce <code>Primary</code> expressions, or <code>PrimExpr</code>. This rule will match all the primitive cases, such as literals, references, groupings, and negation.</p>
+<pre><code class=language-langium>PrimExpr: Lit | Ref | Group | NegExpr;
+
+// literal int
+Lit:        val=INT;
+// cross-reference to a parameter
+Ref:        val=[Param:ID];
+// grouped expression with parentheses
+Group:      '(' ge=Expr ')';
+// negated expression
+NegExpr:    '-' ne=Expr;
+</code></pre>
+<p>By writing our parser rules first for Addition & Subtraction, and then later for Multiplication and Division, we can construct an abstract syntax text tree that will correctly preserve order of operations.</p>
+<p>As a note, we could also write these rules <em>without using actions to rewrite our parse tree</em>. When we&rsquo;re talking about actions, we&rsquo;re talking about those cases of <code>{infer ...}</code>. However, then we&rsquo;ll get nodes like <code>Add</code> and <code>Mult</code>, instead of <code>Expr</code> and <code>BinaryExpr</code>. This is a tradeoff that is a bit tough to grasp at first in the grammar, but translates to a more sensible AST to work on later. This is especially helpful when we get to generation.</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=adding-terminals>
+Adding Terminals
+<a data-clipboard-text=/tutorials/writing_a_grammar/#adding-terminals class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Adding Terminals" href=#adding-terminals><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Now that we&rsquo;re almost done with our grammar, we need to add in the terminal rules. Conveniently, the body of a terminal rule can be defined as a Javascript regular expression; sharing the same syntax. This makes it very clear to determine what our terminals should recognize.</p>
+<pre><code class=language-langium>// recognize a hexadecimal sequence, used to recognize colors for the 'Color' command
+terminal HEX returns string:    /#(\d|[a-fA-F])+/;
+
+// recognize an identifier
+terminal ID returns string:     /[_a-zA-Z][\w_]*/;
+
+// recognize an Integer (but represented via a 'number' type)
+terminal INT returns number:    /-?[0-9]+/;
+</code></pre>
+<p>Then, lastly, we want to add <em>hidden terminals</em>. These will describe tokens that we want to parse and <em>discard</em> while parsing any input. Since we&rsquo;re adding whitespace & comments as hidden terminals, it&rsquo;s the same as saying we do <em>not</em> care about these tokens while parsing, but we do recognize that they are tokens; they just don&rsquo;t play a role in capturing the structure of our language.</p>
+<pre><code class=language-langium>hidden terminal WS:             /\s+/;
+hidden terminal ML_COMMENT:     /\/\*[\s\S]*?\*\//;
+hidden terminal SL_COMMENT:     /\/\/[^\n\r]*/;
+</code></pre>
+<p>And that&rsquo;s it, we&rsquo;re all set writing up the grammar for MiniLogo. To verify that we correctly implemented the grammar with no problems, we can run the following command in the project root:</p>
+<pre><code class=language-bash>npm run langium:generate
+</code></pre>
+<p>The generation should finish successfully, indicating that our grammar doesn&rsquo;t have any errors in it. In some cases, you may get warnings &ndash; such as from unreachable rules in your grammar &ndash; but these won&rsquo;t prevent the generation from completing successfully. Also, when we&rsquo;re referring to the generation, we&rsquo;re talking about the construction of the following from your grammar:</p>
+<ul>
+<li>a semantic model (that ASTs can be mapped onto)</li>
+<li>a parser that recognizes our language</li>
+</ul>
+<p>With that, we have the beginnings of our very own language! Hopefully this gives a good idea of how to express a grammar in Langium, particularly with consideration to your concrete syntax & semantic domain. You can also consider the ways we can express cases that are left-recursive, like expressions, in an alternative fashion. Overall, our grammar should now be ready for the next step of <a class=gdoc-markdown__link href=../../tutorials/validation>validation in the following tutorial</a>.</p>
+</article>
+<div class="gdoc-page__footer flex flex-wrap justify-between">
+</div>
+</div>
+</main>
+<footer class=gdoc-footer>
+<div class="container flex">
+<div class="flex flex-wrap">
+<span class="gdoc-footer__item gdoc-footer__item--row">
+Built by <a href=http://typefox.io>TypeFox</a> with <a href=https://gohugo.io/ class=gdoc-footer__link>Hugo</a> and<svg class="icon gdoc_heart" style="color:red"><use xlink:href="#gdoc_heart"/></svg>
+</span>
+</div>
+<div class="flex flex-25 justify-end">
+<span class=gdoc-footer__item>
+<a class="gdoc-footer__link fake-link" href=# aria-label="Back to top"><svg class="icon gdoc_keyborad_arrow_up"><use xlink:href="#gdoc_keyborad_arrow_up"/></svg> <span class=hidden-mobile>Back to top</span>
+</a>
+</span>
+</div>
+</div>
+</footer>
+</div>
+<script defer src=../../js/en.search.min.971ccaa1bd805a9cd5c7d7152271e90fee332641122387bf7e018f38d29bae5e.js></script>
+<script defer src=../../js/clipboard-27784b7376.min.js></script>
+<script defer src=../../js/clipboard-loader-832dc83c27.min.js></script>
+<script defer src=../../js/copycode-fd03c0d24f.min.js></script>
+</body>
+</html>
