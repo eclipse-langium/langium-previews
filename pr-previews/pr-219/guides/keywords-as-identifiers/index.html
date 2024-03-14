@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="When your language uses keywords, which is the usual case, e.g. var, const or function keywords in programming languages, all occurrances of these strings are treated by Langium as keyword tokens by default, even at places which are not intended by the rules in the Langium grammar. Additionally, these strings are always highlighted as keyword (in blue in this guide, while other text is white) whenever they are used. Summarizing, these keywords cannot be used as values for names, identifiers or other properties by default and need to be explicitly enabled.">
+<meta name=description content="Langium treats keywords like var, const or function as keyword tokens, even at unintended locations according to your grammar. Additionally, these strings are always highlighted as keyword (in blue in this guide, while other text is white) whenever they are used. Summarizing, these keywords cannot be used as values for names, identifiers or other properties by default and need to be explicitly enabled. This guide explains how to do that.">
 <title>Keywords as Identifiers | Langium</title>
 <link rel=icon type=image/svg+xml href=../../assets/nib.svg>
 <link rel=icon type=image/png sizes=32x32 href=../../favicon/32px.png>
@@ -309,54 +309,55 @@ Edit this page
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <h1>Keywords as Identifiers</h1>
-<p>When your language uses keywords, which is the usual case, e.g. <code>var</code>, <code>const</code> or <code>function</code> keywords in programming languages, all occurrances of these strings are treated by Langium as keyword tokens by default, even at places which are not intended by the rules in the Langium grammar.
+<p>Langium treats keywords like <code>var</code>, <code>const</code> or <code>function</code> as keyword tokens, even at unintended locations according to your grammar.
 Additionally, these strings are always highlighted as <em>keyword</em> (in blue in this guide, while other text is white) whenever they are used.
 Summarizing, these keywords cannot be used as values for names, identifiers or other properties by default and need to be explicitly enabled.
 This guide explains how to do that.</p>
-<p>To keep this guide short, let&rsquo;s look at the &ldquo;hello-world&rdquo; example, in the <a class=gdoc-markdown__link href="https://langium.org/playground?grammar=OYJwhgthYgBAEgUwDbIPYHU0mQEwFD6IB2ALiAJ6wCyauKAXPrC7ABQAOiIAzmsTwDUAXgAK3PsVgAfWKESJSAS2LAhwgOIgFy1QEoAVAG5C43vyatYAci7ni12MUiJhASQAiJ-Fp0rglqzWSKhojnaSwgDaZpIMngC6NgCE1t4AFkq49FKk3BAqYMiwGADKDLAA9AA6QpUmeSAFzsWeFZVRAPpgALQAXgCCPQBaCVHVAO6dCQb1hJnZJLCNzUU0ADKdAMIA8tTUAKIAcgAq7dU1BuM81aUzAPzVBhdzCznL%2BYXFpZu7%2B8dnKoXC5RAB61WI1RAMzmQA&content=A4UwTgzg9gdgBAKQIYxAKABIgDbaolEAQjTVElji1yjSA">playground</a> or as a new local project created with <code>yo langium</code> (for details, how to set up your first Langium project, read <a class=gdoc-markdown__link href=../../docs/getting-started/>getting started</a>):</p>
+<p>Let&rsquo;s look at the &ldquo;hello-world&rdquo; example in the <a class=gdoc-markdown__link href="https://langium.org/playground?grammar=OYJwhgthYgBAEgUwDbIPYHU0mQEwFD6IB2ALiAJ6wCyauKAXPrC7ABQAOiIAzmsTwDUAXgAK3PsVgAfWKESJSAS2LAhwgOIgFy1QEoAVAG5C43vyatYAci7ni12MUiJhASQAiJ-Fp0rglqzWSKhojnaSwgDaZpIMngC6NgCE1t4AFkq49FKk3BAqYMiwGADKDLAA9AA6QpUmeSAFzsWeFZVRAPpgALQAXgCCPQBaCVHVAO6dCQb1hJnZJLCNzUU0ADKdAMIA8tTUAKIAcgAq7dU1BuM81aUzAPzVBhdzCznL%2BYXFpZu7%2B8dnKoXC5RAB61WI1RAMzmQA&content=A4UwTgzg9gdgBAKQIYxAKABIgDbaolEAQjTVElji1yjSA">playground</a> or as a new local project created with <code>yo langium</code> (for details, how to set up your first Langium project, read <a class=gdoc-markdown__link href=../../docs/getting-started/>getting started</a>):</p>
 <p><img src=problem.png alt="screenshot with the editor, an example and an error message"></p>
 <p>Here, it is not possible to introduce a person whose name is &ldquo;Hello&rdquo;, since <code>Hello</code> is a dedicated keyword of the language. Additionally, we cannot greet a person called &ldquo;Hello&rdquo; as well.
-The same counts for the keyword &ldquo;person&rdquo;, but in this guide, we focus on enabling &ldquo;Hello&rdquo; as name for persons. After reading this guide, you will be able to add support for &ldquo;person&rdquo; as name by your own.</p>
+The same applies to the keyword &ldquo;person&rdquo;, but let&rsquo;s focus on enabling &ldquo;Hello&rdquo; as name for persons.</p>
 <p>To enable keywords as identifiers, you need to apply the following three steps:</p>
 <div class="gdoc-toc gdoc-toc__level--3"><nav id=TableOfContents><ul>
-<li><a href=#step-1-tweak-the-grammar-to-explicitly-parse-keywords-as-property-values>Step 1: Tweak the grammar to explicitly parse keywords as property values</a></li>
+<li><a href=#step-1-modify-the-grammar-to-explicitly-parse-keywords-as-property-values>Step 1: Modify the grammar to explicitly parse keywords as property values</a></li>
 <li><a href=#step-2-change-the-semantic-type-of-the-resulting-token>Step 2: Change the semantic type of the resulting token</a></li>
 <li><a href=#step-3-ensure-that-your-editor-styles-the-chosen-semantic-token-type>Step 3: Ensure that your editor styles the chosen semantic token type</a></li>
 </ul></nav><hr></div>
 <div class=gdoc-page__anchorwrap>
-<h2 id=step-1-tweak-the-grammar-to-explicitly-parse-keywords-as-property-values>
-Step 1: Tweak the grammar to explicitly parse keywords as property values
-<a data-clipboard-text=/guides/keywords-as-identifiers/#step-1-tweak-the-grammar-to-explicitly-parse-keywords-as-property-values class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Step 1: Tweak the grammar to explicitly parse keywords as property values" href=#step-1-tweak-the-grammar-to-explicitly-parse-keywords-as-property-values><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=step-1-modify-the-grammar-to-explicitly-parse-keywords-as-property-values>
+Step 1: Modify the grammar to explicitly parse keywords as property values
+<a data-clipboard-text=/guides/keywords-as-identifiers/#step-1-modify-the-grammar-to-explicitly-parse-keywords-as-property-values class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Step 1: Modify the grammar to explicitly parse keywords as property values" href=#step-1-modify-the-grammar-to-explicitly-parse-keywords-as-property-values><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
-</div><p>The <strong>first step</strong> is to tweak the grammar to explicitly parse keywords as property values:
+</div><p>The <strong>first step</strong> is to modify the grammar to explicitly parse keywords as property values:
 At the moment, the parser rule for introducing persons looks like this:</p>
 <pre><code class=language-langium>Person: 'person' name=ID;
 terminal ID: /[_a-zA-Z][\w_]*/;
 </code></pre>
-<p>Note, that the terminal rule for <code>ID</code> already covers the string &ldquo;Hello&rdquo;,
-but since the parser rule for greeting persons uses &ldquo;Hello&rdquo; as keyword, the keyword wins:</p>
+<p>Note that the terminal rule for <code>ID</code> already covers the string &ldquo;Hello&rdquo;,
+but since the parser rule for greeting persons uses &ldquo;Hello&rdquo; as keyword, the keyword takes precedence:</p>
 <pre><code class=language-langium>Greeting: 'Hello' person=[Person:ID] '!';
 </code></pre>
-<p>Roughly summarized, the background for this behaviour is, that Langium internally use <a class=gdoc-markdown__link href=https://chevrotain.io>Chevrotain</a> for tokenizing, i.e. splitting text into single tokens, e.g. words separated by white space.
-Chevrotain uses regex for splitting text into tokens.
-Since keywords are realized as regex as well, <em>all</em> occurrances of &ldquo;Hello&rdquo; are treated as keywords for the parser rule for greetings,
-even &ldquo;Hello&rdquo; which are intented to be names, which causes the parsing problems (see the two errors in the &ldquo;Problems&rdquo; tab above).</p>
-<p>In order to explicitly enable parsing &ldquo;Hello&rdquo; as name as well, tweak the parser rule for persons in this way:</p>
+<p>Roughly summarized, the background for this behaviour is, that Langium&rsquo;s internally used LL(k) parser implementation named <a class=gdoc-markdown__link href=https://chevrotain.io>Chevrotain</a> first does <em>lexing</em>/tokenizing, i.e. splitting text into single tokens, e.g. words separated by white space.
+The actual <em>parsing</em>, i.e. the application of the parser rules, is performed afterwards on these tokens.
+Chevrotain uses regular expressions (regex) for splitting text into tokens.
+Since keywords are implemented as regex as well and take precedence, <em>all</em> occurrences of &ldquo;Hello&rdquo; are treated as keywords for the parser rule for greetings,
+even &ldquo;Hello&rdquo; which are intented to be names, which finally causes the two errors in the &ldquo;Problems&rdquo; tab above.</p>
+<p>In order to explicitly enable parsing &ldquo;Hello&rdquo; as name as well, modify the parser rule for persons in this way:</p>
 <pre><code class=language-langium>Person: 'person' name=(ID | 'Hello');
 terminal ID: /[_a-zA-Z][\w_]*/; // the terminal rule for ID is unchanged!
 </code></pre>
-<p>Now Langium knows, that &ldquo;Hello&rdquo; not always indicates the keyword of the greeting parser rule, but can also occur as explicit value for the <code>name</code> property of the parser rule for persons.
+<p>Now Langium knows, that keyword &ldquo;Hello&rdquo; may also occur as value for the <code>name</code> property of the parser rule for persons.
 That&rsquo;s it! (Don&rsquo;t forget to run <code>npm run langium:generate</code> after updating the grammar.)</p>
 <p><img src=fixed-1-grammar.png alt="screenshot with fixed grammar"></p>
-<p>Since the <code>name</code> property is used for cross-references by the parser rule for greetings, &ldquo;Hello&rdquo; needs to be supported here as well. For that, we recommend to introduce a <a class=gdoc-markdown__link href=../../docs/grammar-language/#data-type-rules>data type rule</a> like &ldquo;PersonID&rdquo; in the example, since it makes it easier to support more keywords in the future:</p>
+<p>Since the <code>name</code> property is used for cross-references by the parser rule for greetings, &ldquo;Hello&rdquo; needs to be supported here as well. For that we recommend to introduce a <a class=gdoc-markdown__link href=../../docs/grammar-language/#data-type-rules>data type rule</a> like &ldquo;PersonID&rdquo; in the example, since it makes it easier to support more keywords in the future:</p>
 <pre><code class=language-langium>Person: 'person' name=PersonID;
 
 Greeting: 'Hello' person=[Person:PersonID] '!';
 
 PersonID returns string: ID | 'Hello';
 </code></pre>
-<p>As you can see, Langium accepts &ldquo;Hello&rdquo; as value for person&rsquo;s names now.
+<p>Now, your editor accepts &ldquo;Hello&rdquo; as value for person&rsquo;s names.
 Nevertheless, the name &ldquo;Hello&rdquo; still is highlighted in blue and looks like a keyword &ldquo;Hello&rdquo;. This leads us to the second step.</p>
 <div class=gdoc-page__anchorwrap>
 <h2 id=step-2-change-the-semantic-type-of-the-resulting-token>
@@ -366,12 +367,12 @@ Step 2: Change the semantic type of the resulting token
 </h2>
 </div><p>The <strong>second step</strong> is to change the semantic type of the resulting token in order to adjust the highlighting in the editor:
 While parsing text with Langium is done in a language server, the highlighting is done in editors (the language clients).
-Editors like VS Code usually use <em>syntax highlighting</em> basing on the tokenized text. This highlighting can be complemented by <em>semantic highlighting</em> with additional semantic information for the tokens from the language server.</p>
-<p>In case of Langium and VS Code, VS Code uses by default TextMate grammars, which can be seen as collections of regex (and which is generated by <code>npm run langium:generate</code>), to split the text into tokens and assigns a (syntactic) type to these tokens. The color for highlighting the token is chosen depending on the assigned type.
+Editors like VS Code usually use <em>syntax highlighting</em> basing on the tokenized text. This highlighting can be complemented by <em>semantic highlighting</em> with additional semantic types for the tokens from the language server.</p>
+<p>In case of Langium and VS Code, VS Code uses by default TextMate grammars, which can be seen as collections of regex (and which is generated by <code>npm run langium:generate</code>), to split the text into tokens and to assign a (syntactic) type to these tokens. The color for highlighting the token is chosen depending on the assigned type.
 In the example, a regex for the &ldquo;Hello&rdquo; keyword matches <em>all</em> strings &ldquo;Hello&rdquo; in text, resulting in the blue color even for &ldquo;Hello&rdquo; used as name.</p>
-<p>In contrast to this, Langium is able to distinguish &ldquo;Hello&rdquo; keywords and &ldquo;Hello&rdquo; names and therefore is able to assign different <em>semantic</em> types to &ldquo;Hello&rdquo; tokens.
+<p>Since Langium applies the parser rules to the token stream, Langium is able to distinguish &ldquo;Hello&rdquo; tokens used as keyword for greetings and &ldquo;Hello&rdquo; tokens used as name for persons and therefore is able to assign different <em>semantic</em> types to &ldquo;Hello&rdquo; tokens for persons and for greetings.
 According to the Language Server Protocol (LSP), these semantic token types are sent to editors like VS Code, which complement the syntactic types of tokens with these semantic types.
-Color themes are able adjust the default highlighting of tokens, which depends on the syntactic type, according to the semantic token type now.</p>
+The default highlighting of tokens according to the syntactic type is then altered according to the semantic token type and the color theme selected by the user (editor preferences).</p>
 <p>In Langium, the <code>SemanticTokenProvider</code> service is responsible for assigning language-dependent semantic types to tokens.
 Therefore, we customize the default semantic token provider like this:</p>
 <pre><code class=language-ts>import { AbstractSemanticTokenProvider, AstNode, SemanticTokenAcceptor } from &quot;langium&quot;;
@@ -420,21 +421,21 @@ Note, that VS Code allows to switch off semantic highlighting for all themes wit
 <p>After switching from &ldquo;Dark (Visual Studio)&rdquo; to &ldquo;Dark Modern&rdquo; in VS Code, the example looks as expected.
 You can switch the current color theme in VS Code with <code>cmd + K</code> <code>cmd + T</code> (or via the menu: Code -> Settings&mldr; -> Theme -> Color Theme).</p>
 <p><img src=fixed-3-style-2.png alt="screenshot with supporting color theme"></p>
-<p>Now &ldquo;Hello&rdquo; is highlighted in purple, when it is used as keyword, and in green, when it is used as value for the name of a person.
-Another solution is to select a different semantic type for your token in step two.
-A more elaborate solution is to create your own color theme and to ship it with your VS Code extension of your language.</p>
+<p>Now &ldquo;Hello&rdquo; is highlighted in purple if used as keyword, it&rsquo;s written in green if it is used as value for the name of a person.
+Another solution is to select a different semantic type for your token in step two.</p>
 <p>While <strong>step one</strong> is mandatory to enable keywords as values in general,
 <strong>step two</strong> improves the user experience of your language.
 While step one and step two can be handled in the LSP server once for your language, <strong>step three</strong> highly depends on your editor and its color themes (in the LSP clients), which makes step three quite complicated to handle.</p>
-<p>Now you know, how to technically enable keywords as regular values for properties.
-As home work, it is your task to enable the keyword &ldquo;person&rdquo; as name for persons in the example.
-Whether it makes sense to support keywords as values in your language at all is up to you to discuss with the users of your language!</p>
+<p>Now you have learned, how to technically enable keywords as regular values for properties.
+Feel free to enable the keyword &ldquo;person&rdquo; as name for persons in the example on your own.</p>
+<p>Word to the wise: Enabling certain strings to be used interchangeably as keywords and identifiers/values is possible, but has some costs. It always needs to be evaluated per case, whether accepting the costs is required and worth it.
+Additionally, using keywords as identifiers impacts the user experience, therefore, involve the users of your language!</p>
 <p>Some hints beyond this guide:</p>
 <ul>
 <li>In <a class=gdoc-markdown__link href=../../guides/multiple-languages>multi-grammar projects</a>, only keywords of the included grammars are affected by this general problem, but not keywords of other languages or Langium grammar files.</li>
-<li>To get an overview about the keywords of your language, look into the generated TextMate grammar <code>*.tmLanguage.json</code> and search for the pattern named <code>keyword.control.*</code>. which contains a regex with the keywords.</li>
+<li>In order to get an overview about the keywords of your language, have a look into the generated TextMate grammar <code>*.tmLanguage.json</code> and search for the pattern named <code>keyword.control.*</code>, which contains a regex with the keywords.</li>
 <li>Read about the concept of semantic tokens in the <a class=gdoc-markdown__link href=https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_semanticTokens>Language Server Protocol</a> (LSP) including predefined semantic types for tokens.</li>
-<li>Read, how <a class=gdoc-markdown__link href=https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide>VS Code</a> realizes semantic highlighting using semantic tokens.</li>
+<li>Read about how <a class=gdoc-markdown__link href=https://code.visualstudio.com/api/language-extensions/semantic-highlight-guide>VS Code</a> realizes semantic highlighting using semantic tokens.</li>
 <li>Dive into <a class=gdoc-markdown__link href=https://chevrotain.io/docs/features/token_alternative_matches.html>tokenizing of Chevrotain</a> with regex.</li>
 </ul>
 </article>
