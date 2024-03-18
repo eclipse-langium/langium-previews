@@ -338,16 +338,16 @@ terminal ID: /[_a-zA-Z][\w_]*/;
 but since the parser rule for greeting persons uses &ldquo;Hello&rdquo; as keyword, the keyword takes precedence:</p>
 <pre><code class=language-langium>Greeting: 'Hello' person=[Person:ID] '!';
 </code></pre>
-<p>Roughly summarized, the background for this behaviour is, that Langium&rsquo;s internally used LL(k) parser implementation named <a class=gdoc-markdown__link href=https://chevrotain.io>Chevrotain</a> first does <em>lexing</em>/tokenizing, i.e. splitting text into single tokens, e.g. words separated by white space.
+<p>Roughly summarized, the background for this behaviour is that Langium&rsquo;s internally used LL(k) parser implementation named <a class=gdoc-markdown__link href=https://chevrotain.io>Chevrotain</a> first does <em>lexing</em>/tokenizing, i.e. splitting text into single tokens, e.g. words separated by white space.
 The actual <em>parsing</em>, i.e. the application of the parser rules, is performed afterwards on these tokens.
 Chevrotain uses regular expressions (regex) for splitting text into tokens.
-Since keywords are implemented as regex as well and take precedence, <em>all</em> occurrences of &ldquo;Hello&rdquo; are treated as keywords for the parser rule for greetings,
-even &ldquo;Hello&rdquo; which are intented to be names, which finally causes the two errors in the &ldquo;Problems&rdquo; tab above.</p>
+Since keywords are implemented as regex as well and take precedence, <em>all</em> occurrences of &ldquo;Hello&rdquo; are treated as keywords for the parser rule named <code>Greeting</code>,
+even a &ldquo;Hello&rdquo; intented to be a name, which finally causes the two syntax errors.</p>
 <p>In order to explicitly enable parsing &ldquo;Hello&rdquo; as name as well, modify the parser rule for persons in this way:</p>
 <pre><code class=language-langium>Person: 'person' name=(ID | 'Hello');
 terminal ID: /[_a-zA-Z][\w_]*/; // the terminal rule for ID is unchanged!
 </code></pre>
-<p>Now Langium knows, that keyword &ldquo;Hello&rdquo; may also occur as value for the <code>name</code> property of the parser rule for persons.
+<p>Now Langium knows that keyword &ldquo;Hello&rdquo; may also occur as value for the <code>name</code> property of the parser rule for persons.
 That&rsquo;s it! (Don&rsquo;t forget to run <code>npm run langium:generate</code> after updating the grammar.)</p>
 <p><img src=fixed-1-grammar.png alt="screenshot with fixed grammar"></p>
 <p>Since the <code>name</code> property is used for cross-references by the parser rule for greetings, &ldquo;Hello&rdquo; needs to be supported here as well. For that we recommend to introduce a <a class=gdoc-markdown__link href=../../docs/grammar-language/#data-type-rules>data type rule</a> like &ldquo;PersonID&rdquo; in the example, since it makes it easier to support more keywords in the future:</p>
@@ -357,7 +357,7 @@ Greeting: 'Hello' person=[Person:PersonID] '!';
 
 PersonID returns string: ID | 'Hello';
 </code></pre>
-<p>Now, your editor accepts &ldquo;Hello&rdquo; as value for person&rsquo;s names.
+<p>Now, your editor accepts &ldquo;Hello&rdquo; as value for persons' names.
 Nevertheless, the name &ldquo;Hello&rdquo; still is highlighted in blue and looks like a keyword &ldquo;Hello&rdquo;. This leads us to the second step.</p>
 <div class=gdoc-page__anchorwrap>
 <h2 id=step-2-change-the-semantic-type-of-the-resulting-token>
@@ -414,10 +414,10 @@ Step 3: Ensure that your editor styles the chosen semantic token type
 <a data-clipboard-text=/guides/keywords-as-identifiers/#step-3-ensure-that-your-editor-styles-the-chosen-semantic-token-type class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Step 3: Ensure that your editor styles the chosen semantic token type" href=#step-3-ensure-that-your-editor-styles-the-chosen-semantic-token-type><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
-</div><p>The <strong>third step</strong> is to ensure, that your editor supports the assigned semantic tokens:
-Depending on your editor and the currently selected color theme, the semantic token type selected in <code>HelloWorldSemanticTokenProvider</code> might not be supported or didn&rsquo;t got a different color in the color theme.
+</div><p>The <strong>third step</strong> is to ensure that your editor supports the assigned semantic tokens:
+Depending on your editor and the currently selected color theme, the semantic token type selected in <code>HelloWorldSemanticTokenProvider</code> might not be supported or didn&rsquo;t get a different color in the color theme.
 The easiest way to detect such problems is to change the current color theme and to try some others.
-Note, that VS Code allows to switch off semantic highlighting for all themes with the setting <code>editor.semanticHighlighting.enabled</code>.</p>
+Note that VS Code allows to switch off semantic highlighting for all themes with the setting <code>editor.semanticHighlighting.enabled</code>.</p>
 <p>After switching from &ldquo;Dark (Visual Studio)&rdquo; to &ldquo;Dark Modern&rdquo; in VS Code, the example looks as expected.
 You can switch the current color theme in VS Code with <code>cmd + K</code> <code>cmd + T</code> (or via the menu: Code -> Settings&mldr; -> Theme -> Color Theme).</p>
 <p><img src=fixed-3-style-2.png alt="screenshot with supporting color theme"></p>
@@ -426,7 +426,7 @@ Another solution is to select a different semantic type for your token in step t
 <p>While <strong>step one</strong> is mandatory to enable keywords as values in general,
 <strong>step two</strong> improves the user experience of your language.
 While step one and step two can be handled in the LSP server once for your language, <strong>step three</strong> highly depends on your editor and its color themes (in the LSP clients), which makes step three quite complicated to handle.</p>
-<p>Now you have learned, how to technically enable keywords as regular values for properties.
+<p>Now you have learned how to technically enable keywords as regular values for properties.
 Feel free to enable the keyword &ldquo;person&rdquo; as name for persons in the example on your own.</p>
 <p>Word to the wise: Enabling certain strings to be used interchangeably as keywords and identifiers/values is possible, but has some costs. It always needs to be evaluated per case, whether accepting the costs is required and worth it.
 Additionally, using keywords as identifiers impacts the user experience, therefore, involve the users of your language!</p>
