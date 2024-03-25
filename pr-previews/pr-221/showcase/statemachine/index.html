@@ -1,0 +1,130 @@
+<!doctype html><html lang=en class=dark>
+<head>
+<title>State Machine</title>
+<meta name=viewport content="width=device-width">
+<meta charset=utf-8>
+<meta name=theme-color content="#ffffff">
+<meta name=description content="A language that captures the functionality of a state machine. Demonstrated by modeling a traffic light.">
+<meta property="og:description" content="A language that captures the functionality of a state machine. Demonstrated by modeling a traffic light.">
+<meta property="og:image" content>
+<meta property="og:site_name" content="Langium">
+<meta property="og:title" content="State Machine">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://langium.org">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:description content="A language that captures the functionality of a state machine. Demonstrated by modeling a traffic light.">
+<meta name=twitter:image content>
+<meta name=twitter:title content="State Machine">
+<link rel=apple-touch-icon sizes=180x180 href=../../assets/nib.svg>
+<link rel=icon type=image/svg+xml href=../../assets/nib.svg>
+<link rel=icon type=image/png sizes=32x32 href=../../favicon/32px.png>
+<link rel=icon type=image/png sizes=16x16 href=../../favicon/16px.png>
+<link rel=mask-icon href=../../img/safari-pinned-tab.svg color=#00b4b6>
+<link rel=stylesheet href=../../css/style.css>
+<link rel=preconnect href=https://fonts.googleapis.com>
+<link rel=preconnect href=https://fonts.gstatic.com crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel=stylesheet>
+<link rel=preload href=../../custom.css as=style>
+<link rel=stylesheet href=../../custom.css media=all>
+</head>
+<body class="bg-white dark:bg-gray-900 font-mono">
+<div x-data="{ isOpen: false }" class="wrapper relative bg-white dark:bg-gray-900">
+<header id=website-header class="sm:sticky top-0 z-50 bg-white dark:bg-gray-900 font-mono flex justify-between items-center px-4 py-6 sm:px-6 md:space-x-10">
+<div class="flex justify-start lg:w-0 lg:flex-1">
+<a href=../../#>
+<span class=sr-only>Workflow</span>
+<img id=website-logo class="h-12 w-auto" src=../../assets/langium_logo_w_nib.svg alt>
+</a>
+</div>
+<div class="-mr-2 -my-2 md:hidden">
+<button type=button @click="isOpen = true" class="dark:text-gray-100 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-1000 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded=false>
+<span class=sr-only>Open menu</span><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentcolor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+</button>
+</div>
+<nav class="items-center hidden space-x-10 md:flex text-gray-1000 dark:text-gray-100 lg:px-12">
+<a href=../../docs/ class=nav-link-desktop>
+Documentation
+</a>
+<a href=../../showcase/ class=nav-link-desktop>
+Showcase
+</a>
+<a href=../../playground/ class=nav-link-desktop>
+Playground
+</a>
+<a href=https://www.typefox.io/language-engineering/ class="nav-link-desktop text-emeraldLangium dark:text-emeraldLangium">
+Support
+</a>
+<a class="w-10 h-10" target=_blank href=https://github.com/eclipse-langium/langium>
+<img src=../../assets/GitHub-Mark-Light-120px-plus.png alt=GitHub>
+</a>
+</nav>
+</header>
+<style>html,body{margin:0;padding:0;width:100%;height:100%}.wrapper{display:flex;flex-direction:column;height:100%;width:100%}</style>
+<div id=root class="w-full h-full"></div>
+<script src=../../scripts/statemachine/statemachine.js></script>
+<footer id=website-footer class="font-mono block md:flex dark:text-gray-100 justify-center items-center mt-12 mb-6">
+<div class="hover:underline px-4 block text-left md:text-center m-4" style=width:180px>
+<a href=https://www.typefox.io/imprint-privacy/#privacy>
+Privacy Policy
+</a>
+</div>
+<span class="text-lg hidden md:inline">|</span>
+<div class="hover:underline px-4 block text-left md:text-center m-4" style=width:180px>
+<a href=https://www.typefox.io/imprint-privacy/#copyright>
+Copyright
+</a>
+</div>
+<span class="text-lg hidden md:inline">|</span>
+<div class="hover:underline px-4 block text-left md:text-center m-4" style=width:180px>
+<a href=../../imprint>
+Imprint
+</a>
+</div>
+</footer>
+<div x-show=isOpen x-transition:enter="transition duration-200 ease-out transform" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-100 transform" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" class="absolute top-0 inset-x-0 p-2 transform origin-top-right md:hidden">
+<div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white dark:bg-gray-900 divide-y-2 divide-gray-50">
+<div class="pt-5 pb-6 px-5">
+<div class="flex items-center justify-between">
+<a href=../../#>
+<img class="h-10 w-auto" src=../../assets/langium_logo_w_nib.svg alt=Workflow>
+</a>
+<div class=-mr-2>
+<button @click="isOpen = false" type=button class="mobile-menu-btn p-2 inline-flex
+items-center justify-center
+text-gray-900 dark:text-gray-200
+hover:text-gray-1000">
+<span class=sr-only>Close menu</span><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentcolor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+</button>
+</div>
+</div>
+<div :class="{'hidden': !isOpen}" class="mt-6 mobile-menu">
+<nav class="flex flex-col items-center dark:text-gray-200 text-gray-900">
+<a href=../../docs/ class=nav-link-mobile>
+Documentation
+</a>
+<a href=../../showcase/ class=nav-link-mobile>
+Showcase
+</a>
+<a href=../../playground/ class=nav-link-mobile>
+Playground
+</a>
+<a href=https://www.typefox.io/language-engineering/ class=nav-link-mobile>
+Support
+</a>
+<a class="w-10 h-10" target=_blank href=https://github.com/eclipse-langium/langium>
+<img src=../../assets/GitHub-Mark-Light-120px-plus.png alt=GitHub>
+</a>
+</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script defer src=https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/Draggable.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollToPlugin.min.js></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollTrigger.min.js></script>
+<script src=../../index.js></script>
+</body>
+</html>
