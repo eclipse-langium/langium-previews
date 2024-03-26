@@ -101,7 +101,7 @@ Syntax tree
   useWorkerFactory({
     ignoreMapping: true,
     workerLoaders: {
-        editorWorkerService: () => new Worker(new URL('../../libs/workers/editorWorker-es.js', window.location.href).href, { type: 'module' })
+        editorWorkerService: () => new Worker(new URL('../libs/workers/editorWorker-es.js', window.location.href).href, { type: 'module' })
     }
   });
 
