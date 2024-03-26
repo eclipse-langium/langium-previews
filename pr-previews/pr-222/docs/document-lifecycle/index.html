@@ -1,0 +1,473 @@
+<!doctype html><html lang=en class=color-toggle-hidden>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=color-scheme content="light dark">
+<meta name=description content="LangiumDocument is the central data structure in Langium that represents a text file of your DSL. Its main purpose is to hold the parsed Abstract Syntax Tree (AST) plus additional information derived from it. After its creation, a LangiumDocument must be &ldquo;built&rdquo; before it can be used in any way. The service responsible for building documents is called DocumentBuilder.
+A LangiumDocument goes through seven different states during its lifecycle:
+ Parsed when an AST has been generated from the content of the document.">
+<title>Document Lifecycle | Langium</title>
+<link rel=icon type=image/svg+xml href=../../assets/nib.svg>
+<link rel=icon type=image/png sizes=32x32 href=../../favicon/32px.png>
+<link rel=icon type=image/png sizes=16x16 href=../../favicon/16px.png>
+<meta property="og:title" content="Document Lifecycle">
+<meta property="og:description" content="LangiumDocument is the central data structure in Langium that represents a text file of your DSL. Its main purpose is to hold the parsed Abstract Syntax Tree (AST) plus additional information derived from it. After its creation, a LangiumDocument must be &ldquo;built&rdquo; before it can be used in any way. The service responsible for building documents is called DocumentBuilder.
+A LangiumDocument goes through seven different states during its lifecycle:
+ Parsed when an AST has been generated from the content of the document.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="/docs/document-lifecycle/"><meta property="article:section" content="docs">
+<meta property="article:modified_time" content="2024-03-26T12:32:37+01:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Document Lifecycle">
+<meta name=twitter:description content="LangiumDocument is the central data structure in Langium that represents a text file of your DSL. Its main purpose is to hold the parsed Abstract Syntax Tree (AST) plus additional information derived from it. After its creation, a LangiumDocument must be &ldquo;built&rdquo; before it can be used in any way. The service responsible for building documents is called DocumentBuilder.
+A LangiumDocument goes through seven different states during its lifecycle:
+ Parsed when an AST has been generated from the content of the document.">
+<script src=../../js/darkmode-ce906ea916.min.js></script>
+<link rel=preload as=font href=../../fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload as=font href=../../fonts/LiberationSans.woff2 type=font/woff2 crossorigin=anonymous>
+<link rel=preload href=../../main-61795ecfac.min.css as=style>
+<link rel=stylesheet href=../../main-61795ecfac.min.css media=all>
+<link rel=preload href=../../mobile-e214817c8f.min.css as=style>
+<link rel=stylesheet href=../../mobile-e214817c8f.min.css media="screen and (max-width: 45rem)">
+<link rel=preload href=../../print-f79fc3e5d7.min.css as=style>
+<link rel=stylesheet href=../../print-f79fc3e5d7.min.css media=print>
+<link rel=preload href=../../custom.css as=style>
+<link rel=stylesheet href=../../custom.css media=all>
+<link rel=stylesheet href=../../prism/prism.css>
+<script src=../../prism/prism.js></script>
+<script src=../../prism/langium-prism.js></script>
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"TechArticle","articleSection":"docs","name":"Document Lifecycle","headline":"Document Lifecycle","alternativeHeadline":"","description":"LangiumDocument is the central data structure in Langium that represents a text file of your DSL. Its main purpose is to hold the parsed Abstract Syntax Tree (AST) plus additional information derived from it. After its creation, a LangiumDocument must be \u0026ldquo;built\u0026rdquo; before it can be used in any way. The service responsible for building documents is called DocumentBuilder.\nA LangiumDocument goes through seven different states during its lifecycle:\n Parsed when an AST has been generated from the content of the document.","inLanguage":"en","isFamilyFriendly":"true","mainEntityOfPage":{"@type":"WebPage","@id":"\/docs\/document-lifecycle\/"},"copyrightHolder":"Langium","copyrightYear":"0001","dateCreated":"0001-01-01T00:00:00.00Z","datePublished":"0001-01-01T00:00:00.00Z","dateModified":"2024-03-26T12:32:37.00Z","publisher":{"@type":"Organization","name":"Langium","url":"/","logo":{"@type":"ImageObject","url":"\/brand.svg","width":"32","height":"32"}},"url":"\/docs\/document-lifecycle\/","wordCount":"1829","genre":[]}</script>
+</head>
+<body itemscope itemtype=https://schema.org/WebPage><svg class="svg-sprite" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_back" xmlns="http://www.w3.org/2000/svg"><path d="M24 10.526v2.947H5.755l8.351 8.421-2.105 2.105-12-12 12-12 2.105 2.105-8.351 8.421H24z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_left_alt" xmlns="http://www.w3.org/2000/svg"><path d="M5.965 10.526V6.035L0 12l5.965 5.965v-4.491H24v-2.947H5.965z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_arrow_right_alt" xmlns="http://www.w3.org/2000/svg"><path d="M18.035 10.526V6.035L24 12l-5.965 5.965v-4.491H0v-2.947h18.035z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_bitbucket" xmlns="http://www.w3.org/2000/svg"><path d="M15.905 13.355c.189 1.444-1.564 2.578-2.784 1.839-1.375-.602-1.375-2.784-.034-3.403 1.151-.705 2.818.223 2.818 1.564zm1.907-.361c-.309-2.44-3.076-4.056-5.328-3.042-1.426.636-2.389 2.148-2.32 3.747.086 2.097 2.08 3.815 4.176 3.626s3.729-2.234 3.472-4.331zm4.108-9.315c-.756-.997-2.045-1.169-3.179-1.358-3.214-.516-6.513-.533-9.727.034-1.066.172-2.269.361-2.939 1.323 1.1 1.031 2.664 1.186 4.073 1.358 2.544.327 5.156.344 7.699.017 1.426-.172 3.008-.309 4.073-1.375zm.979 17.788c-.481 1.684-.206 3.953-1.994 4.932-3.076 1.701-6.806 1.89-10.191 1.289-1.787-.327-3.884-.894-4.864-2.578-.43-1.65-.705-3.334-.98-5.018l.103-.275.309-.155c5.121 3.386 12.288 3.386 17.427.0.808.241.206 1.22.189 1.805zM26.01 4.951c-.584 3.764-1.255 7.51-1.908 11.257-.189 1.1-1.255 1.719-2.148 2.183-3.214 1.615-6.96 1.89-10.483 1.512-2.389-.258-4.829-.894-6.771-2.389-.911-.705-.911-1.908-1.083-2.922-.602-3.523-1.289-7.046-1.719-10.604.206-1.547 1.942-2.217 3.231-2.698C6.848.654 8.686.362 10.508.19c3.884-.378 7.854-.241 11.618.859 1.341.395 2.784.945 3.695 2.097.412.533.275 1.203.189 1.805z"/></symbol><symbol viewBox="-2.29 -2.29 28.57 28.57" id="gdoc_bookmark" xmlns="http://www.w3.org/2000/svg"><path d="M15.268 4.392q.868.0 1.532.638t.664 1.506v17.463l-7.659-3.268-7.608 3.268V6.536q0-.868.664-1.506t1.532-.638h10.876zm4.34 14.144V4.392q0-.868-.638-1.532t-1.506-.664H6.537q0-.868.664-1.532T8.733.0h10.876q.868.0 1.532.664t.664 1.532v17.412z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_auto" xmlns="http://www.w3.org/2000/svg"><path d="M16.846 18.938h2.382L15.22 7.785h-2.44L8.772 18.938h2.382l.871-2.44h3.95zm7.087-9.062L27.999 14l-4.066 4.124v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809zm-11.385 4.937L14 10.282l1.452 4.531h-2.904z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_dark" xmlns="http://www.w3.org/2000/svg"><path d="M14 21.435q3.079.0 5.257-2.178T21.435 14t-2.178-5.257T14 6.565q-1.51.0-3.079.697 1.917.871 3.108 2.701T15.22 14t-1.191 4.037-3.108 2.701q1.568.697 3.079.697zm9.933-11.559L27.999 14l-4.066 4.124v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_brightness_light" xmlns="http://www.w3.org/2000/svg"><path d="M14 21.435q3.079.0 5.257-2.178T21.435 14t-2.178-5.257T14 6.565 8.743 8.743 6.565 14t2.178 5.257T14 21.435zm9.933-3.311v5.809h-5.809L14 27.999l-4.124-4.066H4.067v-5.809L.001 14l4.066-4.124V4.067h5.809L14 .001l4.124 4.066h5.809v5.809L27.999 14z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_check" xmlns="http://www.w3.org/2000/svg"><path d="M8.885 20.197 25.759 3.323l2.24 2.24L8.885 24.677.0 15.792l2.24-2.24z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_cloud_off" xmlns="http://www.w3.org/2000/svg"><path d="M9.023 10.5H7q-1.914.0-3.281 1.395t-1.367 3.309 1.367 3.281T7 19.852h11.375zM3.5 4.976l1.477-1.477L24.5 23.022l-1.477 1.477-2.352-2.297H6.999q-2.898.0-4.949-2.051t-2.051-4.949q0-2.844 1.969-4.867t4.758-2.133zm19.086 5.578q2.242.164 3.828 1.832T28 16.351q0 3.008-2.461 4.758l-1.695-1.695q1.805-.984 1.805-3.063.0-1.422-1.039-2.461t-2.461-1.039h-1.75v-.602q0-2.68-1.859-4.539t-4.539-1.859q-1.531.0-2.953.711l-1.75-1.695Q11.431 3.5 14.001 3.5q2.953.0 5.496 2.078t3.09 4.977z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_code" xmlns="http://www.w3.org/2000/svg"><path d="M9.917 24.5a1.75 1.75.0 10-3.501.001 1.75 1.75.0 003.501-.001zm0-21a1.75 1.75.0 10-3.501.001A1.75 1.75.0 009.917 3.5zm11.666 2.333a1.75 1.75.0 10-3.501.001 1.75 1.75.0 003.501-.001zm1.75.0a3.502 3.502.0 01-1.75 3.026c-.055 6.581-4.721 8.039-7.82 9.023-2.898.911-3.846 1.349-3.846 3.117v.474a3.502 3.502.0 011.75 3.026c0 1.932-1.568 3.5-3.5 3.5s-3.5-1.568-3.5-3.5c0-1.294.711-2.424 1.75-3.026V6.526A3.502 3.502.0 014.667 3.5c0-1.932 1.568-3.5 3.5-3.5s3.5 1.568 3.5 3.5a3.502 3.502.0 01-1.75 3.026v9.06c.93-.456 1.914-.766 2.807-1.039 3.391-1.075 5.323-1.878 5.359-5.687a3.502 3.502.0 01-1.75-3.026c0-1.932 1.568-3.5 3.5-3.5s3.5 1.568 3.5 3.5z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_copy" xmlns="http://www.w3.org/2000/svg"><path d="M23.502 25.438V7.626H9.562v17.812h13.94zm0-20.315q1.013.0 1.787.745t.774 1.757v17.812q0 1.013-.774 1.787t-1.787.774H9.562q-1.013.0-1.787-.774t-.774-1.787V7.625q0-1.013.774-1.757t1.787-.745h13.94zM19.689.0v2.562H4.438v17.812H1.936V2.562q0-1.013.745-1.787T4.438.001h15.251z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_date" xmlns="http://www.w3.org/2000/svg"><path d="M27.192 28.844V11.192H4.808v17.652h22.384zm0-25.689q1.277.0 2.253.976t.976 2.253v22.459q0 1.277-.976 2.216t-2.253.939H4.808q-1.352.0-2.291-.901t-.939-2.253V6.385q0-1.277.939-2.253t2.291-.976h1.577V.001h3.23v3.155h12.769V.001h3.23v3.155h1.577zm-3.155 11.267v3.155h-3.23v-3.155h3.23zm-6.46.0v3.155h-3.155v-3.155h3.155zm-6.384.0v3.155h-3.23v-3.155h3.23z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_download" xmlns="http://www.w3.org/2000/svg"><path d="M2.866 28.209h26.269v3.79H2.866v-3.79zm26.268-16.925L16 24.418 2.866 11.284h7.493V.001h11.283v11.283h7.493z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_email" xmlns="http://www.w3.org/2000/svg"><path d="M28.845 9.615v-3.23L16 14.422 3.155 6.385v3.23L16 17.577zm0-6.46q1.277.0 2.216.977T32 6.385v19.23q0 1.277-.939 2.253t-2.216.977H3.155q-1.277.0-2.216-.977T0 25.615V6.385q0-1.277.939-2.253t2.216-.977h25.69z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_git" xmlns="http://www.w3.org/2000/svg"><path d="M27.472 12.753 15.247.529a1.803 1.803.0 00-2.55.0l-2.84 2.84 2.137 2.137a2.625 2.625.0 013.501 3.501l3.499 3.499a2.625 2.625.0 11-1.237 1.237l-3.499-3.499c-.083.04-.169.075-.257.106v7.3a2.626 2.626.0 11-1.75.0v-7.3a2.626 2.626.0 01-1.494-3.607L8.62 4.606l-8.09 8.09a1.805 1.805.0 000 2.551l12.225 12.224a1.803 1.803.0 002.55.0l12.168-12.168a1.805 1.805.0 000-2.551z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_github" xmlns="http://www.w3.org/2000/svg"><path d="M16 .394c8.833.0 15.999 7.166 15.999 15.999.0 7.062-4.583 13.062-10.937 15.187-.813.146-1.104-.354-1.104-.771.0-.521.021-2.25.021-4.396.0-1.5-.5-2.458-1.083-2.958 3.562-.396 7.312-1.75 7.312-7.896.0-1.75-.625-3.167-1.646-4.291.167-.417.708-2.042-.167-4.25-1.333-.417-4.396 1.646-4.396 1.646a15.032 15.032.0 00-8 0S8.937 6.602 7.603 7.018c-.875 2.208-.333 3.833-.167 4.25-1.021 1.125-1.646 2.542-1.646 4.291.0 6.125 3.729 7.5 7.291 7.896-.458.417-.875 1.125-1.021 2.146-.917.417-3.25 1.125-4.646-1.333-.875-1.521-2.458-1.646-2.458-1.646-1.562-.021-.104.979-.104.979 1.042.479 1.771 2.333 1.771 2.333.938 2.854 5.396 1.896 5.396 1.896.0 1.333.021 2.583.021 2.979.0.417-.292.917-1.104.771C4.582 29.455-.001 23.455-.001 16.393-.001 7.56 7.165.394 15.998.394zM6.063 23.372c.042-.083-.021-.187-.146-.25-.125-.042-.229-.021-.271.042-.042.083.021.187.146.25.104.062.229.042.271-.042zm.646.709c.083-.062.062-.208-.042-.333-.104-.104-.25-.146-.333-.062-.083.062-.062.208.042.333.104.104.25.146.333.062zm.625.937c.104-.083.104-.25.0-.396-.083-.146-.25-.208-.354-.125-.104.062-.104.229.0.375s.271.208.354.146zm.875.875c.083-.083.042-.271-.083-.396-.146-.146-.333-.167-.417-.062-.104.083-.062.271.083.396.146.146.333.167.417.062zm1.187.521c.042-.125-.083-.271-.271-.333-.167-.042-.354.021-.396.146s.083.271.271.312c.167.062.354.0.396-.125zm1.313.104c0-.146-.167-.25-.354-.229-.187.0-.333.104-.333.229.0.146.146.25.354.229.187.0.333-.104.333-.229zm1.208-.208c-.021-.125-.187-.208-.375-.187-.187.042-.312.167-.292.312.021.125.187.208.375.167s.312-.167.292-.292z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_gitlab" xmlns="http://www.w3.org/2000/svg"><path d="M1.629 11.034 14 26.888.442 17.048a1.09 1.09.0 01-.39-1.203l1.578-4.811zm7.217.0h10.309l-5.154 15.854zM5.753 1.475l3.093 9.559H1.63l3.093-9.559a.548.548.0 011.031.0zm20.618 9.559 1.578 4.811c.141.437-.016.922-.39 1.203l-13.558 9.84 12.371-15.854zm0 0h-7.216l3.093-9.559a.548.548.0 011.031.0z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_heart" xmlns="http://www.w3.org/2000/svg"><path d="M16 29.714a1.11 1.11.0 01-.786-.321L4.072 18.643c-.143-.125-4.071-3.714-4.071-8 0-5.232 3.196-8.357 8.535-8.357 3.125.0 6.053 2.464 7.464 3.857 1.411-1.393 4.339-3.857 7.464-3.857 5.339.0 8.535 3.125 8.535 8.357.0 4.286-3.928 7.875-4.089 8.035L16.785 29.392c-.214.214-.5.321-.786.321z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_home" xmlns="http://www.w3.org/2000/svg"><path d="M24.003 15.695v8.336c0 .608-.504 1.111-1.111 1.111h-6.669v-6.669h-4.446v6.669H5.108a1.119 1.119.0 01-1.111-1.111v-8.336c0-.035.017-.069.017-.104L14 7.359l9.986 8.232a.224.224.0 01.017.104zm3.873-1.198-1.077 1.285a.578.578.0 01-.365.191h-.052a.547.547.0 01-.365-.122L14 5.831 1.983 15.851a.594.594.0 01-.417.122.578.578.0 01-.365-.191L.124 14.497a.57.57.0 01.069-.781L12.679 3.314c.729-.608 1.91-.608 2.64.0l4.237 3.543V3.471c0-.313.243-.556.556-.556h3.334c.313.0.556.243.556.556v7.085l3.803 3.161c.226.191.26.556.069.781z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_keyborad_arrow_down" xmlns="http://www.w3.org/2000/svg"><path d="M3.281 5.36 14 16.079 24.719 5.36 28 8.641l-14 14-14-14z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_keyborad_arrow_left" xmlns="http://www.w3.org/2000/svg"><path d="M25.875 28.25 22.125 32 6.126 16.001 22.125.002l3.75 3.75-12.25 12.25z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_keyborad_arrow_right" xmlns="http://www.w3.org/2000/svg"><path d="M6.125 28.25 18.375 16 6.125 3.75 9.875.0l15.999 15.999L9.875 31.998z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_keyborad_arrow_up" xmlns="http://www.w3.org/2000/svg"><path d="M24.719 22.64 14 11.921 3.281 22.64.0 19.359l14-14 14 14z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_link" xmlns="http://www.w3.org/2000/svg"><path d="M24.037 7.963q3.305.0 5.634 2.366T32 16t-2.329 5.671-5.634 2.366h-6.46v-3.08h6.46q2.028.0 3.493-1.465t1.465-3.493-1.465-3.493-3.493-1.465h-6.46v-3.08h6.46zM9.615 17.578v-3.155h12.77v3.155H9.615zM3.005 16q0 2.028 1.465 3.493t3.493 1.465h6.46v3.08h-6.46q-3.305.0-5.634-2.366T0 16.001t2.329-5.671 5.634-2.366h6.46v3.08h-6.46q-2.028.0-3.493 1.465t-1.465 3.493z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_menu" xmlns="http://www.w3.org/2000/svg"><path d="M.001 5.334h31.998v3.583H.001V5.334zm0 12.416v-3.5h31.998v3.5H.001zm0 8.916v-3.583h31.998v3.583H.001z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_notification" xmlns="http://www.w3.org/2000/svg"><path d="M22.615 19.384l2.894 2.894v1.413H2.49v-1.413l2.894-2.894V12.25q0-3.365 1.716-5.856t4.745-3.231v-1.01q0-.875.606-1.514T13.999.0t1.548.639.606 1.514v1.01q3.029.74 4.745 3.231t1.716 5.856v7.134zM14 27.999q-1.211.0-2.053-.808t-.841-2.019h5.788q0 1.144-.875 1.986T14 27.999z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_path" xmlns="http://www.w3.org/2000/svg"><path d="M28 12.62h-9.793V8.414h-2.826v11.173h2.826v-4.206H28V26.62h-9.793v-4.206H12.62v-14H9.794v4.206H.001V1.381h9.793v4.206h8.413V1.381H28V12.62z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_person" xmlns="http://www.w3.org/2000/svg"><path d="M16 20.023q5.052.0 10.526 2.199t5.473 5.754v4.023H0v-4.023q0-3.555 5.473-5.754t10.526-2.199zM16 16q-3.275.0-5.614-2.339T8.047 8.047t2.339-5.661T16 0t5.614 2.386 2.339 5.661-2.339 5.614T16 16z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_search" xmlns="http://www.w3.org/2000/svg"><path d="M11.925 20.161q3.432.0 5.834-2.402t2.402-5.834-2.402-5.834-5.834-2.402-5.834 2.402-2.402 5.834 2.402 5.834 5.834 2.402zm10.981.0L32 29.255 29.255 32l-9.094-9.094v-1.458l-.515-.515q-3.26 2.831-7.721 2.831-4.976.0-8.45-3.432T.001 11.925t3.474-8.45 8.45-3.474 8.407 3.474 3.432 8.45q0 1.802-.858 4.075t-1.973 3.646l.515.515h1.458z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_shield" xmlns="http://www.w3.org/2000/svg"><path d="M22.167 15.166V3.5h-8.166v20.726c.93-.492 2.424-1.349 3.883-2.497 1.95-1.531 4.284-3.919 4.284-6.562zm3.499-13.999v14c0 7.674-10.737 12.523-11.192 12.724-.146.073-.31.109-.474.109s-.328-.036-.474-.109c-.456-.201-11.192-5.049-11.192-12.724v-14C2.334.529 2.863.0 3.501.0H24.5c.638.0 1.167.529 1.167 1.167z"/></symbol><symbol viewBox="-2.29 -2.29 32.57 32.57" id="gdoc_tags" xmlns="http://www.w3.org/2000/svg"><path d="M6.606 7.549c0-1.047-.84-1.887-1.887-1.887s-1.887.84-1.887 1.887.84 1.887 1.887 1.887 1.887-.84 1.887-1.887zm15.732 8.493c0 .501-.206.988-.546 1.327l-7.239 7.254c-.354.339-.84.546-1.342.546s-.988-.206-1.327-.546L1.342 14.066C.59 13.329.0 11.899.0 10.852V4.718a1.9 1.9.0 011.887-1.887h6.134c1.047.0 2.477.59 3.229 1.342L21.792 14.7c.339.354.546.84.546 1.342zm5.661.0c0 .501-.206.988-.546 1.327l-7.239 7.254c-.354.339-.84.546-1.342.546-.767.0-1.15-.354-1.651-.87l6.93-6.93c.339-.339.546-.826.546-1.327s-.206-.988-.546-1.342L13.609 4.173c-.752-.752-2.182-1.342-3.229-1.342h3.303c1.047.0 2.477.59 3.229 1.342L27.454 14.7c.339.354.546.84.546 1.342z"/></symbol><symbol viewBox="-2.29 -2.29 36.57 36.57" id="gdoc_timer" xmlns="http://www.w3.org/2000/svg"><path d="M16 29q4.428.0 7.536-3.143t3.107-7.571-3.107-7.536T16 7.643 8.464 10.75t-3.107 7.536 3.107 7.571T16 29zM26.714 9.786q1.214 1.571 2.107 4.036t.893 4.464q0 5.643-4 9.678T16 32t-9.714-4.036-4-9.678 4-9.678T16 4.572q1.929.0 4.464.929t4.107 2.143l2.143-2.214q1.143.929 2.143 2.143zM14.5 19.857v-9.143h3v9.143h-3zM20.571.001v3.071h-9.143V.001h9.143z"/></symbol></svg>
+<div class=wrapper>
+<input type=checkbox class=hidden id=menu-control>
+<input type=checkbox class=hidden id=menu-header-control>
+<header class=gdoc-header>
+<div class="container flex align-center justify-between">
+<label for=menu-control class=gdoc-nav__control><svg class="icon gdoc_menu"><title>Open Nav Menu</title><use xlink:href="#gdoc_menu"/></svg><svg class="icon gdoc_arrow_back"><title>Close Nav Menu</title><use xlink:href="#gdoc_arrow_back"/></svg>
+</label>
+<a class=gdoc-header__link href=../../>
+<span class="gdoc-brand flex align-center">
+<img class=gdoc-brand__img style=width:10rem;height:2rem src=../../assets/langium_logo_w_nib.svg alt>
+</span>
+</a>
+<div class=gdoc-menu-header>
+<span class=gdoc-menu-header__items>
+<span>
+<a href=https://github.com/eclipse-langium/langium class=gdoc-header__link><svg class="icon gdoc_github"><title>GitHub</title><use xlink:href="#gdoc_github"/></svg>
+</a>
+</span>
+<span id=gdoc-dark-mode><svg class="icon gdoc_brightness_dark"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_dark"/></svg><svg class="icon gdoc_brightness_light"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_light"/></svg><svg class="icon gdoc_brightness_auto"><title>Toggle Dark/Light/Auto mode</title><use xlink:href="#gdoc_brightness_auto"/></svg>
+</span>
+<span class=gdoc-menu-header__home>
+<a href=../../ class=gdoc-header__link><svg class="icon gdoc_home"><title>Back to homepage</title><use xlink:href="#gdoc_home"/></svg>
+</a>
+</span>
+<span class=gdoc-menu-header__control>
+<label for=menu-header-control><svg class="icon gdoc_keyborad_arrow_right"><use xlink:href="#gdoc_keyborad_arrow_right"/><title>Close Menu Bar</title></svg>
+</label>
+</span>
+</span>
+<label for=menu-header-control class=gdoc-menu-header__control><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/><title>Open Menu Bar</title></svg>
+</label>
+</div>
+</div>
+</header>
+<main class="container flex flex-even">
+<aside class=gdoc-nav>
+<nav>
+<div class=gdoc-search><svg class="icon gdoc_search"><use xlink:href="#gdoc_search"/></svg>
+<input type=text id=gdoc-search-input class=gdoc-search__input placeholder=Search... aria-label=Search maxlength=64>
+<div class="gdoc-search__spinner spinner hidden"></div>
+<ul id=gdoc-search-results class=gdoc-search__list></ul>
+</div>
+<section class=gdoc-nav--main>
+<h2>Navigation</h2>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../playground/ class=gdoc-nav__entry>
+Playground
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/ class=gdoc-nav__entry>
+Documentation
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../docs/langium-overview/ class=gdoc-nav__entry>
+Langium Overview
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/getting-started/ class=gdoc-nav__entry>
+Getting Started
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/grammar-language/ class=gdoc-nav__entry>
+The Grammar Language
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/sematic-model/ class=gdoc-nav__entry>
+Semantic Model Inference
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/configuration-services/ class=gdoc-nav__entry>
+Configuration via Services
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../docs/document-lifecycle/ class="gdoc-nav__entry is-active">
+Document Lifecycle
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/ class=gdoc-nav__entry>
+Guides
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../guides/code-bundling/ class=gdoc-nav__entry>
+Code Bundling
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/scoping/ class=gdoc-nav__entry>
+Scoping
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../guides/scoping/qualified-name/ class=gdoc-nav__entry>
+Qualified Name Scoping
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/scoping/class-member/ class=gdoc-nav__entry>
+Class Member Scoping
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/builtin-library/ class=gdoc-nav__entry>
+Builtin Libraries
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/formatting/ class=gdoc-nav__entry>
+Formatting
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../guides/multiple-languages/ class=gdoc-nav__entry>
+Multiple dependent languages
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/ class=gdoc-nav__entry>
+Tutorials
+</a>
+</span>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex>
+<a href=../../tutorials/writing_a_grammar/ class=gdoc-nav__entry>
+Writing a Grammar
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/validation/ class=gdoc-nav__entry>
+Validation
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/customizing_cli/ class=gdoc-nav__entry>
+Customizing the CLI
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/generation/ class=gdoc-nav__entry>
+Generation
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/building_an_extension/ class=gdoc-nav__entry>
+Building an Extension
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/langium_and_monaco/ class=gdoc-nav__entry>
+Langium + Monaco Editor
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../tutorials/generation_in_the_web/ class=gdoc-nav__entry>
+Generation in the Web
+</a>
+</span>
+</li>
+</ul>
+</li>
+<li>
+<span class=flex>
+<a href=../../showcase/ class=gdoc-nav__entry>
+Langium Showcase
+</a>
+</span>
+<ul class=gdoc-nav__list>
+</ul>
+</li>
+</ul>
+</section>
+<section class=gdoc-nav--more>
+<h2>More</h2>
+<ul class=gdoc-nav__list>
+<li>
+<span class=flex><svg class="icon gdoc_download"><use xlink:href="#gdoc_download"/></svg>
+<a href=https://www.npmjs.com/package/langium class=gdoc-nav__entry>
+Get npm Package
+</a>
+</span>
+</li>
+<li>
+<span class=flex><svg class="icon gdoc_github"><use xlink:href="#gdoc_github"/></svg>
+<a href=https://github.com/eclipse-langium/langium class=gdoc-nav__entry>
+View Source
+</a>
+</span>
+</li>
+</ul>
+</section>
+</nav>
+</aside>
+<div class=gdoc-page>
+<div class="gdoc-page__header flex flex-wrap
+justify-between" itemprop=breadcrumb>
+<div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
+<ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=../../><span itemprop=name>Langium</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/docs/ href=../../docs/><span itemprop=name>Documentation</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Document Lifecycle</span><meta itemprop=position content="3"></li>
+</ol>
+</div>
+<div>
+<span class=editpage><svg class="icon gdoc_code"><use xlink:href="#gdoc_code"/></svg>
+<a href=https://github.com/eclipse-langium/langium-website/blob/main/hugo/content/docs/document-lifecycle.md>
+Edit this page
+</a>
+</span>
+</div>
+</div>
+<article class="gdoc-markdown gdoc-markdown__align--left">
+<h1>Document Lifecycle</h1>
+<p><code>LangiumDocument</code> is the central data structure in Langium that represents a text file of your DSL. Its main purpose is to hold the parsed Abstract Syntax Tree (AST) plus additional information derived from it. After its creation, a <code>LangiumDocument</code> must be &ldquo;built&rdquo; before it can be used in any way. The service responsible for building documents is called <code>DocumentBuilder</code>.</p>
+<p>A <code>LangiumDocument</code> goes through seven different states during its lifecycle:</p>
+<ol>
+<li><code>Parsed</code> when an AST has been generated from the content of the document.</li>
+<li><code>IndexedContent</code> when the AST nodes have been processed by the <code>IndexManager</code>.</li>
+<li><code>ComputedScopes</code> when local scopes have been prepared by the <code>ScopeComputation</code>.</li>
+<li><code>Linked</code> when the <code>Linker</code> has resolved cross-references.</li>
+<li><code>IndexedReferences</code> when the references have been indexed by the <code>IndexManager</code>.</li>
+<li><code>Validated</code> when the document has been validated by the <code>DocumentValidator</code>.</li>
+<li><code>Changed</code> when the document has been modified.</li>
+</ol>
+<p>State 1 is the initial state after creation of a document, and states 2 to 6 are part of its build process. State 7 is a final state used to mark the document as invalid due to a change in the source text.</p>
+<p>The following diagram depicts how the <code>DocumentBuilder</code> processes <code>LangiumDocument</code>s depending on their state. More details about each step of the lifecycle can be found below.</p>
+<script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script>
+<script defer src=../../js/mermaid-loader-1bd1515cbf.min.js></script>
+<pre class="gdoc-mermaid mermaid">
+graph TD;
+N(LangiumDocumentFactory) -.-|Creation of LangiumDocuments| C{{Parsed}}
+
+A(DocumentBuilder) -->|Indexing of symbols| D(IndexManager) -.- E{{IndexedContent}}
+A -->|Computing scopes| F(ScopeComputation) -.- G{{ComputedScopes}}
+A -->|Linking| H(Linker) -.- I{{Linked}}
+A -->|Indexing of cross-references| J(IndexManager) -.- K{{IndexedReferences}} 
+A -->|Validation| L(DocumentValidator) -.- M{{Validated}}
+
+click N "./#creation-of-langiumdocuments"
+click D "./#indexing-of-symbols"
+click F "./#computing-scopes"
+click H "./#linking"
+click J "./#indexing-of-cross-references"
+click L "./#validation"
+</pre>
+<div class=gdoc-page__anchorwrap>
+<h2 id=creation-of-langiumdocuments>
+Creation of LangiumDocuments
+<a data-clipboard-text=/docs/document-lifecycle/#creation-of-langiumdocuments class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Creation of LangiumDocuments" href=#creation-of-langiumdocuments><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>When the workspace is initialized, all files having an extension matching those defined in <code>langium-config.json</code> are collected by the <code>WorkspaceManager</code> service. The <code>LangiumDocumentFactory</code> service creates a new instance of <code>LangiumDocument</code> for each source file. Those documents are then stored in memory by the <code>LangiumDocuments</code> service so they can be accessed later.</p>
+<p>Files in the workspace are mapped to instances of <code>TextDocument</code> as implemented by the <code>vscode-languageserver</code> package. Such a <code>TextDocument</code> holds the content of the respective file as a <code>string</code>. In contrast, a <code>LangiumDocument</code> represents the file content as an AST. This means that the creation of a <code>LangiumDocument</code> by the <code>LangiumDocumentFactory</code> service is accompanied by the parsing of the content of a <code>TextDocument</code> into an AST. During the creation of a <code>LangiumDocument</code> (i.e. after the document has been parsed), its state is set to <code>Parsed</code>.</p>
+<pre class="gdoc-mermaid mermaid">
+graph LR;
+A(<b>LangiumDocuments</b><br><br><i>manages LangiumDocument instances</i>) --> B(<b>LangiumDocumentFactory</b><br><br><i>creates a LangiumDocument</i>)
+B --> C(<b>LangiumParser</b><br><br><i>parses a string into an AST</i>)
+</pre>
+<p>Once all <code>LangiumDocument</code>s have been created, the <code>DocumentBuilder</code> service will sequentially process each <code>LangiumDocument</code> as described below.</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=indexing-of-symbols>
+Indexing of Symbols
+<a data-clipboard-text=/docs/document-lifecycle/#indexing-of-symbols class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Indexing of Symbols" href=#indexing-of-symbols><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Symbols are AST nodes that can be identified with a <em>name</em> and hence can be referenced from a <em>cross-reference</em>. Symbols that are <em>exported</em> can be referenced from other documents, while non-exported symbols are local to the document containing them. The <code>IndexManager</code> service keeps an index of all symbols that are exported from documents in the workspace. The set of all these exported symbols is called the <em>global scope</em>.</p>
+<p>Indexing of the exported symbols of an AST is executed on documents with the state <code>Parsed</code>. The default <code>ScopeComputation</code> service creates an <code>AstNodeDescription</code> for the root node (i.e. the node created by parsing the entry rule) and each named <code>AstNode</code> directly descending from the root node. This <code>AstNodeDescription</code> contains the <code>type</code> of the node, its identifier (i.e. the <code>name</code> property), the URI of the document where the node is located, and the location of the node inside of the document. The generated set of <code>AstNodeDescription</code>s makes symbols from a <code>LangiumDocument</code> accessible to other documents in the same workspace.</p>
+<p>The default <code>ScopeComputation</code> can be overridden to change the selection of exported symbols, or to export them with different names than the plain value of their <code>name</code> property. However, keep in mind that you cannot access any cross-references in this phase because that requires the document state to be at least <code>ComputedScopes</code>, which happens later in the build process.</p>
+<p>Once the initial indexing is done, the document&rsquo;s state is set to <code>IndexedContent</code>.</p>
+<pre class="gdoc-mermaid mermaid">
+graph LR;
+A(<b>IndexManager</b><br><br><i>manages exported content<br>of LangiumDocuments</i>) --> B(<b>ScopeComputation</b><br><br><i>creates descriptions<br>of all exported symbols</i>)
+B --> C(<b>NameProvider</b><br><br><i>resolves the name of an AstNode</i>)
+B --> D(<b>AstNodeLocator</b><br><br><i>gets the path of an AstNode</i>)
+</pre>
+<div class=gdoc-page__anchorwrap>
+<h2 id=computing-scopes>
+Computing Scopes
+<a data-clipboard-text=/docs/document-lifecycle/#computing-scopes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Computing Scopes" href=#computing-scopes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>This phase is executed on documents with the state <code>IndexedContent</code> and is required to complete <strong>prior to</strong> resolving cross-references.</p>
+<p>Local scope computation consists of gathering all symbols contained in the AST, done by the <code>ScopeComputation</code> service (in addition to the indexing explained in the previous section). Metadata of the gathered symbols are represented with <code>AstNodeDescription</code> like in the <a class=gdoc-markdown__link href=#indexing-of-symbols>initial indexing phase</a>. These metadata are attached to the <code>LangiumDocument</code> in a multi-map structure that associates a (possibly empty) set of symbol descriptions to each container node of the AST, called the <em>precomputed scopes</em>. These are used in the linking phase to construct the actual <em>scope</em> of a cross-reference, i.e. all possible symbols that are reachable. A symbol in the precomputed scopes is reachable from a specific cross-reference if it is associated with a direct or indirect container of that reference. Symbols associated to the root node are reachable from the whole AST, while symbols associated with an inner node are reachable from the respective sub-tree.</p>
+<p>The default implementation of the <code>ScopeComputation</code> service attaches the description of every symbol to its direct container. This means that the container holds information about which named nodes are nested inside of it. You can override this default behavior to change the position where a symbol is reachable, or to change the name by which it can be referenced. It is even possible to associate the same symbol to multiple container nodes, possibly with different names, to control precisely where and how references to it can be resolved. However, keep in mind that you cannot access any cross-references in this phase. More complex, context-dependent scope mechanisms can be implemented in the <code>ScopeProvider</code> (see <a class=gdoc-markdown__link href=#linking>next section</a>).</p>
+<p>The <em>&ldquo;Domainmodel&rdquo;</em> example includes a <a class=gdoc-markdown__link href=https://github.com/eclipse-langium/langium/blob/main/examples/domainmodel/src/language-server/domain-model-scope.ts>customization of scopes precomputation</a> where every <em>entity</em> contained in a <em>package declaration</em> is exposed using its <em>qualified name</em>, that is the concatenation of the package name and entity name separated with <code>.</code> (similar to Java).</p>
+<p>In languages with a type system, you would typically implement computation of types in an additional pre-processing step in order to make type information available in the document. This additional step can be registered to run after scope computation with the <code>onBuildPhase</code> method of <code>DocumentBuilder</code>. How types are computed heavily depends on the kind of type system, so there is no default implementation for it.</p>
+<p>Once local scopes are computed and attached to the document, the document&rsquo;s state is set to <code>ComputedScopes</code>.</p>
+<pre class="gdoc-mermaid mermaid">
+graph LR;
+A(<b>ScopeComputation</b><br><br><i>gathers all symbols from the AST and<br>stores their metadata in a MulitMap</i>) --> B(<b>NameProvider</b><br><br><i>resolves the name of an AST node</i>)
+A --> C(<b>AstNodeDescriptionProvider</b><br><br><i>creates descriptions of the<br>gathered symbols</i>)
+C --> D(<b>AstNodeLocator</b><br><br><i>gets the path of an AstNode</i>)
+</pre>
+<div class=gdoc-page__anchorwrap>
+<h2 id=linking>
+Linking
+<a data-clipboard-text=/docs/document-lifecycle/#linking class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Linking" href=#linking><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Once local scopes have been prepared, cross-references are resolved via the <code>Linker</code> service. The <code>Linker</code> retrieves all cross-references in a <code>LangiumDocument</code> and tries to resolve them. Reference resolution consists of three main steps:</p>
+<ol>
+<li>Query the <code>ScopeProvider</code> to obtain a <em>scope</em>. A scope describes all symbols that are reachable from the AST node holding the cross-reference.</li>
+<li>In the obtained scope, find the description of a symbol whose name matches the identifier given at the cross-reference.</li>
+<li>Load the AST node for that description. The AST node is given either directly (for a local symbol) or indirectly though a path string (for a symbol exported from another document).</li>
+</ol>
+<p>The default implementation of the <code>ScopeProvider</code> service creates a hierarchical scope by traveling from the given cross-reference via its container nodes up to the root of the AST, and collecting symbol descriptions from the precomputed scopes (created in the <a class=gdoc-markdown__link href=#computing-scopes>preceding phase</a>). The symbols are filtered to match the type of the cross-reference target. Symbols that are closer to the cross-reference <em>shadow</em> those that are further above in the AST, which means they have higher priority to be chosen as cross-reference targets. As the last resort, the global scope computed in the <a class=gdoc-markdown__link href=#indexing-of-symbols>initial indexing phase</a> is included in the hierarchical scope. Symbols that cannot be found locally are looked up in the global scope.</p>
+<p>The <code>ScopeProvider</code> can be overridden to implement complex scenarios for scoping and cross-reference resolution. Since cross-references can be linked <em>lazily</em> in this phase, it is possible to create a scope for a cross-reference depending on the resolved target of another cross-reference.</p>
+<p>Once the linking is complete, the document&rsquo;s state is set to <code>Linked</code>.</p>
+<pre class="gdoc-mermaid mermaid">
+graph LR;
+A(<b>Linker</b><br><br><i>links references to their target AstNodes</i>) --> B(<b>ScopeProvider</b><br><br><i>creates a Scope for the context of a Reference</i>)
+A --> C(<b>AstNodeLocator</b><br><br><i>resolves an AstNode from its path</i>)
+</pre>
+<div class=gdoc-page__anchorwrap>
+<h2 id=indexing-of-cross-references>
+Indexing of Cross-References
+<a data-clipboard-text=/docs/document-lifecycle/#indexing-of-cross-references class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Indexing of Cross-References" href=#indexing-of-cross-references><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Once the cross-references have been resolved by the linker, the <code>IndexManager</code> kicks in a second time to create descriptions of cross-references between different documents. Such a <code>ReferenceDescription</code> implies a dependency from its source document to its target document. This information ensures an efficient lookup to identify which other documents may be impacted by a change in a <code>LangiumDocument</code>.</p>
+<p>After the cross-references have been indexed, the document&rsquo;s state is set to <code>IndexedReferences</code>.</p>
+<pre class="gdoc-mermaid mermaid">
+graph LR;
+A(<b>IndexManager</b><br><br><i>manages metadata of cross-references<br>between documents</i>) --> B(<b>ReferenceDescriptionProvider</b><br><br><i>creates descriptions of all cross-references</i>)
+B --> C(<b>AstNodeLocator</b><br><br><i>gets the path of an AstNode</i>)
+</pre>
+<div class=gdoc-page__anchorwrap>
+<h2 id=validation>
+Validation
+<a data-clipboard-text=/docs/document-lifecycle/#validation class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Validation" href=#validation><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>The <code>DocumentValidator</code> creates an array of <code>Diagnostic</code>s from a <code>LangiumDocument</code>. This array contains all errors that have occurred during lexing, parsing, and linking, and the results of a set of custom validations with varying severity (<em>error</em>, <em>warning</em>, <em>info</em>). The custom validations are registered with the <code>ValidationRegistry</code> service.</p>
+<p>After the diagnostics have been created, the document&rsquo;s state is set to <code>Validated</code>.</p>
+<pre class="gdoc-mermaid mermaid">
+graph LR;
+A(<b>DocumentValidator</b><br><br><i>translate parser and linker errors to Diagnostics,<br>and executes custom validation checks</i>) --> B(<b>ValidationRegistry</b><br><br><i>manages custom validation checks for each AST node type</i>)
+</pre>
+<p>At this point, all documents have been processed by the <code>DocumentBuilder</code> and the workspace is ready to process requests from the editor (e.g. completion).</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=modifications-of-a-document>
+Modifications of a document
+<a data-clipboard-text=/docs/document-lifecycle/#modifications-of-a-document class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Modifications of a document" href=#modifications-of-a-document><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>When a <code>TextDocument</code> is modified, the language client (IDE) notifies the language server, which triggers corresponding events. In Langium, a change in a <code>TextDocument</code>&rsquo;s content leads to the invalidation of the associated <code>LangiumDocument</code>. The document&rsquo;s state is set to <code>Changed</code> and the document&rsquo;s entry is removed from the <code>LangiumDocuments</code> service. If the <code>TextDocument</code> was deleted, the corresponding <code>LangiumDocument</code> is removed from the index in the <code>IndexManager</code> service. If the document&rsquo;s content was modified, a new instance of <code>LangiumDocument</code> is created <a class=gdoc-markdown__link href=#creation-of-langiumdocuments>as described above</a>. All other documents that may have been affected as a result of the modification get their references unlinked and their state is modified such that they run through the <a class=gdoc-markdown__link href=#linking>linking phase</a> again. The <code>DocumentBuilder</code> then processed the newly created document along with all other documents that have not reached the <code>Validated</code> state yet.</p>
+<p>To determine which documents are affected by a change, the <code>IndexManager</code> uses the reference descriptions gathered in the <a class=gdoc-markdown__link href=#indexing-of-cross-references>reference indexing phase</a>.</p>
+</article>
+<div class="gdoc-page__footer flex flex-wrap justify-between">
+</div>
+</div>
+</main>
+<footer class=gdoc-footer>
+<div class="container flex">
+<div class="flex flex-wrap">
+<span class="gdoc-footer__item gdoc-footer__item--row">
+Built by <a href=http://typefox.io>TypeFox</a> with <a href=https://gohugo.io/ class=gdoc-footer__link>Hugo</a> and<svg class="icon gdoc_heart" style="color:red"><use xlink:href="#gdoc_heart"/></svg>
+</span>
+</div>
+<div class="flex flex-25 justify-end">
+<span class=gdoc-footer__item>
+<a class="gdoc-footer__link fake-link" href=# aria-label="Back to top"><svg class="icon gdoc_keyborad_arrow_up"><use xlink:href="#gdoc_keyborad_arrow_up"/></svg> <span class=hidden-mobile>Back to top</span>
+</a>
+</span>
+</div>
+</div>
+</footer>
+</div>
+<script defer src=../../js/en.search.min.971ccaa1bd805a9cd5c7d7152271e90fee332641122387bf7e018f38d29bae5e.js></script>
+<script defer src=../../js/clipboard-27784b7376.min.js></script>
+<script defer src=../../js/clipboard-loader-832dc83c27.min.js></script>
+<script defer src=../../js/copycode-fd03c0d24f.min.js></script>
+</body>
+</html>
