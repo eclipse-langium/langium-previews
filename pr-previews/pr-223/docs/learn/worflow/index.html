@@ -3,17 +3,17 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Workflow diagram       flowchart TD A([&#34;1. Install Yeoman generator&#34;]); B([&#34;2. Scaffold a Langium project&#34;]); C([&#34;3. Write the grammar&#34;]); D([&#34;4. Generate AST files&#34;]); E([&#34;5. Resolve cross-references&#34;]); F([&#34;6. Create validations&#34;]); G([&#34;7. Generate what you want&#34;]); H([&#34;8. Find advanced topics&#34;]); A -- B -- C -- D -- E -- F -- G -- H; G -- reiterate -- C; click A &#34;/docs/learn/workflow/install&#34; click B &#34;/docs/learn/workflow/scaffold&#34; click C &#34;">
-<title>Our workflow | Langium</title>
+<meta name=description content="Workflow diagram       flowchart TD A([&#34;1. Install Yeoman&#34;]); B([&#34;2. Scaffold a Langium project&#34;]); C([&#34;3. Write the grammar&#34;]); D([&#34;4. Generate the AST&#34;]); E([&#34;5. Resolve cross-references&#34;]); F([&#34;6. Create validations&#34;]); G([&#34;7. Generate your artifacts&#34;]); H([&#34;Find advanced topics&#34;]); A -- B -- C -- D -- E -- F -- G ~~~ H; G -- for each feature -- C; click A &#34;/docs/learn/workflow/install&#34; click B &#34;/docs/learn/workflow/scaffold&#34; click C &#34;/docs/learn/workflow/write_grammar&#34; click D &#34;">
+<title>Langium's workflow | Langium</title>
 <link rel=icon type=image/svg+xml href=../../../assets/nib.svg>
 <link rel=icon type=image/png sizes=32x32 href=../../../favicon/32px.png>
 <link rel=icon type=image/png sizes=16x16 href=../../../favicon/16px.png>
-<meta property="og:title" content="Our workflow">
+<meta property="og:title" content="Langium's workflow">
 <meta property="og:description" content>
 <meta property="og:type" content="website">
 <meta property="og:url" content="/docs/learn/worflow/">
 <meta name=twitter:card content="summary">
-<meta name=twitter:title content="Our workflow">
+<meta name=twitter:title content="Langium's workflow">
 <meta name=twitter:description content>
 <script src=../../../js/darkmode-ce906ea916.min.js></script>
 <link rel=preload as=font href=../../../fonts/Metropolis.woff2 type=font/woff2 crossorigin=anonymous>
@@ -79,7 +79,11 @@
 <li>
 <input type=checkbox id=navtree-4a67bd26 class=gdoc-nav__toggle checked>
 <label for=navtree-4a67bd26 class="flex justify-between">
-<span class=flex>Documentation</span><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/></svg><svg class="icon gdoc_keyborad_arrow_down"><use xlink:href="#gdoc_keyborad_arrow_down"/></svg>
+<span class=flex>
+<a href=../../../docs/ class=gdoc-nav__entry>
+Documentation
+</a>
+</span><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/></svg><svg class="icon gdoc_keyborad_arrow_down"><use xlink:href="#gdoc_keyborad_arrow_down"/></svg>
 </label>
 <ul class=gdoc-nav__list>
 <li>
@@ -94,7 +98,7 @@ What is Langium?
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=../../../docs/introduction/features/ class=gdoc-nav__entry>
+<a href=../../../docs/features/ class=gdoc-nav__entry>
 Features
 </a>
 </span>
@@ -130,7 +134,7 @@ Learn Langium
 <label for=navtree-542b94fd class="flex justify-between">
 <span class=flex>
 <a href=../../../docs/learn/worflow/ class="gdoc-nav__entry is-active">
-Our workflow
+Langium's workflow
 </a>
 </span><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/></svg><svg class="icon gdoc_keyborad_arrow_down"><use xlink:href="#gdoc_keyborad_arrow_down"/></svg>
 </label>
@@ -138,49 +142,49 @@ Our workflow
 <li>
 <span class=flex>
 <a href=../../../docs/learn/workflow/install/ class=gdoc-nav__entry>
-Install Yeoman
+1. Install Yeoman
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=../../../docs/learn/workflow/scaffold/ class=gdoc-nav__entry>
-Scaffold a Langium project
+2. Scaffold a Langium project
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=../../../docs/learn/workflow/write_grammar/ class=gdoc-nav__entry>
-Write the grammar
+3. Write the grammar
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=../../../docs/learn/workflow/generate_ast/ class=gdoc-nav__entry>
-Generate the AST
+4. Generate the AST
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=../../../docs/learn/workflow/resolve_cross_references/ class=gdoc-nav__entry>
-Resolve cross-references
+5. Resolve cross-references
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=../../../docs/learn/workflow/create_validations/ class=gdoc-nav__entry>
-Create validations
+6. Create validations
 </a>
 </span>
 </li>
 <li>
 <span class=flex>
 <a href=../../../docs/learn/workflow/generate_everything/ class=gdoc-nav__entry>
-Generate your artifacts
+7. Generate your artifacts
 </a>
 </span>
 </li>
@@ -303,13 +307,6 @@ Recipes
 </label>
 <ul class=gdoc-nav__list>
 <li>
-<span class=flex>
-<a href=../../../docs/recipes/code-bundling/ class=gdoc-nav__entry>
-Code Bundling
-</a>
-</span>
-</li>
-<li>
 <input type=checkbox id=navtree-b1a7db80 class=gdoc-nav__toggle>
 <label for=navtree-b1a7db80 class="flex justify-between">
 <span class=flex>
@@ -353,6 +350,13 @@ Formatting
 <span class=flex>
 <a href=../../../docs/recipes/multiple-languages/ class=gdoc-nav__entry>
 Multiple dependent languages
+</a>
+</span>
+</li>
+<li>
+<span class=flex>
+<a href=../../../docs/recipes/code-bundling/ class=gdoc-nav__entry>
+Code Bundling
 </a>
 </span>
 </li>
@@ -407,7 +411,7 @@ View Source
 justify-between" itemprop=breadcrumb>
 <div><svg class="icon gdoc_path hidden-mobile"><use xlink:href="#gdoc_path"/></svg>
 <ol class=breadcrumb itemscope itemtype=https://schema.org/BreadcrumbList>
-<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=../../../><span itemprop=name>Langium</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/docs/ href=../../../docs/><span itemprop=name>Documentation</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/docs/learn/ href=../../../docs/learn/><span itemprop=name>Learn Langium</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Our workflow</span><meta itemprop=position content="4"></li>
+<li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/ href=../../../><span itemprop=name>Langium</span></a><meta itemprop=position content="1"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/docs/ href=../../../docs/><span itemprop=name>Documentation</span></a><meta itemprop=position content="2"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><a itemscope itemtype=https://schema.org/WebPage itemprop=item itemid=/docs/learn/ href=../../../docs/learn/><span itemprop=name>Learn Langium</span></a><meta itemprop=position content="3"></li><li> / </li><li itemprop=itemListElement itemscope itemtype=https://schema.org/ListItem><span itemprop=name>Langium's workflow</span><meta itemprop=position content="4"></li>
 </ol>
 </div>
 <div>
@@ -419,7 +423,7 @@ Edit this page
 </div>
 </div>
 <article class="gdoc-markdown gdoc-markdown__align--left">
-<h1>Our workflow</h1>
+<h1>Langium's workflow</h1>
 <div class=gdoc-page__anchorwrap>
 <h2 id=workflow-diagram>
 Workflow diagram
@@ -431,16 +435,16 @@ Workflow diagram
 <script defer src=../../../js/mermaid-loader-1bd1515cbf.min.js></script>
 <pre class="gdoc-mermaid mermaid">
 flowchart TD
-  A(["1. Install Yeoman generator"]);
+  A(["1. Install Yeoman"]);
   B(["2. Scaffold a Langium project"]);
   C(["3. Write the grammar"]);
-  D(["4. Generate AST files"]);
+  D(["4. Generate the AST"]);
   E(["5. Resolve cross-references"]);
   F(["6. Create validations"]);
-  G(["7. Generate what you want"]);
-  H(["8. Find advanced topics"]);
-  A --> B --> C --> D --> E --> F --> G --> H;
-  G -- reiterate --> C;
+  G(["7. Generate your artifacts"]);
+  H(["Find advanced topics"]);
+  A --> B --> C --> D --> E --> F --> G ~~~ H;
+  G -- for each feature --> C;
 
   click A "/docs/learn/workflow/install"
   click B "/docs/learn/workflow/scaffold"
@@ -467,18 +471,73 @@ Explanation
 <p>While the first part is straight-forward. The last part is about advanced topics that differ from project to project.
 The middle part will be explained briefly in the following section.</p>
 <div class=gdoc-page__anchorwrap>
+<h2 id=initial-setup>
+Initial setup
+<a data-clipboard-text=/docs/learn/worflow/#initial-setup class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Initial setup" href=#initial-setup><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><div class=gdoc-page__anchorwrap>
+<h3 id=1-install-yeomandocslearnworkflowinstall>
+<a class=gdoc-markdown__link href=../../../docs/learn/workflow/install>1. Install Yeoman</a>
+<a data-clipboard-text=/docs/learn/worflow/#1-install-yeomandocslearnworkflowinstall class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1. Install Yeoman" href=#1-install-yeomandocslearnworkflowinstall><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>This step ensures that you start a Langium project with the Yeoman generator. Yeoman is a scaffolding tool that helps you to start a new project with a predefined structure.</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=2-scaffold-a-langium-projectdocslearnworkflowscaffold>
+<a class=gdoc-markdown__link href=../../../docs/learn/workflow/scaffold>2. Scaffold a Langium project</a>
+<a data-clipboard-text=/docs/learn/worflow/#2-scaffold-a-langium-projectdocslearnworkflowscaffold class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2. Scaffold a Langium project" href=#2-scaffold-a-langium-projectdocslearnworkflowscaffold><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>After installing Yeoman, you can scaffold a new Langium project.</p>
+<div class=gdoc-page__anchorwrap>
 <h2 id=core-workflow>
 Core workflow
 <a data-clipboard-text=/docs/learn/worflow/#core-workflow class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Core workflow" href=#core-workflow><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
-</div><ol start=3>
-<li><a class=gdoc-markdown__link href=../../../docs/learn/workflow/write_grammar><em>changing the grammar</em></a>: The first step in the core workflow starts from the grammar. You will have some language feature in mind that you want to implement. The grammar is used to nail down the syntax of your features. You can use our Langium VS Code extension to get syntax highlighting and code completion for <code>.langium</code> files. If your grammar is free of errors, you can generate the files for the <em>abstract syntax tree (AST)</em>.</li>
-<li><a class=gdoc-markdown__link href=../../../docs/learn/workflow/generate_ast><em>generating the AST</em></a>: The AST is the backbone of your language. It is used to represent the structure of your language elements. The AST is generated from the grammar. One important part of the AST are the <em>cross-references</em>. They are used to resolve references between language elements. If you have cross-references in your language, you need to <em>resolve</em> them, after this step. The actual generation is done by a call of the Langium CLI.</li>
-<li><a class=gdoc-markdown__link href=../../../docs/learn/workflow/resolve_cross_references><em>resolving cross-references</em></a>: The cross-references are used to resolve references between language elements (between different sub trees of one file or even elements of other files(!)). This step is quite important, because it is the basis for the next steps. You can also see it like this: Step 4 will generate an AST with gaps, this fifth step will fill these gaps.</li>
-<li><a class=gdoc-markdown__link href=../../../docs/learn/workflow/create_validations><em>create validations</em></a>: From here we have a fully utilized AST. Now every input file that matches the syntax will be accepted. But we want to have more control over the input. We want to check if the input is semantically correct. This is done by creating <em>validations</em>. They are used to check the input against a set of rules. If the input does not match the rules, an error will be thrown.</li>
-<li><a class=gdoc-markdown__link href=../../../docs/learn/workflow/generate_everything><em>generate what you want</em></a>: Now you have a fully working language. You can generate whatever you want from the input. This can be code, documentation, or anything else. You can use the AST to traverse the input and generate the output.</li>
-</ol>
+</div><div class=gdoc-page__anchorwrap>
+<h3 id=3-write-the-grammardocslearnworkflowwrite_grammar>
+<a class=gdoc-markdown__link href=../../../docs/learn/workflow/write_grammar>3. Write the grammar</a>
+<a data-clipboard-text=/docs/learn/worflow/#3-write-the-grammardocslearnworkflowwrite_grammar class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 3. Write the grammar" href=#3-write-the-grammardocslearnworkflowwrite_grammar><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>The first step in the core workflow starts from the grammar. You will have some language feature in mind that you want to implement. The grammar is used to nail down the syntax of your features. You can use our Langium VS Code extension to get syntax highlighting and code completion for <code>.langium</code> files. If your grammar is free of errors, you can generate the files for the <em>abstract syntax tree (AST)</em>.</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=4-generate-the-astdocslearnworkflowgenerate_ast>
+<a class=gdoc-markdown__link href=../../../docs/learn/workflow/generate_ast>4. Generate the AST</a>
+<a data-clipboard-text=/docs/learn/worflow/#4-generate-the-astdocslearnworkflowgenerate_ast class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 4. Generate the AST" href=#4-generate-the-astdocslearnworkflowgenerate_ast><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>The AST is the backbone of your language. It is used to represent the structure of your language elements. The AST is generated from the grammar. One important part of the AST are the <em>cross-references</em>. They are used to resolve references between language elements. If you have cross-references in your language, you need to <em>resolve</em> them, after this step. The actual generation is done by a call of the Langium CLI.</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=5-resolve-cross-referencesdocslearnworkflowresolve_cross_references>
+<a class=gdoc-markdown__link href=../../../docs/learn/workflow/resolve_cross_references>5. Resolve cross-references</a>
+<a data-clipboard-text=/docs/learn/worflow/#5-resolve-cross-referencesdocslearnworkflowresolve_cross_references class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 5. Resolve cross-references" href=#5-resolve-cross-referencesdocslearnworkflowresolve_cross_references><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>The cross-references are used to resolve references between language elements (between different sub trees of one file or even elements of other files(!)). This step is quite important, because it is the basis for the next steps. You can also see it like this: Step 4 will generate an AST with gaps, this fifth step will fill these gaps.</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=6-create-validationsdocslearnworkflowcreate_validations>
+<a class=gdoc-markdown__link href=../../../docs/learn/workflow/create_validations>6. Create validations</a>
+<a data-clipboard-text=/docs/learn/worflow/#6-create-validationsdocslearnworkflowcreate_validations class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 6. Create validations" href=#6-create-validationsdocslearnworkflowcreate_validations><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>From here we have a fully utilized AST. Now every input file that matches the syntax will be accepted. But we want to have more control over the input. We want to check if the input is semantically correct. This is done by creating <em>validations</em>. They are used to check the input against a set of rules. If the input does not match the rules, an error will be thrown.</p>
+<div class=gdoc-page__anchorwrap>
+<h3 id=7-generate-your-artifactsdocslearnworkflowgenerate_everything>
+<a class=gdoc-markdown__link href=../../../docs/learn/workflow/generate_everything>7. Generate your artifacts</a>
+<a data-clipboard-text=/docs/learn/worflow/#7-generate-your-artifactsdocslearnworkflowgenerate_everything class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 7. Generate your artifacts" href=#7-generate-your-artifactsdocslearnworkflowgenerate_everything><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h3>
+</div><p>Now you have a fully working language. You can generate whatever you want from the input. This can be code, documentation, or anything else. You can use the AST to traverse the input and generate the output.</p>
+<div class=gdoc-page__anchorwrap>
+<h2 id=find-advanced-topicsdocsrecipes>
+<a class=gdoc-markdown__link href=../../../docs/recipes>Find advanced topics</a>
+<a data-clipboard-text=/docs/learn/worflow/#find-advanced-topicsdocsrecipes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Find advanced topics" href=#find-advanced-topicsdocsrecipes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h2>
+</div><p>Everything that is out of the scope of the common workflow is covered in the recipes. Here you can find answers to specific questions or problems that you might encounter during the development of your language.</p>
 </article>
 <div class="gdoc-page__footer flex flex-wrap justify-between">
 </div>
