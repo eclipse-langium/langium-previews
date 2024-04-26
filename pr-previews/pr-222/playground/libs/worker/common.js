@@ -8049,25 +8049,25 @@ var require_react_dom_development = __commonJS({
           if (fallbackText) {
             return fallbackText;
           }
-          var start2;
+          var start;
           var startValue = startText;
           var startLength = startValue.length;
           var end;
           var endValue = getText();
           var endLength = endValue.length;
-          for (start2 = 0; start2 < startLength; start2++) {
-            if (startValue[start2] !== endValue[start2]) {
+          for (start = 0; start < startLength; start++) {
+            if (startValue[start] !== endValue[start]) {
               break;
             }
           }
-          var minEnd = startLength - start2;
+          var minEnd = startLength - start;
           for (end = 1; end <= minEnd; end++) {
             if (startValue[startLength - end] !== endValue[endLength - end]) {
               break;
             }
           }
           var sliceTail = end > 1 ? 1 - end : void 0;
-          fallbackText = endValue.slice(start2, sliceTail);
+          fallbackText = endValue.slice(start, sliceTail);
           return fallbackText;
         }
         function getText() {
@@ -8928,7 +8928,7 @@ var require_react_dom_development = __commonJS({
         }
         function getModernOffsetsFromPoints(outerNode, anchorNode, anchorOffset, focusNode, focusOffset) {
           var length = 0;
-          var start2 = -1;
+          var start = -1;
           var end = -1;
           var indexWithinAnchor = 0;
           var indexWithinFocus = 0;
@@ -8939,7 +8939,7 @@ var require_react_dom_development = __commonJS({
               var next = null;
               while (true) {
                 if (node === anchorNode && (anchorOffset === 0 || node.nodeType === TEXT_NODE)) {
-                  start2 = length + anchorOffset;
+                  start = length + anchorOffset;
                 }
                 if (node === focusNode && (focusOffset === 0 || node.nodeType === TEXT_NODE)) {
                   end = length + focusOffset;
@@ -8958,7 +8958,7 @@ var require_react_dom_development = __commonJS({
                   break outer;
                 }
                 if (parentNode === anchorNode && ++indexWithinAnchor === anchorOffset) {
-                  start2 = length;
+                  start = length;
                 }
                 if (parentNode === focusNode && ++indexWithinFocus === focusOffset) {
                   end = length;
@@ -8971,11 +8971,11 @@ var require_react_dom_development = __commonJS({
               }
               node = next;
             }
-          if (start2 === -1 || end === -1) {
+          if (start === -1 || end === -1) {
             return null;
           }
           return {
-            start: start2,
+            start,
             end
           };
         }
@@ -8987,14 +8987,14 @@ var require_react_dom_development = __commonJS({
           }
           var selection = win.getSelection();
           var length = node.textContent.length;
-          var start2 = Math.min(offsets.start, length);
-          var end = offsets.end === void 0 ? start2 : Math.min(offsets.end, length);
-          if (!selection.extend && start2 > end) {
+          var start = Math.min(offsets.start, length);
+          var end = offsets.end === void 0 ? start : Math.min(offsets.end, length);
+          if (!selection.extend && start > end) {
             var temp = end;
-            end = start2;
-            start2 = temp;
+            end = start;
+            start = temp;
           }
-          var startMarker = getNodeForCharacterOffset(node, start2);
+          var startMarker = getNodeForCharacterOffset(node, start);
           var endMarker = getNodeForCharacterOffset(node, end);
           if (startMarker && endMarker) {
             if (selection.rangeCount === 1 && selection.anchorNode === startMarker.node && selection.anchorOffset === startMarker.offset && selection.focusNode === endMarker.node && selection.focusOffset === endMarker.offset) {
@@ -9003,7 +9003,7 @@ var require_react_dom_development = __commonJS({
             var range = doc.createRange();
             range.setStart(startMarker.node, startMarker.offset);
             selection.removeAllRanges();
-            if (start2 > end) {
+            if (start > end) {
               selection.addRange(range);
               selection.extend(endMarker.node, endMarker.offset);
             } else {
@@ -9111,13 +9111,13 @@ var require_react_dom_development = __commonJS({
           };
         }
         function setSelection(input, offsets) {
-          var start2 = offsets.start;
+          var start = offsets.start;
           var end = offsets.end;
           if (end === void 0) {
-            end = start2;
+            end = start;
           }
           if ("selectionStart" in input) {
-            input.selectionStart = start2;
+            input.selectionStart = start;
             input.selectionEnd = Math.min(end, input.value.length);
           } else {
             setOffsets(input, offsets);
@@ -15283,22 +15283,22 @@ var require_react_dom_development = __commonJS({
         }
         function mountTransition() {
           var _mountState = mountState(false), isPending = _mountState[0], setPending = _mountState[1];
-          var start2 = startTransition.bind(null, setPending);
+          var start = startTransition.bind(null, setPending);
           var hook = mountWorkInProgressHook();
-          hook.memoizedState = start2;
-          return [isPending, start2];
+          hook.memoizedState = start;
+          return [isPending, start];
         }
         function updateTransition() {
           var _updateState = updateState(), isPending = _updateState[0];
           var hook = updateWorkInProgressHook();
-          var start2 = hook.memoizedState;
-          return [isPending, start2];
+          var start = hook.memoizedState;
+          return [isPending, start];
         }
         function rerenderTransition() {
           var _rerenderState = rerenderState(), isPending = _rerenderState[0];
           var hook = updateWorkInProgressHook();
-          var start2 = hook.memoizedState;
-          return [isPending, start2];
+          var start = hook.memoizedState;
+          return [isPending, start];
         }
         var isUpdatingOpaqueValueInRenderPhase = false;
         function getIsUpdatingOpaqueValueInRenderPhaseInDEV() {
@@ -294373,9 +294373,9 @@ var init_main = __esm({
       }
       getText(range) {
         if (range) {
-          let start2 = this.offsetAt(range.start);
+          let start = this.offsetAt(range.start);
           let end = this.offsetAt(range.end);
-          return this._content.substring(start2, end);
+          return this._content.substring(start, end);
         }
         return this._content;
       }
@@ -298302,8 +298302,8 @@ var require_protocol_notebook = __commonJS({
         return Is3.objectLiteral(candidate) && vscode_languageserver_types_1.uinteger.is(candidate.start) && vscode_languageserver_types_1.uinteger.is(candidate.deleteCount) && (candidate.cells === void 0 || Is3.typedArray(candidate.cells, NotebookCell.is));
       }
       NotebookCellArrayChange2.is = is2;
-      function create(start2, deleteCount, cells) {
-        const result = { start: start2, deleteCount };
+      function create(start, deleteCount, cells) {
+        const result = { start, deleteCount };
         if (cells !== void 0) {
           result.cells = cells;
         }
@@ -302625,8 +302625,8 @@ function getStartlineNode(node) {
   }
   return last2;
 }
-function getInteriorNodes(start2, end) {
-  const commonParent = getCommonParent(start2, end);
+function getInteriorNodes(start, end) {
+  const commonParent = getCommonParent(start, end);
   if (!commonParent) {
     return [];
   }
@@ -305751,27 +305751,27 @@ var copyObject_default = copyObject;
 
 // ../node_modules/lodash-es/_overRest.js
 var nativeMax = Math.max;
-function overRest(func, start2, transform) {
-  start2 = nativeMax(start2 === void 0 ? func.length - 1 : start2, 0);
+function overRest(func, start, transform) {
+  start = nativeMax(start === void 0 ? func.length - 1 : start, 0);
   return function() {
-    var args = arguments, index = -1, length = nativeMax(args.length - start2, 0), array = Array(length);
+    var args = arguments, index = -1, length = nativeMax(args.length - start, 0), array = Array(length);
     while (++index < length) {
-      array[index] = args[start2 + index];
+      array[index] = args[start + index];
     }
     index = -1;
-    var otherArgs = Array(start2 + 1);
-    while (++index < start2) {
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
       otherArgs[index] = args[index];
     }
-    otherArgs[start2] = transform(array);
+    otherArgs[start] = transform(array);
     return apply_default(func, this, otherArgs);
   };
 }
 var overRest_default = overRest;
 
 // ../node_modules/lodash-es/_baseRest.js
-function baseRest(func, start2) {
-  return setToString_default(overRest_default(func, start2, identity_default), func + "");
+function baseRest(func, start) {
+  return setToString_default(overRest_default(func, start, identity_default), func + "");
 }
 var baseRest_default = baseRest;
 
@@ -306421,20 +306421,20 @@ var getPrototype = overArg_default(Object.getPrototypeOf, Object);
 var getPrototype_default = getPrototype;
 
 // ../node_modules/lodash-es/_baseSlice.js
-function baseSlice(array, start2, end) {
+function baseSlice(array, start, end) {
   var index = -1, length = array.length;
-  if (start2 < 0) {
-    start2 = -start2 > length ? 0 : length + start2;
+  if (start < 0) {
+    start = -start > length ? 0 : length + start;
   }
   end = end > length ? length : end;
   if (end < 0) {
     end += length;
   }
-  length = start2 > end ? 0 : end - start2 >>> 0;
-  start2 >>>= 0;
+  length = start > end ? 0 : end - start >>> 0;
+  start >>>= 0;
   var result = Array(length);
   while (++index < length) {
-    result[index] = array[index + start2];
+    result[index] = array[index + start];
   }
   return result;
 }
@@ -308025,10 +308025,10 @@ function PRINT_WARNING(msg) {
 
 // ../node_modules/@chevrotain/utils/lib/src/timer.js
 function timer(func) {
-  const start2 = (/* @__PURE__ */ new Date()).getTime();
+  const start = (/* @__PURE__ */ new Date()).getTime();
   const val = func();
   const end = (/* @__PURE__ */ new Date()).getTime();
-  const total = end - start2;
+  const total = end - start;
   return { time: total, value: val };
 }
 
@@ -313723,14 +313723,14 @@ function createRuleStartAndStopATNStates(atn, rules) {
   const ruleLength = rules.length;
   for (let i5 = 0; i5 < ruleLength; i5++) {
     const rule = rules[i5];
-    const start2 = newState(atn, rule, void 0, {
+    const start = newState(atn, rule, void 0, {
       type: ATN_RULE_START
     });
     const stop = newState(atn, rule, void 0, {
       type: ATN_RULE_STOP
     });
-    start2.stop = stop;
-    atn.ruleToStartState.set(rule, start2);
+    start.stop = stop;
+    atn.ruleToStartState.set(rule, start);
     atn.ruleToStopState.set(rule, stop);
   }
 }
@@ -313790,20 +313790,20 @@ function repetitionMandatorySep(atn, rule, repetition2) {
   return plus(atn, rule, repetition2, handle, sep);
 }
 function alternation(atn, rule, alternation2) {
-  const start2 = newState(atn, rule, alternation2, {
+  const start = newState(atn, rule, alternation2, {
     type: ATN_BASIC
   });
-  defineDecisionState(atn, start2);
+  defineDecisionState(atn, start);
   const alts = map_default(alternation2.definition, (e10) => atom(atn, rule, e10));
-  const handle = makeAlts(atn, rule, start2, alternation2, ...alts);
+  const handle = makeAlts(atn, rule, start, alternation2, ...alts);
   return handle;
 }
 function option(atn, rule, option2) {
-  const start2 = newState(atn, rule, option2, {
+  const start = newState(atn, rule, option2, {
     type: ATN_BASIC
   });
-  defineDecisionState(atn, start2);
-  const handle = makeAlts(atn, rule, start2, option2, block(atn, rule, option2));
+  defineDecisionState(atn, start);
+  const handle = makeAlts(atn, rule, start, option2, block(atn, rule, option2));
   return optional(atn, rule, option2, handle);
 }
 function block(atn, rule, block2) {
@@ -313844,7 +313844,7 @@ function plus(atn, rule, plus2, handle, sep) {
   };
 }
 function star(atn, rule, star2, handle, sep) {
-  const start2 = handle.left;
+  const start = handle.left;
   const end = handle.right;
   const entry = newState(atn, rule, star2, {
     type: ATN_STAR_LOOP_ENTRY
@@ -313858,13 +313858,13 @@ function star(atn, rule, star2, handle, sep) {
   });
   entry.loopback = loop;
   loopEnd.loopback = loop;
-  epsilon(entry, start2);
+  epsilon(entry, start);
   epsilon(entry, loopEnd);
   epsilon(end, loop);
   if (sep !== void 0) {
     epsilon(loop, loopEnd);
     epsilon(loop, sep.left);
-    epsilon(sep.right, start2);
+    epsilon(sep.right, start);
   } else {
     epsilon(loop, entry);
   }
@@ -313875,10 +313875,10 @@ function star(atn, rule, star2, handle, sep) {
   };
 }
 function optional(atn, rule, optional2, handle) {
-  const start2 = handle.left;
+  const start = handle.left;
   const end = handle.right;
-  epsilon(start2, end);
-  atn.decisionMap[buildATNKey(rule, "Option", optional2.idx)] = start2;
+  epsilon(start, end);
+  atn.decisionMap[buildATNKey(rule, "Option", optional2.idx)] = start;
   return handle;
 }
 function defineDecisionState(atn, state) {
@@ -313886,25 +313886,25 @@ function defineDecisionState(atn, state) {
   state.decision = atn.decisionStates.length - 1;
   return state.decision;
 }
-function makeAlts(atn, rule, start2, production, ...alts) {
+function makeAlts(atn, rule, start, production, ...alts) {
   const end = newState(atn, rule, production, {
     type: ATN_BLOCK_END,
-    start: start2
+    start
   });
-  start2.end = end;
+  start.end = end;
   for (const alt2 of alts) {
     if (alt2 !== void 0) {
-      epsilon(start2, alt2.left);
+      epsilon(start, alt2.left);
       epsilon(alt2.right, end);
     } else {
-      epsilon(start2, end);
+      epsilon(start, end);
     }
   }
   const handle = {
-    left: start2,
+    left: start,
     right: end
   };
-  atn.decisionMap[buildATNKey(rule, getProdType2(production), production.idx)] = start2;
+  atn.decisionMap[buildATNKey(rule, getProdType2(production), production.idx)] = start;
   return handle;
 }
 function getProdType2(production) {
@@ -313968,14 +313968,14 @@ function tokenRef(atn, rule, tokenType, production) {
 }
 function ruleRef(atn, currentRule, nonTerminal) {
   const rule = nonTerminal.referencedRule;
-  const start2 = atn.ruleToStartState.get(rule);
+  const start = atn.ruleToStartState.get(rule);
   const left = newState(atn, currentRule, nonTerminal, {
     type: ATN_BASIC
   });
   const right = newState(atn, currentRule, nonTerminal, {
     type: ATN_BASIC
   });
-  const call = new RuleTransition(start2, rule, right);
+  const call = new RuleTransition(start, rule, right);
   addTransition(left, call);
   return {
     left,
@@ -313983,12 +313983,12 @@ function ruleRef(atn, currentRule, nonTerminal) {
   };
 }
 function buildRuleHandle(atn, rule, block2) {
-  const start2 = atn.ruleToStartState.get(rule);
-  epsilon(start2, block2.left);
+  const start = atn.ruleToStartState.get(rule);
+  epsilon(start, block2.left);
   const stop = atn.ruleToStopState.get(rule);
   epsilon(block2.right, stop);
   const handle = {
-    left: start2,
+    left: start,
     right: stop
   };
   return handle;
@@ -314258,13 +314258,13 @@ function initATNSimulator(atn) {
 }
 function adaptivePredict(dfaCaches, decision, predicateSet, logging) {
   const dfa = dfaCaches[decision](predicateSet);
-  let start2 = dfa.start;
-  if (start2 === void 0) {
+  let start = dfa.start;
+  if (start === void 0) {
     const closure2 = computeStartState(dfa.atnStartState);
-    start2 = addDFAState(dfa, newDFAState(closure2));
-    dfa.start = start2;
+    start = addDFAState(dfa, newDFAState(closure2));
+    dfa.start = start;
   }
-  const alt2 = performLookahead.apply(this, [dfa, start2, predicateSet, logging]);
+  const alt2 = performLookahead.apply(this, [dfa, start, predicateSet, logging]);
   return alt2;
 }
 function performLookahead(dfa, s02, predicateSet, logging) {
@@ -314767,9 +314767,9 @@ var CstNodeContainer = class _CstNodeContainer extends Array {
     this.addParents(items);
     return super.unshift(...items);
   }
-  splice(start2, count, ...items) {
+  splice(start, count, ...items) {
     this.addParents(items);
-    return super.splice(start2, count, ...items);
+    return super.splice(start, count, ...items);
   }
   addParents(items) {
     for (const item of items) {
@@ -315784,9 +315784,9 @@ var FullTextDocument2 = class _FullTextDocument {
   }
   getText(range) {
     if (range) {
-      const start2 = this.offsetAt(range.start);
+      const start = this.offsetAt(range.start);
       const end = this.offsetAt(range.end);
-      return this._content.substring(start2, end);
+      return this._content.substring(start, end);
     }
     return this._content;
   }
@@ -315959,10 +315959,10 @@ function computeLineOffsets(text, isAtLineStart, textOffset = 0) {
   return result;
 }
 function getWellformedRange(range) {
-  const start2 = range.start;
+  const start = range.start;
   const end = range.end;
-  if (start2.line > end.line || start2.line === end.line && start2.character > end.character) {
-    return { start: end, end: start2 };
+  if (start.line > end.line || start.line === end.line && start.character > end.character) {
+    return { start: end, end: start };
   }
   return range;
 }
@@ -318429,15 +318429,15 @@ function isTokenTypeDictionary(tokenVocabulary) {
 
 // ../node_modules/langium/lib/documentation/jsdoc.js
 init_main();
-function parseJSDoc(node, start2, options) {
+function parseJSDoc(node, start, options) {
   let opts;
   let position;
   if (typeof node === "string") {
-    position = start2;
+    position = start;
     opts = options;
   } else {
     position = node.range.start;
-    opts = start2;
+    opts = start;
   }
   if (!position) {
     position = Position.create(0, 0);
@@ -318523,12 +318523,12 @@ function tokenize(context) {
       if (tagMatch) {
         const fullMatch = tagMatch[0];
         const value = tagMatch[1];
-        const start2 = Position.create(currentLine, currentCharacter + index);
+        const start = Position.create(currentLine, currentCharacter + index);
         const end = Position.create(currentLine, currentCharacter + index + fullMatch.length);
         tokens.push({
           type: "tag",
           content: value,
-          range: Range2.create(start2, end)
+          range: Range2.create(start, end)
         });
         index += fullMatch.length;
         index = skipWhitespace(line, index);
@@ -318550,12 +318550,12 @@ function tokenize(context) {
 function buildInlineTokens(tags, line, lineIndex, characterIndex) {
   const tokens = [];
   if (tags.length === 0) {
-    const start2 = Position.create(lineIndex, characterIndex);
+    const start = Position.create(lineIndex, characterIndex);
     const end = Position.create(lineIndex, characterIndex + line.length);
     tokens.push({
       type: "text",
       content: line,
-      range: Range2.create(start2, end)
+      range: Range2.create(start, end)
     });
   } else {
     let lastIndex = 0;
@@ -318635,9 +318635,9 @@ function parseJSDocComment(context) {
       elements.push(element);
     }
   }
-  const start2 = (_b2 = (_a2 = elements[0]) === null || _a2 === void 0 ? void 0 : _a2.range.start) !== null && _b2 !== void 0 ? _b2 : startPosition;
+  const start = (_b2 = (_a2 = elements[0]) === null || _a2 === void 0 ? void 0 : _a2.range.start) !== null && _b2 !== void 0 ? _b2 : startPosition;
   const end = (_d2 = (_c2 = elements[elements.length - 1]) === null || _c2 === void 0 ? void 0 : _c2.range.end) !== null && _d2 !== void 0 ? _d2 : startPosition;
-  return new JSDocCommentImpl(elements, Range2.create(start2, end));
+  return new JSDocCommentImpl(elements, Range2.create(start, end));
 }
 function parseJSDocElement(context, last2) {
   const next = context.tokens[context.index];
@@ -318710,17 +318710,17 @@ function normalizeOptions(options) {
       line: "*"
     });
   }
-  const { start: start2, end, line } = options;
+  const { start, end, line } = options;
   return {
-    start: normalizeOption(start2, true),
+    start: normalizeOption(start, true),
     end: normalizeOption(end, false),
     line: normalizeOption(line, true)
   };
 }
-function normalizeOption(option2, start2) {
+function normalizeOption(option2, start) {
   if (typeof option2 === "string" || typeof option2 === "object") {
     const escaped = typeof option2 === "string" ? escapeRegExp(option2) : option2.source;
-    if (start2) {
+    if (start) {
       return new RegExp(`^\\s*${escaped}`);
     } else {
       return new RegExp(`\\s*${escaped}\\s*$`);
@@ -320460,12 +320460,12 @@ var DefaultCompletionProvider = class {
     const content = context.textDocument.getText();
     const identifier = content.substring(context.tokenOffset, context.offset);
     if (this.fuzzyMatcher.match(identifier, label)) {
-      const start2 = context.textDocument.positionAt(context.tokenOffset);
+      const start = context.textDocument.positionAt(context.tokenOffset);
       const end = context.position;
       return {
         newText,
         range: {
-          start: start2,
+          start,
           end
         }
       };
@@ -320710,15 +320710,15 @@ var DefaultFoldingRangeProvider = class {
   }
   toFoldingRange(document2, node, kind) {
     const range = node.range;
-    const start2 = range.start;
+    const start = range.start;
     let end = range.end;
-    if (end.line - start2.line < 2) {
+    if (end.line - start.line < 2) {
       return void 0;
     }
     if (!this.includeLastFoldingLine(node, kind)) {
       end = document2.textDocument.positionAt(document2.textDocument.offsetAt({ line: end.line, character: 0 }) - 1);
     }
-    return import_vscode_languageserver8.FoldingRange.create(start2.line, end.line, start2.character, end.character, kind);
+    return import_vscode_languageserver8.FoldingRange.create(start.line, end.line, start.character, end.character, kind);
   }
   /**
    * Template method to determine whether the folding range for this cst node should include its last line.
@@ -321675,10 +321675,10 @@ var LangiumGrammarCompletionProvider = class extends DefaultCompletionProvider {
     if (existingText.length > 0) {
       const existingPath = existingText.substring(1);
       allPaths = allPaths.filter((path) => path.startsWith(existingPath));
-      const start2 = context.textDocument.positionAt(context.tokenOffset + 1);
+      const start = context.textDocument.positionAt(context.tokenOffset + 1);
       const end = context.textDocument.positionAt(context.tokenEndOffset - 1);
       range = {
-        start: start2,
+        start,
         end
       };
     }
@@ -322164,8 +322164,8 @@ var DefaultNodeFormatter = class {
   cst(nodes) {
     return new FormattingRegion([...nodes], this.collector);
   }
-  interior(start2, end) {
-    const startNodes = start2.nodes;
+  interior(start, end) {
+    const startNodes = start.nodes;
     const endNodes = end.nodes;
     if (startNodes.length !== 1 || endNodes.length !== 1) {
       return new FormattingRegion([], this.collector);
@@ -322221,8 +322221,8 @@ var FormattingRegion = class _FormattingRegion {
    * @param start The beginning index of the specified portion of the region. If start is undefined, then the slice begins at index 0.
    * @param end The end index of the specified portion of the region. This is exclusive of the element at the index 'end'. If end is undefined, then the slice extends to the end of the region.
    */
-  slice(start2, end) {
-    return new _FormattingRegion(this.nodes.slice(start2, end), this.collector);
+  slice(start, end) {
+    return new _FormattingRegion(this.nodes.slice(start, end), this.collector);
   }
 };
 var Formatting;
@@ -326789,8 +326789,8 @@ var LangiumGrammarCodeActionProvider = class {
   fixUnnecessaryFileExtension(diagnostic, document2) {
     const end = Object.assign({}, diagnostic.range.end);
     end.character -= 1;
-    const start2 = Object.assign({}, end);
-    start2.character -= ".langium".length;
+    const start = Object.assign({}, end);
+    start.character -= ".langium".length;
     return {
       title: "Remove file extension",
       kind: import_vscode_languageserver15.CodeActionKind.QuickFix,
@@ -326800,7 +326800,7 @@ var LangiumGrammarCodeActionProvider = class {
         changes: {
           [document2.textDocument.uri]: [{
             range: {
-              start: start2,
+              start,
               end
             },
             newText: ""
@@ -326897,13 +326897,13 @@ var LangiumGrammarCodeActionProvider = class {
     const changes = [];
     const hiddenNode = findNodeForProperty(grammar.$cstNode, "definesHiddenTokens");
     if (hiddenNode) {
-      const start2 = hiddenNode.range.start;
+      const start = hiddenNode.range.start;
       const offset = hiddenNode.offset;
       const end = grammar.$cstNode.text.indexOf(")", offset) + 1;
       changes.push({
         newText: "",
         range: {
-          start: start2,
+          start,
           end: document2.textDocument.positionAt(end)
         }
       });
@@ -326911,12 +326911,12 @@ var LangiumGrammarCodeActionProvider = class {
     for (const terminal of hiddenTokens) {
       const ref = terminal.ref;
       if (ref && isTerminalRule(ref) && !ref.hidden && ref.$cstNode) {
-        const start2 = ref.$cstNode.range.start;
+        const start = ref.$cstNode.range.start;
         changes.push({
           newText: "hidden ",
           range: {
-            start: start2,
-            end: start2
+            start,
+            end: start
           }
         });
       }
@@ -327041,7 +327041,6 @@ function getRelativeImport(source, target) {
 }
 
 // ../node_modules/langium-cli/lib/generator/langium-util.js
-var start = process.hrtime();
 function collectKeywords(grammar) {
   const keywords = /* @__PURE__ */ new Set();
   const reachableRules = grammar_utils_exports.getAllReachableRules(grammar, false);
