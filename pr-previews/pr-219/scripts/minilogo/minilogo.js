@@ -244264,7 +244264,7 @@ Check the top-level render call using <` + it + ">.");
     };
   }
 
-  // ../node_modules/monaco-editor-workers/dist/index.js
+  // node_modules/monaco-editor-workers/dist/index.js
   function buildWorkerDefinition(workerPath, basePath, useModuleWorker) {
     const monWin = self;
     const workerOverrideGlobals = {
@@ -244769,7 +244769,6 @@ langium()
   userConfig = K7t({
     languageId: "minilogo",
     code: code ? (0, import_lz_string.decompressFromEncodedURIComponent)(code) : examples[0].code,
-    htmlElement: document.getElementById("root"),
     worker: "../../showcase/libs/worker/minilogoServerWorker.js",
     monarchGrammar: syntaxHighlighting
   });

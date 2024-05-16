@@ -14,8 +14,8 @@
   };
   var __export = (target, all) => {
     __markAsModule(target);
-    for (var name in all)
-      __defProp(target, name, { get: all[name], enumerable: true });
+    for (var name2 in all)
+      __defProp(target, name2, { get: all[name2], enumerable: true });
   };
   var __reExport = (target, module2, desc) => {
     if (module2 && typeof module2 === "object" || typeof module2 === "function") {
@@ -7471,10 +7471,10 @@
                 get: function() {
                   return ownName;
                 },
-                set: function(name) {
-                  ownName = name;
+                set: function(name2) {
+                  ownName = name2;
                   if (!render.name && !render.displayName) {
-                    render.displayName = name;
+                    render.displayName = name2;
                   }
                 }
               });
@@ -7518,10 +7518,10 @@
                 get: function() {
                   return ownName;
                 },
-                set: function(name) {
-                  ownName = name;
+                set: function(name2) {
+                  ownName = name2;
                   if (!type.name && !type.displayName) {
-                    type.displayName = name;
+                    type.displayName = name2;
                   }
                 }
               });
@@ -7689,7 +7689,7 @@
           }
           var ReactCurrentDispatcher$1 = ReactSharedInternals.ReactCurrentDispatcher;
           var prefix;
-          function describeBuiltInComponentFrame(name, source, ownerFn) {
+          function describeBuiltInComponentFrame(name2, source, ownerFn) {
             {
               if (prefix === void 0) {
                 try {
@@ -7699,7 +7699,7 @@
                   prefix = match && match[1] || "";
                 }
               }
-              return "\n" + prefix + name;
+              return "\n" + prefix + name2;
             }
           }
           var reentry = false;
@@ -7802,8 +7802,8 @@
               }
               Error.prepareStackTrace = previousPrepareStackTrace;
             }
-            var name = fn2 ? fn2.displayName || fn2.name : "";
-            var syntheticFrame = name ? describeBuiltInComponentFrame(name) : "";
+            var name2 = fn2 ? fn2.displayName || fn2.name : "";
+            var syntheticFrame = name2 ? describeBuiltInComponentFrame(name2) : "";
             {
               if (typeof fn2 === "function") {
                 componentFrameCache.set(fn2, syntheticFrame);
@@ -7918,9 +7918,9 @@
           }
           function getDeclarationErrorAddendum() {
             if (ReactCurrentOwner.current) {
-              var name = getComponentNameFromType(ReactCurrentOwner.current.type);
-              if (name) {
-                return "\n\nCheck the render method of `" + name + "`.";
+              var name2 = getComponentNameFromType(ReactCurrentOwner.current.type);
+              if (name2) {
+                return "\n\nCheck the render method of `" + name2 + "`.";
               }
             }
             return "";
@@ -8015,8 +8015,8 @@
                 return;
               }
               if (propTypes) {
-                var name = getComponentNameFromType(type);
-                checkPropTypes(propTypes, element2.props, "prop", name, element2);
+                var name2 = getComponentNameFromType(type);
+                checkPropTypes(propTypes, element2.props, "prop", name2, element2);
               } else if (type.PropTypes !== void 0 && !propTypesMisspellWarningShown) {
                 propTypesMisspellWarningShown = true;
                 var _name = getComponentNameFromType(type);
@@ -9051,19 +9051,19 @@
             }
             return false;
           }
-          function shouldIgnoreAttribute(name, propertyInfo, isCustomComponentTag) {
+          function shouldIgnoreAttribute(name2, propertyInfo, isCustomComponentTag) {
             if (propertyInfo !== null) {
               return propertyInfo.type === RESERVED;
             }
             if (isCustomComponentTag) {
               return false;
             }
-            if (name.length > 2 && (name[0] === "o" || name[0] === "O") && (name[1] === "n" || name[1] === "N")) {
+            if (name2.length > 2 && (name2[0] === "o" || name2[0] === "O") && (name2[1] === "n" || name2[1] === "N")) {
               return true;
             }
             return false;
           }
-          function shouldRemoveAttributeWithWarning(name, value, propertyInfo, isCustomComponentTag) {
+          function shouldRemoveAttributeWithWarning(name2, value, propertyInfo, isCustomComponentTag) {
             if (propertyInfo !== null && propertyInfo.type === RESERVED) {
               return false;
             }
@@ -9078,7 +9078,7 @@
                 if (propertyInfo !== null) {
                   return !propertyInfo.acceptsBooleans;
                 } else {
-                  var prefix2 = name.toLowerCase().slice(0, 5);
+                  var prefix2 = name2.toLowerCase().slice(0, 5);
                   return prefix2 !== "data-" && prefix2 !== "aria-";
                 }
               }
@@ -9086,11 +9086,11 @@
                 return false;
             }
           }
-          function shouldRemoveAttribute(name, value, propertyInfo, isCustomComponentTag) {
+          function shouldRemoveAttribute(name2, value, propertyInfo, isCustomComponentTag) {
             if (value === null || typeof value === "undefined") {
               return true;
             }
-            if (shouldRemoveAttributeWithWarning(name, value, propertyInfo, isCustomComponentTag)) {
+            if (shouldRemoveAttributeWithWarning(name2, value, propertyInfo, isCustomComponentTag)) {
               return true;
             }
             if (isCustomComponentTag) {
@@ -9110,15 +9110,15 @@
             }
             return false;
           }
-          function getPropertyInfo(name) {
-            return properties.hasOwnProperty(name) ? properties[name] : null;
+          function getPropertyInfo(name2) {
+            return properties.hasOwnProperty(name2) ? properties[name2] : null;
           }
-          function PropertyInfoRecord(name, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL2, removeEmptyString) {
+          function PropertyInfoRecord(name2, type, mustUseProperty, attributeName, attributeNamespace, sanitizeURL2, removeEmptyString) {
             this.acceptsBooleans = type === BOOLEANISH_STRING || type === BOOLEAN || type === OVERLOADED_BOOLEAN;
             this.attributeName = attributeName;
             this.attributeNamespace = attributeNamespace;
             this.mustUseProperty = mustUseProperty;
-            this.propertyName = name;
+            this.propertyName = name2;
             this.type = type;
             this.sanitizeURL = sanitizeURL2;
             this.removeEmptyString = removeEmptyString;
@@ -9134,18 +9134,18 @@
             "suppressHydrationWarning",
             "style"
           ];
-          reservedProps.forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, RESERVED, false, name, null, false, false);
+          reservedProps.forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, RESERVED, false, name2, null, false, false);
           });
           [["acceptCharset", "accept-charset"], ["className", "class"], ["htmlFor", "for"], ["httpEquiv", "http-equiv"]].forEach(function(_ref) {
-            var name = _ref[0], attributeName = _ref[1];
-            properties[name] = new PropertyInfoRecord(name, STRING, false, attributeName, null, false, false);
+            var name2 = _ref[0], attributeName = _ref[1];
+            properties[name2] = new PropertyInfoRecord(name2, STRING, false, attributeName, null, false, false);
           });
-          ["contentEditable", "draggable", "spellCheck", "value"].forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, BOOLEANISH_STRING, false, name.toLowerCase(), null, false, false);
+          ["contentEditable", "draggable", "spellCheck", "value"].forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, BOOLEANISH_STRING, false, name2.toLowerCase(), null, false, false);
           });
-          ["autoReverse", "externalResourcesRequired", "focusable", "preserveAlpha"].forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, BOOLEANISH_STRING, false, name, null, false, false);
+          ["autoReverse", "externalResourcesRequired", "focusable", "preserveAlpha"].forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, BOOLEANISH_STRING, false, name2, null, false, false);
           });
           [
             "allowFullScreen",
@@ -9171,33 +9171,33 @@
             "scoped",
             "seamless",
             "itemScope"
-          ].forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, BOOLEAN, false, name.toLowerCase(), null, false, false);
+          ].forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, BOOLEAN, false, name2.toLowerCase(), null, false, false);
           });
           [
             "checked",
             "multiple",
             "muted",
             "selected"
-          ].forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, BOOLEAN, true, name, null, false, false);
+          ].forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, BOOLEAN, true, name2, null, false, false);
           });
           [
             "capture",
             "download"
-          ].forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, OVERLOADED_BOOLEAN, false, name, null, false, false);
+          ].forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, OVERLOADED_BOOLEAN, false, name2, null, false, false);
           });
           [
             "cols",
             "rows",
             "size",
             "span"
-          ].forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, POSITIVE_NUMERIC, false, name, null, false, false);
+          ].forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, POSITIVE_NUMERIC, false, name2, null, false, false);
           });
-          ["rowSpan", "start"].forEach(function(name) {
-            properties[name] = new PropertyInfoRecord(name, NUMERIC, false, name.toLowerCase(), null, false, false);
+          ["rowSpan", "start"].forEach(function(name2) {
+            properties[name2] = new PropertyInfoRecord(name2, NUMERIC, false, name2.toLowerCase(), null, false, false);
           });
           var CAMELIZE = /[\-\:]([a-z])/g;
           var capitalize = function(token) {
@@ -9278,8 +9278,8 @@
             "xmlns:xlink",
             "x-height"
           ].forEach(function(attributeName) {
-            var name = attributeName.replace(CAMELIZE, capitalize);
-            properties[name] = new PropertyInfoRecord(name, STRING, false, attributeName, null, false, false);
+            var name2 = attributeName.replace(CAMELIZE, capitalize);
+            properties[name2] = new PropertyInfoRecord(name2, STRING, false, attributeName, null, false, false);
           });
           [
             "xlink:actuate",
@@ -9289,16 +9289,16 @@
             "xlink:title",
             "xlink:type"
           ].forEach(function(attributeName) {
-            var name = attributeName.replace(CAMELIZE, capitalize);
-            properties[name] = new PropertyInfoRecord(name, STRING, false, attributeName, "http://www.w3.org/1999/xlink", false, false);
+            var name2 = attributeName.replace(CAMELIZE, capitalize);
+            properties[name2] = new PropertyInfoRecord(name2, STRING, false, attributeName, "http://www.w3.org/1999/xlink", false, false);
           });
           [
             "xml:base",
             "xml:lang",
             "xml:space"
           ].forEach(function(attributeName) {
-            var name = attributeName.replace(CAMELIZE, capitalize);
-            properties[name] = new PropertyInfoRecord(name, STRING, false, attributeName, "http://www.w3.org/XML/1998/namespace", false, false);
+            var name2 = attributeName.replace(CAMELIZE, capitalize);
+            properties[name2] = new PropertyInfoRecord(name2, STRING, false, attributeName, "http://www.w3.org/XML/1998/namespace", false, false);
           });
           ["tabIndex", "crossOrigin"].forEach(function(attributeName) {
             properties[attributeName] = new PropertyInfoRecord(attributeName, STRING, false, attributeName.toLowerCase(), null, false, false);
@@ -9318,14 +9318,14 @@
               }
             }
           }
-          function getValueForProperty(node, name, expected, propertyInfo) {
+          function getValueForProperty(node, name2, expected, propertyInfo) {
             {
               if (propertyInfo.mustUseProperty) {
                 var propertyName = propertyInfo.propertyName;
                 return node[propertyName];
               } else {
                 {
-                  checkAttributeStringCoercion(expected, name);
+                  checkAttributeStringCoercion(expected, name2);
                 }
                 if (propertyInfo.sanitizeURL) {
                   sanitizeURL("" + expected);
@@ -9338,7 +9338,7 @@
                     if (value === "") {
                       return true;
                     }
-                    if (shouldRemoveAttribute(name, expected, propertyInfo, false)) {
+                    if (shouldRemoveAttribute(name2, expected, propertyInfo, false)) {
                       return value;
                     }
                     if (value === "" + expected) {
@@ -9347,7 +9347,7 @@
                     return value;
                   }
                 } else if (node.hasAttribute(attributeName)) {
-                  if (shouldRemoveAttribute(name, expected, propertyInfo, false)) {
+                  if (shouldRemoveAttribute(name2, expected, propertyInfo, false)) {
                     return node.getAttribute(attributeName);
                   }
                   if (propertyInfo.type === BOOLEAN) {
@@ -9355,7 +9355,7 @@
                   }
                   stringValue = node.getAttribute(attributeName);
                 }
-                if (shouldRemoveAttribute(name, expected, propertyInfo, false)) {
+                if (shouldRemoveAttribute(name2, expected, propertyInfo, false)) {
                   return stringValue === null ? expected : stringValue;
                 } else if (stringValue === "" + expected) {
                   return expected;
@@ -9365,17 +9365,17 @@
               }
             }
           }
-          function getValueForAttribute(node, name, expected, isCustomComponentTag) {
+          function getValueForAttribute(node, name2, expected, isCustomComponentTag) {
             {
-              if (!isAttributeNameSafe(name)) {
+              if (!isAttributeNameSafe(name2)) {
                 return;
               }
-              if (!node.hasAttribute(name)) {
+              if (!node.hasAttribute(name2)) {
                 return expected === void 0 ? void 0 : null;
               }
-              var value = node.getAttribute(name);
+              var value = node.getAttribute(name2);
               {
-                checkAttributeStringCoercion(expected, name);
+                checkAttributeStringCoercion(expected, name2);
               }
               if (value === "" + expected) {
                 return expected;
@@ -9383,22 +9383,22 @@
               return value;
             }
           }
-          function setValueForProperty(node, name, value, isCustomComponentTag) {
-            var propertyInfo = getPropertyInfo(name);
-            if (shouldIgnoreAttribute(name, propertyInfo, isCustomComponentTag)) {
+          function setValueForProperty(node, name2, value, isCustomComponentTag) {
+            var propertyInfo = getPropertyInfo(name2);
+            if (shouldIgnoreAttribute(name2, propertyInfo, isCustomComponentTag)) {
               return;
             }
-            if (shouldRemoveAttribute(name, value, propertyInfo, isCustomComponentTag)) {
+            if (shouldRemoveAttribute(name2, value, propertyInfo, isCustomComponentTag)) {
               value = null;
             }
             if (isCustomComponentTag || propertyInfo === null) {
-              if (isAttributeNameSafe(name)) {
-                var _attributeName = name;
+              if (isAttributeNameSafe(name2)) {
+                var _attributeName = name2;
                 if (value === null) {
                   node.removeAttribute(_attributeName);
                 } else {
                   {
-                    checkAttributeStringCoercion(value, name);
+                    checkAttributeStringCoercion(value, name2);
                   }
                   node.setAttribute(_attributeName, "" + value);
                 }
@@ -9553,7 +9553,7 @@
           }
           var ReactCurrentDispatcher = ReactSharedInternals.ReactCurrentDispatcher;
           var prefix;
-          function describeBuiltInComponentFrame(name, source, ownerFn) {
+          function describeBuiltInComponentFrame(name2, source, ownerFn) {
             {
               if (prefix === void 0) {
                 try {
@@ -9563,7 +9563,7 @@
                   prefix = match && match[1] || "";
                 }
               }
-              return "\n" + prefix + name;
+              return "\n" + prefix + name2;
             }
           }
           var reentry = false;
@@ -9666,8 +9666,8 @@
               }
               Error.prepareStackTrace = previousPrepareStackTrace;
             }
-            var name = fn2 ? fn2.displayName || fn2.name : "";
-            var syntheticFrame = name ? describeBuiltInComponentFrame(name) : "";
+            var name2 = fn2 ? fn2.displayName || fn2.name : "";
+            var syntheticFrame = name2 ? describeBuiltInComponentFrame(name2) : "";
             {
               if (typeof fn2 === "function") {
                 componentFrameCache.set(fn2, syntheticFrame);
@@ -10192,16 +10192,16 @@
                 node.defaultValue = initialValue;
               }
             }
-            var name = node.name;
-            if (name !== "") {
+            var name2 = node.name;
+            if (name2 !== "") {
               node.name = "";
             }
             {
               node.defaultChecked = !node.defaultChecked;
               node.defaultChecked = !!node._wrapperState.initialChecked;
             }
-            if (name !== "") {
-              node.name = name;
+            if (name2 !== "") {
+              node.name = name2;
             }
           }
           function restoreControlledState(element2, props) {
@@ -10210,16 +10210,16 @@
             updateNamedCousins(node, props);
           }
           function updateNamedCousins(rootNode, props) {
-            var name = props.name;
-            if (props.type === "radio" && name != null) {
+            var name2 = props.name;
+            if (props.type === "radio" && name2 != null) {
               var queryRoot = rootNode;
               while (queryRoot.parentNode) {
                 queryRoot = queryRoot.parentNode;
               }
               {
-                checkAttributeStringCoercion(name, "name");
+                checkAttributeStringCoercion(name2, "name");
               }
-              var group = queryRoot.querySelectorAll("input[name=" + JSON.stringify("" + name) + '][type="radio"]');
+              var group = queryRoot.querySelectorAll("input[name=" + JSON.stringify("" + name2) + '][type="radio"]');
               for (var i10 = 0; i10 < group.length; i10++) {
                 var otherNode = group[i10];
                 if (otherNode === rootNode || otherNode.form !== rootNode.form) {
@@ -10651,23 +10651,23 @@
               isUnitlessNumber[prefixKey(prefix2, prop)] = isUnitlessNumber[prop];
             });
           });
-          function dangerousStyleValue(name, value, isCustomProperty) {
+          function dangerousStyleValue(name2, value, isCustomProperty) {
             var isEmpty = value == null || typeof value === "boolean" || value === "";
             if (isEmpty) {
               return "";
             }
-            if (!isCustomProperty && typeof value === "number" && value !== 0 && !(isUnitlessNumber.hasOwnProperty(name) && isUnitlessNumber[name])) {
+            if (!isCustomProperty && typeof value === "number" && value !== 0 && !(isUnitlessNumber.hasOwnProperty(name2) && isUnitlessNumber[name2])) {
               return value + "px";
             }
             {
-              checkCSSPropertyStringCoercion(value, name);
+              checkCSSPropertyStringCoercion(value, name2);
             }
             return ("" + value).trim();
           }
           var uppercasePattern = /([A-Z])/g;
           var msPattern = /^ms-/;
-          function hyphenateStyleName(name) {
-            return name.replace(uppercasePattern, "-$1").toLowerCase().replace(msPattern, "-ms-");
+          function hyphenateStyleName(name2) {
+            return name2.replace(uppercasePattern, "-$1").toLowerCase().replace(msPattern, "-ms-");
           }
           var warnValidStyle = function() {
           };
@@ -10685,54 +10685,54 @@
                 return character.toUpperCase();
               });
             };
-            var warnHyphenatedStyleName = function(name) {
-              if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
+            var warnHyphenatedStyleName = function(name2) {
+              if (warnedStyleNames.hasOwnProperty(name2) && warnedStyleNames[name2]) {
                 return;
               }
-              warnedStyleNames[name] = true;
-              error("Unsupported style property %s. Did you mean %s?", name, camelize(name.replace(msPattern$1, "ms-")));
+              warnedStyleNames[name2] = true;
+              error("Unsupported style property %s. Did you mean %s?", name2, camelize(name2.replace(msPattern$1, "ms-")));
             };
-            var warnBadVendoredStyleName = function(name) {
-              if (warnedStyleNames.hasOwnProperty(name) && warnedStyleNames[name]) {
+            var warnBadVendoredStyleName = function(name2) {
+              if (warnedStyleNames.hasOwnProperty(name2) && warnedStyleNames[name2]) {
                 return;
               }
-              warnedStyleNames[name] = true;
-              error("Unsupported vendor-prefixed style property %s. Did you mean %s?", name, name.charAt(0).toUpperCase() + name.slice(1));
+              warnedStyleNames[name2] = true;
+              error("Unsupported vendor-prefixed style property %s. Did you mean %s?", name2, name2.charAt(0).toUpperCase() + name2.slice(1));
             };
-            var warnStyleValueWithSemicolon = function(name, value) {
+            var warnStyleValueWithSemicolon = function(name2, value) {
               if (warnedStyleValues.hasOwnProperty(value) && warnedStyleValues[value]) {
                 return;
               }
               warnedStyleValues[value] = true;
-              error(`Style property values shouldn't contain a semicolon. Try "%s: %s" instead.`, name, value.replace(badStyleValueWithSemicolonPattern, ""));
+              error(`Style property values shouldn't contain a semicolon. Try "%s: %s" instead.`, name2, value.replace(badStyleValueWithSemicolonPattern, ""));
             };
-            var warnStyleValueIsNaN = function(name, value) {
+            var warnStyleValueIsNaN = function(name2, value) {
               if (warnedForNaNValue) {
                 return;
               }
               warnedForNaNValue = true;
-              error("`NaN` is an invalid value for the `%s` css style property.", name);
+              error("`NaN` is an invalid value for the `%s` css style property.", name2);
             };
-            var warnStyleValueIsInfinity = function(name, value) {
+            var warnStyleValueIsInfinity = function(name2, value) {
               if (warnedForInfinityValue) {
                 return;
               }
               warnedForInfinityValue = true;
-              error("`Infinity` is an invalid value for the `%s` css style property.", name);
+              error("`Infinity` is an invalid value for the `%s` css style property.", name2);
             };
-            warnValidStyle = function(name, value) {
-              if (name.indexOf("-") > -1) {
-                warnHyphenatedStyleName(name);
-              } else if (badVendoredStyleNamePattern.test(name)) {
-                warnBadVendoredStyleName(name);
+            warnValidStyle = function(name2, value) {
+              if (name2.indexOf("-") > -1) {
+                warnHyphenatedStyleName(name2);
+              } else if (badVendoredStyleNamePattern.test(name2)) {
+                warnBadVendoredStyleName(name2);
               } else if (badStyleValueWithSemicolonPattern.test(value)) {
-                warnStyleValueWithSemicolon(name, value);
+                warnStyleValueWithSemicolon(name2, value);
               }
               if (typeof value === "number") {
                 if (isNaN(value)) {
-                  warnStyleValueIsNaN(name, value);
+                  warnStyleValueIsNaN(name2, value);
                 } else if (!isFinite(value)) {
-                  warnStyleValueIsInfinity(name, value);
+                  warnStyleValueIsInfinity(name2, value);
                 }
               }
             };
@@ -11421,35 +11421,35 @@
           var warnedProperties = {};
           var rARIA = new RegExp("^(aria)-[" + ATTRIBUTE_NAME_CHAR + "]*$");
           var rARIACamel = new RegExp("^(aria)[A-Z][" + ATTRIBUTE_NAME_CHAR + "]*$");
-          function validateProperty(tagName, name) {
+          function validateProperty(tagName, name2) {
             {
-              if (hasOwnProperty.call(warnedProperties, name) && warnedProperties[name]) {
+              if (hasOwnProperty.call(warnedProperties, name2) && warnedProperties[name2]) {
                 return true;
               }
-              if (rARIACamel.test(name)) {
-                var ariaName = "aria-" + name.slice(4).toLowerCase();
+              if (rARIACamel.test(name2)) {
+                var ariaName = "aria-" + name2.slice(4).toLowerCase();
                 var correctName = ariaProperties.hasOwnProperty(ariaName) ? ariaName : null;
                 if (correctName == null) {
-                  error("Invalid ARIA attribute `%s`. ARIA attributes follow the pattern aria-* and must be lowercase.", name);
-                  warnedProperties[name] = true;
+                  error("Invalid ARIA attribute `%s`. ARIA attributes follow the pattern aria-* and must be lowercase.", name2);
+                  warnedProperties[name2] = true;
                   return true;
                 }
-                if (name !== correctName) {
-                  error("Invalid ARIA attribute `%s`. Did you mean `%s`?", name, correctName);
-                  warnedProperties[name] = true;
+                if (name2 !== correctName) {
+                  error("Invalid ARIA attribute `%s`. Did you mean `%s`?", name2, correctName);
+                  warnedProperties[name2] = true;
                   return true;
                 }
               }
-              if (rARIA.test(name)) {
-                var lowerCasedName = name.toLowerCase();
+              if (rARIA.test(name2)) {
+                var lowerCasedName = name2.toLowerCase();
                 var standardName = ariaProperties.hasOwnProperty(lowerCasedName) ? lowerCasedName : null;
                 if (standardName == null) {
-                  warnedProperties[name] = true;
+                  warnedProperties[name2] = true;
                   return false;
                 }
-                if (name !== standardName) {
-                  error("Unknown ARIA attribute `%s`. Did you mean `%s`?", name, standardName);
-                  warnedProperties[name] = true;
+                if (name2 !== standardName) {
+                  error("Unknown ARIA attribute `%s`. Did you mean `%s`?", name2, standardName);
+                  warnedProperties[name2] = true;
                   return true;
                 }
               }
@@ -11505,95 +11505,95 @@
             var INVALID_EVENT_NAME_REGEX = /^on[^A-Z]/;
             var rARIA$1 = new RegExp("^(aria)-[" + ATTRIBUTE_NAME_CHAR + "]*$");
             var rARIACamel$1 = new RegExp("^(aria)[A-Z][" + ATTRIBUTE_NAME_CHAR + "]*$");
-            validateProperty$1 = function(tagName, name, value, eventRegistry) {
-              if (hasOwnProperty.call(warnedProperties$1, name) && warnedProperties$1[name]) {
+            validateProperty$1 = function(tagName, name2, value, eventRegistry) {
+              if (hasOwnProperty.call(warnedProperties$1, name2) && warnedProperties$1[name2]) {
                 return true;
               }
-              var lowerCasedName = name.toLowerCase();
+              var lowerCasedName = name2.toLowerCase();
               if (lowerCasedName === "onfocusin" || lowerCasedName === "onfocusout") {
                 error("React uses onFocus and onBlur instead of onFocusIn and onFocusOut. All React events are normalized to bubble, so onFocusIn and onFocusOut are not needed/supported by React.");
-                warnedProperties$1[name] = true;
+                warnedProperties$1[name2] = true;
                 return true;
               }
               if (eventRegistry != null) {
                 var registrationNameDependencies2 = eventRegistry.registrationNameDependencies, possibleRegistrationNames2 = eventRegistry.possibleRegistrationNames;
-                if (registrationNameDependencies2.hasOwnProperty(name)) {
+                if (registrationNameDependencies2.hasOwnProperty(name2)) {
                   return true;
                 }
                 var registrationName = possibleRegistrationNames2.hasOwnProperty(lowerCasedName) ? possibleRegistrationNames2[lowerCasedName] : null;
                 if (registrationName != null) {
-                  error("Invalid event handler property `%s`. Did you mean `%s`?", name, registrationName);
-                  warnedProperties$1[name] = true;
+                  error("Invalid event handler property `%s`. Did you mean `%s`?", name2, registrationName);
+                  warnedProperties$1[name2] = true;
                   return true;
                 }
-                if (EVENT_NAME_REGEX.test(name)) {
-                  error("Unknown event handler property `%s`. It will be ignored.", name);
-                  warnedProperties$1[name] = true;
+                if (EVENT_NAME_REGEX.test(name2)) {
+                  error("Unknown event handler property `%s`. It will be ignored.", name2);
+                  warnedProperties$1[name2] = true;
                   return true;
                 }
-              } else if (EVENT_NAME_REGEX.test(name)) {
-                if (INVALID_EVENT_NAME_REGEX.test(name)) {
-                  error("Invalid event handler property `%s`. React events use the camelCase naming convention, for example `onClick`.", name);
+              } else if (EVENT_NAME_REGEX.test(name2)) {
+                if (INVALID_EVENT_NAME_REGEX.test(name2)) {
+                  error("Invalid event handler property `%s`. React events use the camelCase naming convention, for example `onClick`.", name2);
                 }
-                warnedProperties$1[name] = true;
+                warnedProperties$1[name2] = true;
                 return true;
               }
-              if (rARIA$1.test(name) || rARIACamel$1.test(name)) {
+              if (rARIA$1.test(name2) || rARIACamel$1.test(name2)) {
                 return true;
               }
               if (lowerCasedName === "innerhtml") {
                 error("Directly setting property `innerHTML` is not permitted. For more information, lookup documentation on `dangerouslySetInnerHTML`.");
-                warnedProperties$1[name] = true;
+                warnedProperties$1[name2] = true;
                 return true;
               }
               if (lowerCasedName === "aria") {
                 error("The `aria` attribute is reserved for future use in React. Pass individual `aria-` attributes instead.");
-                warnedProperties$1[name] = true;
+                warnedProperties$1[name2] = true;
                 return true;
               }
               if (lowerCasedName === "is" && value !== null && value !== void 0 && typeof value !== "string") {
                 error("Received a `%s` for a string attribute `is`. If this is expected, cast the value to a string.", typeof value);
-                warnedProperties$1[name] = true;
+                warnedProperties$1[name2] = true;
                 return true;
               }
               if (typeof value === "number" && isNaN(value)) {
-                error("Received NaN for the `%s` attribute. If this is expected, cast the value to a string.", name);
-                warnedProperties$1[name] = true;
+                error("Received NaN for the `%s` attribute. If this is expected, cast the value to a string.", name2);
+                warnedProperties$1[name2] = true;
                 return true;
               }
-              var propertyInfo = getPropertyInfo(name);
+              var propertyInfo = getPropertyInfo(name2);
               var isReserved = propertyInfo !== null && propertyInfo.type === RESERVED;
               if (possibleStandardNames.hasOwnProperty(lowerCasedName)) {
                 var standardName = possibleStandardNames[lowerCasedName];
-                if (standardName !== name) {
-                  error("Invalid DOM property `%s`. Did you mean `%s`?", name, standardName);
-                  warnedProperties$1[name] = true;
+                if (standardName !== name2) {
+                  error("Invalid DOM property `%s`. Did you mean `%s`?", name2, standardName);
+                  warnedProperties$1[name2] = true;
                   return true;
                 }
-              } else if (!isReserved && name !== lowerCasedName) {
-                error("React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.", name, lowerCasedName);
-                warnedProperties$1[name] = true;
+              } else if (!isReserved && name2 !== lowerCasedName) {
+                error("React does not recognize the `%s` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `%s` instead. If you accidentally passed it from a parent component, remove it from the DOM element.", name2, lowerCasedName);
+                warnedProperties$1[name2] = true;
                 return true;
               }
-              if (typeof value === "boolean" && shouldRemoveAttributeWithWarning(name, value, propertyInfo, false)) {
+              if (typeof value === "boolean" && shouldRemoveAttributeWithWarning(name2, value, propertyInfo, false)) {
                 if (value) {
-                  error('Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.', value, name, name, value, name);
+                  error('Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.', value, name2, name2, value, name2);
                 } else {
-                  error('Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.\n\nIf you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead.', value, name, name, value, name, name, name);
+                  error('Received `%s` for a non-boolean attribute `%s`.\n\nIf you want to write it to the DOM, pass a string instead: %s="%s" or %s={value.toString()}.\n\nIf you used to conditionally omit it with %s={condition && value}, pass %s={condition ? value : undefined} instead.', value, name2, name2, value, name2, name2, name2);
                 }
-                warnedProperties$1[name] = true;
+                warnedProperties$1[name2] = true;
                 return true;
               }
               if (isReserved) {
                 return true;
               }
-              if (shouldRemoveAttributeWithWarning(name, value, propertyInfo, false)) {
-                warnedProperties$1[name] = true;
+              if (shouldRemoveAttributeWithWarning(name2, value, propertyInfo, false)) {
+                warnedProperties$1[name2] = true;
                 return false;
               }
               if ((value === "false" || value === "true") && propertyInfo !== null && propertyInfo.type === BOOLEAN) {
-                error("Received the string `%s` for the boolean attribute `%s`. %s Did you mean %s={%s}?", value, name, value === "false" ? "The browser will interpret it as a truthy value." : 'Although this works, it will not work as expected if you pass the string "false".', name, value);
-                warnedProperties$1[name] = true;
+                error("Received the string `%s` for the boolean attribute `%s`. %s Did you mean %s={%s}?", value, name2, value === "false" ? "The browser will interpret it as a truthy value." : 'Although this works, it will not work as expected if you pass the string "false".', name2, value);
+                warnedProperties$1[name2] = true;
                 return true;
               }
               return true;
@@ -11736,8 +11736,8 @@
           function isInteractive(tag) {
             return tag === "button" || tag === "input" || tag === "select" || tag === "textarea";
           }
-          function shouldPreventMouseEvent(name, type, props) {
-            switch (name) {
+          function shouldPreventMouseEvent(name2, type, props) {
+            switch (name2) {
               case "onClick":
               case "onClickCapture":
               case "onDoubleClick":
@@ -11787,7 +11787,7 @@
               passiveBrowserEventsSupported = false;
             }
           }
-          function invokeGuardedCallbackProd(name, func, context, a, b10, c10, d10, e6, f) {
+          function invokeGuardedCallbackProd(name2, func, context, a, b10, c10, d10, e6, f) {
             var funcArgs = Array.prototype.slice.call(arguments, 3);
             try {
               func.apply(context, funcArgs);
@@ -11799,7 +11799,7 @@
           {
             if (typeof window !== "undefined" && typeof window.dispatchEvent === "function" && typeof document !== "undefined" && typeof document.createEvent === "function") {
               var fakeNode = document.createElement("react");
-              invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name, func, context, a, b10, c10, d10, e6, f) {
+              invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name2, func, context, a, b10, c10, d10, e6, f) {
                 if (typeof document === "undefined" || document === null) {
                   throw new Error("The `document` global was defined when React was initialized, but is not defined anymore. This can happen in a test environment if a component schedules an update from an asynchronous callback, but the test has already finished running. To solve this, you can either unmount the component at the end of your test (and ensure that any asynchronous operations get canceled in `componentWillUnmount`), or you can change the test itself to be asynchronous.");
                 }
@@ -11839,7 +11839,7 @@
                     }
                   }
                 }
-                var evtType = "react-" + (name ? name : "invokeguardedcallback");
+                var evtType = "react-" + (name2 ? name2 : "invokeguardedcallback");
                 window.addEventListener("error", handleWindowError);
                 fakeNode.addEventListener(evtType, callCallback2, false);
                 evt2.initEvent(evtType, false, false);
@@ -11874,12 +11874,12 @@
               caughtError = error2;
             }
           };
-          function invokeGuardedCallback(name, func, context, a, b10, c10, d10, e6, f) {
+          function invokeGuardedCallback(name2, func, context, a, b10, c10, d10, e6, f) {
             hasError = false;
             caughtError = null;
             invokeGuardedCallbackImpl$1.apply(reporter, arguments);
           }
-          function invokeGuardedCallbackAndCatchFirstError(name, func, context, a, b10, c10, d10, e6, f) {
+          function invokeGuardedCallbackAndCatchFirstError(name2, func, context, a, b10, c10, d10, e6, f) {
             invokeGuardedCallback.apply(this, arguments);
             if (hasError) {
               var error2 = clearCaughtError();
@@ -15266,8 +15266,8 @@
               }
               didWarnInvalidHydration = true;
               var names = [];
-              attributeNames.forEach(function(name) {
-                names.push(name);
+              attributeNames.forEach(function(name2) {
+                names.push(name2);
               });
               error("Extra attributes from the server: %s", names);
             };
@@ -15739,8 +15739,8 @@
               extraAttributeNames = new Set();
               var attributes = domElement.attributes;
               for (var _i2 = 0; _i2 < attributes.length; _i2++) {
-                var name = attributes[_i2].name.toLowerCase();
-                switch (name) {
+                var name2 = attributes[_i2].name.toLowerCase();
+                switch (name2) {
                   case "value":
                     break;
                   case "checked":
@@ -16866,8 +16866,8 @@
                 context[key] = unmaskedContext[key];
               }
               {
-                var name = getComponentNameFromFiber(workInProgress2) || "Unknown";
-                checkPropTypes(contextTypes, context, "context", name);
+                var name2 = getComponentNameFromFiber(workInProgress2) || "Unknown";
+                checkPropTypes(contextTypes, context, "context", name2);
               }
               if (instance) {
                 cacheContext(workInProgress2, unmaskedContext, context);
@@ -16928,8 +16928,8 @@
                 }
               }
               {
-                var name = getComponentNameFromFiber(fiber) || "Unknown";
-                checkPropTypes(childContextTypes, childContext, "child context", name);
+                var name2 = getComponentNameFromFiber(fiber) || "Unknown";
+                checkPropTypes(childContextTypes, childContext, "child context", name2);
               }
               return assign({}, parentContext, childContext);
             }
@@ -18539,80 +18539,80 @@
           function checkClassInstance(workInProgress2, ctor, newProps) {
             var instance = workInProgress2.stateNode;
             {
-              var name = getComponentNameFromType(ctor) || "Component";
+              var name2 = getComponentNameFromType(ctor) || "Component";
               var renderPresent = instance.render;
               if (!renderPresent) {
                 if (ctor.prototype && typeof ctor.prototype.render === "function") {
-                  error("%s(...): No `render` method found on the returned component instance: did you accidentally return an object from the constructor?", name);
+                  error("%s(...): No `render` method found on the returned component instance: did you accidentally return an object from the constructor?", name2);
                 } else {
-                  error("%s(...): No `render` method found on the returned component instance: you may have forgotten to define `render`.", name);
+                  error("%s(...): No `render` method found on the returned component instance: you may have forgotten to define `render`.", name2);
                 }
               }
               if (instance.getInitialState && !instance.getInitialState.isReactClassApproved && !instance.state) {
-                error("getInitialState was defined on %s, a plain JavaScript class. This is only supported for classes created using React.createClass. Did you mean to define a state property instead?", name);
+                error("getInitialState was defined on %s, a plain JavaScript class. This is only supported for classes created using React.createClass. Did you mean to define a state property instead?", name2);
               }
               if (instance.getDefaultProps && !instance.getDefaultProps.isReactClassApproved) {
-                error("getDefaultProps was defined on %s, a plain JavaScript class. This is only supported for classes created using React.createClass. Use a static property to define defaultProps instead.", name);
+                error("getDefaultProps was defined on %s, a plain JavaScript class. This is only supported for classes created using React.createClass. Use a static property to define defaultProps instead.", name2);
               }
               if (instance.propTypes) {
-                error("propTypes was defined as an instance property on %s. Use a static property to define propTypes instead.", name);
+                error("propTypes was defined as an instance property on %s. Use a static property to define propTypes instead.", name2);
               }
               if (instance.contextType) {
-                error("contextType was defined as an instance property on %s. Use a static property to define contextType instead.", name);
+                error("contextType was defined as an instance property on %s. Use a static property to define contextType instead.", name2);
               }
               {
                 if (instance.contextTypes) {
-                  error("contextTypes was defined as an instance property on %s. Use a static property to define contextTypes instead.", name);
+                  error("contextTypes was defined as an instance property on %s. Use a static property to define contextTypes instead.", name2);
                 }
                 if (ctor.contextType && ctor.contextTypes && !didWarnAboutContextTypeAndContextTypes.has(ctor)) {
                   didWarnAboutContextTypeAndContextTypes.add(ctor);
-                  error("%s declares both contextTypes and contextType static properties. The legacy contextTypes property will be ignored.", name);
+                  error("%s declares both contextTypes and contextType static properties. The legacy contextTypes property will be ignored.", name2);
                 }
               }
               if (typeof instance.componentShouldUpdate === "function") {
-                error("%s has a method called componentShouldUpdate(). Did you mean shouldComponentUpdate()? The name is phrased as a question because the function is expected to return a value.", name);
+                error("%s has a method called componentShouldUpdate(). Did you mean shouldComponentUpdate()? The name is phrased as a question because the function is expected to return a value.", name2);
               }
               if (ctor.prototype && ctor.prototype.isPureReactComponent && typeof instance.shouldComponentUpdate !== "undefined") {
                 error("%s has a method called shouldComponentUpdate(). shouldComponentUpdate should not be used when extending React.PureComponent. Please extend React.Component if shouldComponentUpdate is used.", getComponentNameFromType(ctor) || "A pure component");
               }
               if (typeof instance.componentDidUnmount === "function") {
-                error("%s has a method called componentDidUnmount(). But there is no such lifecycle method. Did you mean componentWillUnmount()?", name);
+                error("%s has a method called componentDidUnmount(). But there is no such lifecycle method. Did you mean componentWillUnmount()?", name2);
               }
               if (typeof instance.componentDidReceiveProps === "function") {
-                error("%s has a method called componentDidReceiveProps(). But there is no such lifecycle method. If you meant to update the state in response to changing props, use componentWillReceiveProps(). If you meant to fetch data or run side-effects or mutations after React has updated the UI, use componentDidUpdate().", name);
+                error("%s has a method called componentDidReceiveProps(). But there is no such lifecycle method. If you meant to update the state in response to changing props, use componentWillReceiveProps(). If you meant to fetch data or run side-effects or mutations after React has updated the UI, use componentDidUpdate().", name2);
               }
               if (typeof instance.componentWillRecieveProps === "function") {
-                error("%s has a method called componentWillRecieveProps(). Did you mean componentWillReceiveProps()?", name);
+                error("%s has a method called componentWillRecieveProps(). Did you mean componentWillReceiveProps()?", name2);
               }
               if (typeof instance.UNSAFE_componentWillRecieveProps === "function") {
-                error("%s has a method called UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?", name);
+                error("%s has a method called UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?", name2);
               }
               var hasMutatedProps = instance.props !== newProps;
               if (instance.props !== void 0 && hasMutatedProps) {
-                error("%s(...): When calling super() in `%s`, make sure to pass up the same props that your component's constructor was passed.", name, name);
+                error("%s(...): When calling super() in `%s`, make sure to pass up the same props that your component's constructor was passed.", name2, name2);
               }
               if (instance.defaultProps) {
-                error("Setting defaultProps as an instance property on %s is not supported and will be ignored. Instead, define defaultProps as a static property on %s.", name, name);
+                error("Setting defaultProps as an instance property on %s is not supported and will be ignored. Instead, define defaultProps as a static property on %s.", name2, name2);
               }
               if (typeof instance.getSnapshotBeforeUpdate === "function" && typeof instance.componentDidUpdate !== "function" && !didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.has(ctor)) {
                 didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate.add(ctor);
                 error("%s: getSnapshotBeforeUpdate() should be used with componentDidUpdate(). This component defines getSnapshotBeforeUpdate() only.", getComponentNameFromType(ctor));
               }
               if (typeof instance.getDerivedStateFromProps === "function") {
-                error("%s: getDerivedStateFromProps() is defined as an instance method and will be ignored. Instead, declare it as a static method.", name);
+                error("%s: getDerivedStateFromProps() is defined as an instance method and will be ignored. Instead, declare it as a static method.", name2);
               }
               if (typeof instance.getDerivedStateFromError === "function") {
-                error("%s: getDerivedStateFromError() is defined as an instance method and will be ignored. Instead, declare it as a static method.", name);
+                error("%s: getDerivedStateFromError() is defined as an instance method and will be ignored. Instead, declare it as a static method.", name2);
               }
               if (typeof ctor.getSnapshotBeforeUpdate === "function") {
-                error("%s: getSnapshotBeforeUpdate() is defined as a static method and will be ignored. Instead, declare it as an instance method.", name);
+                error("%s: getSnapshotBeforeUpdate() is defined as a static method and will be ignored. Instead, declare it as an instance method.", name2);
               }
               var _state = instance.state;
               if (_state && (typeof _state !== "object" || isArray(_state))) {
-                error("%s.state: must be set to an object or null", name);
+                error("%s.state: must be set to an object or null", name2);
               }
               if (typeof instance.getChildContext === "function" && typeof ctor.childContextTypes !== "object") {
-                error("%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().", name);
+                error("%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().", name2);
               }
             }
           }
@@ -243801,7 +243801,7 @@ Check the top-level render call using <` + it + ">.");
     };
   }
 
-  // ../node_modules/monaco-editor-workers/dist/index.js
+  // node_modules/monaco-editor-workers/dist/index.js
   function buildWorkerDefinition(workerPath, basePath, useModuleWorker) {
     const monWin = self;
     const workerOverrideGlobals = {
@@ -243857,137 +243857,6 @@ Check the top-level render call using <` + it + ">.");
   var import_client = __toModule(require_client());
 
   // ns-hugo:/home/runner/work/langium-website/langium-website/hugo/assets/scripts/sql/constants.ts
-  var syntaxHighlighting = {
-    tokenizer: {
-      initial: [
-        { regex: /x\'[A-Fa-f0-9]+\'/, action: { token: "string" } },
-        { regex: /"(\\.|[^"\\])*"|'(\\.|[^'\\])*'/, action: { token: "string" } },
-        { regex: /\`(\\.|\\\\|[^`\\])*\`/, action: { token: "string" } },
-        {
-          regex: /[_a-zA-Z][\w_]*/,
-          action: {
-            cases: {
-              "@keywords": { token: "keyword" },
-              "@default": { token: "ID" }
-            }
-          }
-        },
-        { regex: /\d+((\.\d+)?([eE][\-+]?\d+)?)?/, action: { token: "number" } },
-        { include: "@whitespace" },
-        {
-          regex: /@symbols/,
-          action: {
-            cases: {
-              "@operators": { token: "operator" },
-              "@default": { token: "" }
-            }
-          }
-        }
-      ],
-      whitespace: [
-        { regex: /\s+/, action: { token: "white" } },
-        { regex: /\/\*/, action: { token: "comment", next: "@comment" } },
-        { regex: /\-\-[^\n\r]*/, action: { token: "comment" } },
-        { regex: /\/\/[^\n\r]*/, action: { token: "comment" } }
-      ],
-      comment: [
-        { regex: /[^\/\*]+/, action: { token: "comment" } },
-        { regex: /\*\//, action: { token: "comment", next: "@pop" } },
-        { regex: /[\/\*]/, action: { token: "comment" } }
-      ]
-    },
-    keywords: [
-      "ALL",
-      "AND",
-      "AS",
-      "ASC",
-      "BETWEEN",
-      "BY",
-      "CASCADE",
-      "CAST",
-      "CATALOG",
-      "CONSTRAINT",
-      "CREATE",
-      "CURRENT",
-      "DATABASE",
-      "DELETE",
-      "DESC",
-      "DISTINCT",
-      "EXCEPT",
-      "FALSE",
-      "FETCH",
-      "FIRST",
-      "FOLLOWING",
-      "FOREIGN",
-      "FROM",
-      "FUNCTION",
-      "GROUP",
-      "HAVING",
-      "IN",
-      "INDEX",
-      "INTERSECT",
-      "IS",
-      "JOIN",
-      "KEY",
-      "LEFT",
-      "LIKE",
-      "LIMIT",
-      "MINUS",
-      "NEXT",
-      "NOT",
-      "NULL",
-      "OFFSET",
-      "ON",
-      "ONLY",
-      "OR",
-      "ORDER",
-      "OVER",
-      "PARTITION",
-      "PERCENT",
-      "PRECEDING",
-      "PRIMARY",
-      "RANGE",
-      "RECURSIVE",
-      "REFERENCES",
-      "REPLACE",
-      "RIGHT",
-      "ROW",
-      "ROWS",
-      "SCHEMA",
-      "SELECT",
-      "TABLE",
-      "TIES",
-      "TOP",
-      "TRUE",
-      "UNBOUNDED",
-      "UNION",
-      "UNIQUE",
-      "USING",
-      "WHERE",
-      "WITH"
-    ],
-    symbols: /%|\(|\)|\*|\+|,|\-|\.|\/|::|::\$|::%|;|<|<=|<>|=|>|>=|\|\|/,
-    operators: [
-      "%",
-      "*",
-      "+",
-      ",",
-      "-",
-      ".",
-      "/",
-      "::",
-      "::$",
-      "::%",
-      ";",
-      "<",
-      "<=",
-      "<>",
-      "=",
-      ">",
-      ">=",
-      "||"
-    ]
-  };
   var defaultText = `SELECT p.firstname, p.lastname
 FROM
   passenger p
@@ -244205,6 +244074,84 @@ CREATE TABLE weatherdata (
 CREATE FUNCTION SUM(column REAL) AS REAL;
 `;
 
+  // ns-hugo:/home/runner/work/langium-website/langium-website/hugo/assets/scripts/sql/sql.tmLanguage.json
+  var name = "sql";
+  var scopeName = "source.sql";
+  var fileTypes = [
+    ".sql"
+  ];
+  var patterns = [
+    {
+      include: "#comments"
+    },
+    {
+      name: "keyword.control.sql",
+      match: "\\b([aA][lL][lL]|[aA][nN][dD]|[aA][sS]|[aA][sS][cC]|[bB][eE][tT][wW][eE][eE][nN]|[bB][yY]|[cC][aA][sS][cC][aA][dD][eE]|[cC][aA][sS][tT]|[cC][aA][tT][aA][lL][oO][gG]|[cC][oO][nN][sS][tT][rR][aA][iI][nN][tT]|[cC][rR][eE][aA][tT][eE]|[cC][uU][rR][rR][eE][nN][tT]|[dD][aA][tT][aA][bB][aA][sS][eE]|[dD][eE][lL][eE][tT][eE]|[dD][eE][sS][cC]|[dD][iI][sS][tT][iI][nN][cC][tT]|[eE][xX][cC][eE][pP][tT]|[fF][aA][lL][sS][eE]|[fF][eE][tT][cC][hH]|[fF][iI][rR][sS][tT]|[fF][oO][lL][lL][oO][wW][iI][nN][gG]|[fF][oO][rR][eE][iI][gG][nN]|[fF][rR][oO][mM]|[fF][uU][nN][cC][tT][iI][oO][nN]|[gG][rR][oO][uU][pP]|[hH][aA][vV][iI][nN][gG]|[iI][nN]|[iI][nN][dD][eE][xX]|[iI][nN][tT][eE][rR][sS][eE][cC][tT]|[iI][sS]|[jJ][oO][iI][nN]|[kK][eE][yY]|[lL][eE][fF][tT]|[lL][iI][kK][eE]|[lL][iI][mM][iI][tT]|[mM][iI][nN][uU][sS]|[nN][eE][xX][tT]|[nN][oO][tT]|[nN][uU][lL][lL]|[oO][fF][fF][sS][eE][tT]|[oO][nN]|[oO][nN][lL][yY]|[oO][rR]|[oO][rR][dD][eE][rR]|[oO][vV][eE][rR]|[pP][aA][rR][tT][iI][tT][iI][oO][nN]|[pP][eE][rR][cC][eE][nN][tT]|[pP][rR][eE][cC][eE][dD][iI][nN][gG]|[pP][rR][iI][mM][aA][rR][yY]|[rR][aA][nN][gG][eE]|[rR][eE][cC][uU][rR][sS][iI][vV][eE]|[rR][eE][fF][eE][rR][eE][nN][cC][eE][sS]|[rR][eE][pP][lL][aA][cC][eE]|[rR][iI][gG][hH][tT]|[rR][oO][wW]|[rR][oO][wW][sS]|[sS][cC][hH][eE][mM][aA]|[sS][eE][lL][eE][cC][tT]|[tT][aA][bB][lL][eE]|[tT][iI][eE][sS]|[tT][oO][pP]|[tT][rR][uU][eE]|[uU][nN][bB][oO][uU][nN][dD][eE][dD]|[uU][nN][iI][oO][nN]|[uU][nN][iI][qQ][uU][eE]|[uU][sS][iI][nN][gG]|[wW][hH][eE][rR][eE]|[wW][iI][tT][hH])\\b"
+    },
+    {
+      name: "string.quoted.single.sql",
+      begin: "'",
+      end: "'",
+      patterns: [
+        {
+          include: "#string-character-escape"
+        }
+      ]
+    }
+  ];
+  var repository = {
+    comments: {
+      patterns: [
+        {
+          name: "comment.block.sql",
+          begin: "/\\*",
+          beginCaptures: {
+            "0": {
+              name: "punctuation.definition.comment.sql"
+            }
+          },
+          end: "\\*/",
+          endCaptures: {
+            "0": {
+              name: "punctuation.definition.comment.sql"
+            }
+          }
+        },
+        {
+          begin: "--",
+          beginCaptures: {
+            "1": {
+              name: "punctuation.whitespace.comment.leading.sql"
+            }
+          },
+          end: "(?=$)",
+          name: "comment.line.sql"
+        },
+        {
+          begin: "//",
+          beginCaptures: {
+            "1": {
+              name: "punctuation.whitespace.comment.leading.sql"
+            }
+          },
+          end: "(?=$)",
+          name: "comment.line.sql"
+        }
+      ]
+    },
+    "string-character-escape": {
+      name: "constant.character.escape.sql",
+      match: "\\\\(x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|u\\{[0-9A-Fa-f]+\\}|[0-2][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.|$)"
+    }
+  };
+  var sql_tmLanguage_default = {
+    name,
+    scopeName,
+    fileTypes,
+    patterns,
+    repository
+  };
+
   // <stdin>
   V7t("monaco-styles-helper");
   buildWorkerDefinition("../../libs/monaco-editor-workers/workers", new URL("", window.location.href).href, false);
@@ -244256,11 +244203,9 @@ CREATE FUNCTION SUM(column REAL) AS REAL;
         target: "_blank"
       }, "MySQL"), "."), /* @__PURE__ */ import_react.default.createElement("h2", {
         className: "text-xl pt-4 underline"
-      }, "Features"), /* @__PURE__ */ import_react.default.createElement("p", {
-        className: "pt-2"
-      }, /* @__PURE__ */ import_react.default.createElement("ul", {
-        className: "list-disc list-inside"
-      }, /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Schema-driven"), ": Add a set of table definitions to spread out the world for your SELECT queries. The table definitions can be located in a different file of the same workspace. You can keep definitions and queries separated."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Code completion"), ": Press Ctrl + Space keys to trigger the completion directly. You will get suggestions for the current context."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Syntax highlighting"), ": to distinguish what are keywords, identifiers, numeric literals and for a better perception of the SQL syntax."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Symbol search"), ": Use Cmd or Ctrl + mouse click on a column name to find the definition of it or explore the places where a column is used."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Fast feedback"), " about contextual correctness: Whether referenced columns exist or types on certain operators are matching."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Super-set approach"), ": Any piece of any dialect that is missing can be added to the main grammar and be protected from other dialects using validations."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Highly customizable"), ": Any behavior or aspect that is missing for your specific use case can be easily overwritten."))), /* @__PURE__ */ import_react.default.createElement("h2", {
+      }, "Features"), /* @__PURE__ */ import_react.default.createElement("ul", {
+        className: "pt-2 list-disc list-inside"
+      }, /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Schema-driven"), ": Add a set of table definitions to spread out the world for your SELECT queries. The table definitions can be located in a different file of the same workspace. You can keep definitions and queries separated."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Code completion"), ": Press Ctrl + Space keys to trigger the completion directly. You will get suggestions for the current context."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Syntax highlighting"), ": to distinguish what are keywords, identifiers, numeric literals and for a better perception of the SQL syntax."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Symbol search"), ": Use Cmd or Ctrl + mouse click on a column name to find the definition of it or explore the places where a column is used."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Fast feedback"), " about contextual correctness: Whether referenced columns exist or types on certain operators are matching."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Super-set approach"), ": Any piece of any dialect that is missing can be added to the main grammar and be protected from other dialects using validations."), /* @__PURE__ */ import_react.default.createElement("li", null, /* @__PURE__ */ import_react.default.createElement("strong", null, "Highly customizable"), ": Any behavior or aspect that is missing for your specific use case can be easily overwritten.")), /* @__PURE__ */ import_react.default.createElement("h2", {
         className: "text-xl pt-4 underline"
       }, "About the given SQL document"), /* @__PURE__ */ import_react.default.createElement("p", {
         className: "pt-2"
@@ -244277,9 +244222,8 @@ CREATE FUNCTION SUM(column REAL) AS REAL;
   userConfig = K7t({
     languageId: "sql",
     code: defaultText,
-    htmlElement: document.getElementById("root"),
     worker: "../../showcase/libs/worker/sqlServerWorker.js",
-    monarchGrammar: syntaxHighlighting
+    textmateGrammar: sql_tmLanguage_default
   });
   var element = document.getElementById("root");
   element.className = "w-full";

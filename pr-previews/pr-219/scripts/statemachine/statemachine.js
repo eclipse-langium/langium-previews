@@ -243801,7 +243801,7 @@ Check the top-level render call using <` + it + ">.");
     };
   }
 
-  // ../node_modules/monaco-editor-workers/dist/index.js
+  // node_modules/monaco-editor-workers/dist/index.js
   function buildWorkerDefinition(workerPath, basePath, useModuleWorker) {
     const monWin = self;
     const workerOverrideGlobals = {
@@ -244222,7 +244222,6 @@ end`;
   var langiumGlobalConfig = K7t({
     languageId: "statemachine",
     code: defaultText,
-    htmlElement: document.getElementById("root"),
     textmateGrammar: statemachine_tmLanguage_default,
     worker: "../../showcase/libs/worker/statemachineServerWorker.js"
   });

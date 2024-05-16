@@ -243801,7 +243801,7 @@ Check the top-level render call using <` + it + ">.");
     };
   }
 
-  // ../node_modules/monaco-editor-workers/dist/index.js
+  // node_modules/monaco-editor-workers/dist/index.js
   function buildWorkerDefinition(workerPath, basePath, useModuleWorker) {
     const monWin = self;
     const workerOverrideGlobals = {
@@ -247549,7 +247549,6 @@ entity Comment extends HasAuthor {
   userConfig = K7t({
     languageId: "domainmodel",
     code: example,
-    htmlElement: document.getElementById("root"),
     worker: "../../showcase/libs/worker/domainmodelServerWorker.js",
     monarchGrammar: syntaxHighlighting
   });
