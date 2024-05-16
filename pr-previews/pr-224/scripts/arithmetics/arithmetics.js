@@ -243801,7 +243801,7 @@ Check the top-level render call using <` + it + ">.");
     };
   }
 
-  // ../node_modules/monaco-editor-workers/dist/index.js
+  // node_modules/monaco-editor-workers/dist/index.js
   function buildWorkerDefinition(workerPath, basePath, useModuleWorker) {
     const monWin = self;
     const workerOverrideGlobals = {
@@ -244077,7 +244077,6 @@ calcGrossListPrice(netPrice, vat);`
   userConfig = K7t({
     languageId: "arithmetics",
     code: examples[0],
-    htmlElement: document.getElementById("root"),
     worker: "../../showcase/libs/worker/arithmeticsServerWorker.js",
     monarchGrammar: syntaxHighlighting
   });
