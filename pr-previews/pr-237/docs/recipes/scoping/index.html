@@ -131,10 +131,10 @@ Learn Langium
 </label>
 <ul class=gdoc-nav__list>
 <li>
-<input type=checkbox id=navtree-542b94fd class=gdoc-nav__toggle>
-<label for=navtree-542b94fd class="flex justify-between">
+<input type=checkbox id=navtree-20f548e6 class=gdoc-nav__toggle>
+<label for=navtree-20f548e6 class="flex justify-between">
 <span class=flex>
-<a href=../../../docs/learn/worflow/ class=gdoc-nav__entry>
+<a href=../../../docs/learn/workflow/ class=gdoc-nav__entry>
 Langium's workflow
 </a>
 </span><svg class="icon gdoc_keyborad_arrow_left"><use xlink:href="#gdoc_keyborad_arrow_left"/></svg><svg class="icon gdoc_keyborad_arrow_down"><use xlink:href="#gdoc_keyborad_arrow_down"/></svg>
@@ -463,14 +463,14 @@ y = 3; // Cannot link, `y` isn't in any of the available scopes
 <p>This kind of behavior is called lexical scoping. Although this default scoping implementation is suitable for prototyping &ndash; and for some simple languages once finished &ndash; this behavior can be easily modified to fit the needs of your language&rsquo;s domain.</p>
 <p>In general, the way we resolve references is split into three phases of the document lifecycle:</p>
 <ul>
-<li><a class=gdoc-markdown__link href=../../../docs/document-lifecycle#symbol-indexing>Symbol indexing</a> is responsible for making objects globally available for referencing.</li>
-<li><a class=gdoc-markdown__link href=../../../docs/document-lifecycle#computing-scopes>Scope computation</a> determines which elements are reachable from a given position in your document.</li>
-<li>Finally, the <a class=gdoc-markdown__link href=../../../docs/document-lifecycle#linking>linking phase</a> eagerly links each reference within a document to its target using your language&rsquo;s scoping rules.</li>
+<li><a class=gdoc-markdown__link href=../../../docs/reference/document-lifecycle#symbol-indexing>Symbol indexing</a> is responsible for making objects globally available for referencing.</li>
+<li><a class=gdoc-markdown__link href=../../../docs/reference/document-lifecycle#computing-scopes>Scope computation</a> determines which elements are reachable from a given position in your document.</li>
+<li>Finally, the <a class=gdoc-markdown__link href=../../../docs/reference/document-lifecycle#linking>linking phase</a> eagerly links each reference within a document to its target using your language&rsquo;s scoping rules.</li>
 </ul>
 <p>In this guide, we&rsquo;ll look at different scoping kinds and styles and see how we can achieve them using Langium:</p>
 <ol>
-<li><a class=gdoc-markdown__link href=./qualified-name>Qualified Name Scoping</a></li>
-<li><a class=gdoc-markdown__link href=./class-member>Class Member Scoping</a></li>
+<li><a class=gdoc-markdown__link href=../../../docs/recipes/scoping/qualified-name>Qualified Name Scoping</a></li>
+<li><a class=gdoc-markdown__link href=../../../docs/recipes/scoping/class-member>Class Member Scoping</a></li>
 </ol>
 <p>Note that these are just example implementations for commonly used scoping methods.
 The scoping API of Langium is designed to be flexible and extensible for any kind of use case.</p>
