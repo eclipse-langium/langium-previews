@@ -27,7 +27,6 @@ let x = 42; x = 3; // References the `x` defined in the previous line if (condit
 <link rel=stylesheet href=../../../print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=../../../custom.css as=style>
 <link rel=stylesheet href=../../../custom.css media=all>
-<base href=../../../>
 <link rel=stylesheet href=../../../prism/prism.css>
 <script src=../../../prism/prism.js></script>
 <script src=../../../prism/langium-prism.js></script>
@@ -100,7 +99,7 @@ What is Langium?
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=../../../docs/features/ class=gdoc-nav__entry>
+<a href=../../../docs/introduction/features/ class=gdoc-nav__entry>
 Features
 </a>
 </span>
@@ -351,6 +350,13 @@ Class Member Scoping
 </a>
 </span>
 </li>
+<li>
+<span class=flex>
+<a href=../../../docs/recipes/scoping/file-based/ class=gdoc-nav__entry>
+File-based scoping
+</a>
+</span>
+</li>
 </ul>
 </li>
 <li>
@@ -464,14 +470,15 @@ y = 3; // Cannot link, `y` isn't in any of the available scopes
 <p>This kind of behavior is called lexical scoping. Although this default scoping implementation is suitable for prototyping &ndash; and for some simple languages once finished &ndash; this behavior can be easily modified to fit the needs of your language&rsquo;s domain.</p>
 <p>In general, the way we resolve references is split into three phases of the document lifecycle:</p>
 <ul>
-<li><a class=gdoc-markdown__link href=../../../docs/reference/document-lifecycle#symbol-indexing>Symbol indexing</a> is responsible for making objects globally available for referencing.</li>
-<li><a class=gdoc-markdown__link href=../../../docs/reference/document-lifecycle#computing-scopes>Scope computation</a> determines which elements are reachable from a given position in your document.</li>
-<li>Finally, the <a class=gdoc-markdown__link href=../../../docs/reference/document-lifecycle#linking>linking phase</a> eagerly links each reference within a document to its target using your language&rsquo;s scoping rules.</li>
+<li><a class=gdoc-markdown__link href=../../reference/document-lifecycle#symbol-indexing>Symbol indexing</a> is responsible for making objects globally available for referencing.</li>
+<li><a class=gdoc-markdown__link href=../../reference/document-lifecycle#computing-scopes>Scope computation</a> determines which elements are reachable from a given position in your document.</li>
+<li>Finally, the <a class=gdoc-markdown__link href=../../reference/document-lifecycle#linking>linking phase</a> eagerly links each reference within a document to its target using your language&rsquo;s scoping rules.</li>
 </ul>
-<p>In this guide, we&rsquo;ll look at different scoping kinds and styles and see how we can achieve them using Langium:</p>
+<p>In this recipe, we&rsquo;ll look at different scoping kinds and styles and see how we can achieve them using Langium:</p>
 <ol>
-<li><a class=gdoc-markdown__link href=./qualified-name>Qualified Name Scoping</a></li>
-<li><a class=gdoc-markdown__link href=./class-member>Class Member Scoping</a></li>
+<li><a class=gdoc-markdown__link href=../../recipes/scoping/qualified-name>Qualified Name Scoping</a></li>
+<li><a class=gdoc-markdown__link href=../../recipes/scoping/class-member>Class Member Scoping</a></li>
+<li><a class=gdoc-markdown__link href=../../recipes/scoping/file-based>File-based scoping</a></li>
 </ol>
 <p>Note that these are just example implementations for commonly used scoping methods.
 The scoping API of Langium is designed to be flexible and extensible for any kind of use case.</p>

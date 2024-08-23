@@ -27,7 +27,6 @@
 <link rel=stylesheet href=../../../print-f79fc3e5d7.min.css media=print>
 <link rel=preload href=../../../custom.css as=style>
 <link rel=stylesheet href=../../../custom.css media=all>
-<base href=../../../>
 <link rel=stylesheet href=../../../prism/prism.css>
 <script src=../../../prism/prism.js></script>
 <script src=../../../prism/langium-prism.js></script>
@@ -100,7 +99,7 @@ What is Langium?
 <ul class=gdoc-nav__list>
 <li>
 <span class=flex>
-<a href=../../../docs/features/ class=gdoc-nav__entry>
+<a href=../../../docs/introduction/features/ class=gdoc-nav__entry>
 Features
 </a>
 </span>
@@ -351,6 +350,13 @@ Class Member Scoping
 </a>
 </span>
 </li>
+<li>
+<span class=flex>
+<a href=../../../docs/recipes/scoping/file-based/ class=gdoc-nav__entry>
+File-based scoping
+</a>
+</span>
+</li>
 </ul>
 </li>
 <li>
@@ -453,7 +459,7 @@ Edit this page
 <article class="gdoc-markdown gdoc-markdown__align--left">
 <h1>Langium's workflow</h1>
 <p>Langium&rsquo;s workflow can be expressed as a flow chart diagram, which boils down to the following steps in the diagram.
-Be aware of the fact that the possibilities go beyond this simple workflow. For more advanced topics, you can find answers in the <a class=gdoc-markdown__link href=../../../docs/recipes>recipes</a>.</p>
+Be aware of the fact that the possibilities go beyond this simple workflow. For more advanced topics, you can find answers in the <a class=gdoc-markdown__link href=../../recipes>recipes</a>.</p>
 <script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script>
 <script defer src=../../../js/mermaid-loader-1bd1515cbf.min.js></script>
 <pre class="gdoc-mermaid mermaid">
@@ -489,7 +495,7 @@ Explanation
 <ul>
 <li>setting up your project environment (1.+2.): this is only done once</li>
 <li>specifying the language features (3.-7.): this cycle you need to go through for each grammar change</li>
-<li>everything advanced (8.): The limit of the common workflow is reached here. For specific questions you can find answers in the <a class=gdoc-markdown__link href=../../../docs/recipes>recipes</a>.</li>
+<li>everything advanced (8.): The limit of the common workflow is reached here. For specific questions you can find answers in the <a class=gdoc-markdown__link href=../../recipes>recipes</a>.</li>
 </ul>
 <p>While the first part is straight-forward, the last part is about advanced topics that differ from project to project.
 The middle part will be explained briefly in the following section.</p>
@@ -500,16 +506,16 @@ Initial setup
 </a>
 </h2>
 </div><div class=gdoc-page__anchorwrap>
-<h3 id=1-install-yeomandocslearnworkflowinstall>
-<a class=gdoc-markdown__link href=../../../docs/learn/workflow/install>1. Install Yeoman</a>
-<a data-clipboard-text=/docs/learn/workflow/#1-install-yeomandocslearnworkflowinstall class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1. Install Yeoman" href=#1-install-yeomandocslearnworkflowinstall><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=1-install-yeomaninstall>
+<a class=gdoc-markdown__link href=./install>1. Install Yeoman</a>
+<a data-clipboard-text=/docs/learn/workflow/#1-install-yeomaninstall class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 1. Install Yeoman" href=#1-install-yeomaninstall><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>This step ensures that you start a Langium project with the Yeoman generator. Yeoman is a scaffolding tool that helps you to start a new project with a predefined structure.</p>
 <div class=gdoc-page__anchorwrap>
-<h3 id=2-scaffold-a-langium-projectdocslearnworkflowscaffold>
-<a class=gdoc-markdown__link href=../../../docs/learn/workflow/scaffold>2. Scaffold a Langium project</a>
-<a data-clipboard-text=/docs/learn/workflow/#2-scaffold-a-langium-projectdocslearnworkflowscaffold class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2. Scaffold a Langium project" href=#2-scaffold-a-langium-projectdocslearnworkflowscaffold><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=2-scaffold-a-langium-projectscaffold>
+<a class=gdoc-markdown__link href=./scaffold>2. Scaffold a Langium project</a>
+<a data-clipboard-text=/docs/learn/workflow/#2-scaffold-a-langium-projectscaffold class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 2. Scaffold a Langium project" href=#2-scaffold-a-langium-projectscaffold><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>After installing Yeoman, you can scaffold a new Langium project.</p>
@@ -520,44 +526,44 @@ Core workflow
 </a>
 </h2>
 </div><div class=gdoc-page__anchorwrap>
-<h3 id=3-write-the-grammardocslearnworkflowwrite_grammar>
-<a class=gdoc-markdown__link href=../../../docs/learn/workflow/write_grammar>3. Write the grammar</a>
-<a data-clipboard-text=/docs/learn/workflow/#3-write-the-grammardocslearnworkflowwrite_grammar class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 3. Write the grammar" href=#3-write-the-grammardocslearnworkflowwrite_grammar><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=3-write-the-grammarwrite_grammar>
+<a class=gdoc-markdown__link href=./write_grammar>3. Write the grammar</a>
+<a data-clipboard-text=/docs/learn/workflow/#3-write-the-grammarwrite_grammar class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 3. Write the grammar" href=#3-write-the-grammarwrite_grammar><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>The first step in the core workflow starts with the grammar. You will have some language feature in mind that you want to implement. The grammar is used to nail down the syntax of your features. You can use our Langium VS Code extension to get syntax highlighting and code completion for <code>.langium</code> files. If your grammar is free of errors, you can generate the files for the <em>abstract syntax tree (AST)</em>.</p>
 <div class=gdoc-page__anchorwrap>
-<h3 id=4-generate-the-astdocslearnworkflowgenerate_ast>
-<a class=gdoc-markdown__link href=../../../docs/learn/workflow/generate_ast>4. Generate the AST</a>
-<a data-clipboard-text=/docs/learn/workflow/#4-generate-the-astdocslearnworkflowgenerate_ast class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 4. Generate the AST" href=#4-generate-the-astdocslearnworkflowgenerate_ast><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=4-generate-the-astgenerate_ast>
+<a class=gdoc-markdown__link href=./generate_ast>4. Generate the AST</a>
+<a data-clipboard-text=/docs/learn/workflow/#4-generate-the-astgenerate_ast class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 4. Generate the AST" href=#4-generate-the-astgenerate_ast><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>The AST is the backbone of your language. It is used to represent the structure of your language elements. The AST is generated from the grammar. One important part of the AST are the <em>cross-references</em>. They are used to resolve references between language elements. If you have cross-references in your language, you need to <em>resolve</em> them, after this step. The actual generation is done by a call of the Langium CLI.</p>
 <div class=gdoc-page__anchorwrap>
-<h3 id=5-resolve-cross-referencesdocslearnworkflowresolve_cross_references>
-<a class=gdoc-markdown__link href=../../../docs/learn/workflow/resolve_cross_references>5. Resolve cross-references</a>
-<a data-clipboard-text=/docs/learn/workflow/#5-resolve-cross-referencesdocslearnworkflowresolve_cross_references class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 5. Resolve cross-references" href=#5-resolve-cross-referencesdocslearnworkflowresolve_cross_references><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=5-resolve-cross-referencesresolve_cross_references>
+<a class=gdoc-markdown__link href=./resolve_cross_references>5. Resolve cross-references</a>
+<a data-clipboard-text=/docs/learn/workflow/#5-resolve-cross-referencesresolve_cross_references class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 5. Resolve cross-references" href=#5-resolve-cross-referencesresolve_cross_references><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>The cross-references are used to resolve references between language elements (between different sub trees of one file or even elements of other files(!)). This step is quite important, because it is the basis for the next steps. You can also see it like this: Step 4 will generate an AST with gaps, this fifth step will fill these gaps.</p>
 <div class=gdoc-page__anchorwrap>
-<h3 id=6-create-validationsdocslearnworkflowcreate_validations>
-<a class=gdoc-markdown__link href=../../../docs/learn/workflow/create_validations>6. Create validations</a>
-<a data-clipboard-text=/docs/learn/workflow/#6-create-validationsdocslearnworkflowcreate_validations class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 6. Create validations" href=#6-create-validationsdocslearnworkflowcreate_validations><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=6-create-validationscreate_validations>
+<a class=gdoc-markdown__link href=./create_validations>6. Create validations</a>
+<a data-clipboard-text=/docs/learn/workflow/#6-create-validationscreate_validations class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 6. Create validations" href=#6-create-validationscreate_validations><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>From here we have a fully utilized AST. Now every input file that matches the syntax will be accepted. But we want to have more control over the input. We want to check if the input is semantically correct. This is done by creating <em>validations</em>. They are used to check the input against a set of rules. If the input does not match the rules, an error will be thrown.</p>
 <div class=gdoc-page__anchorwrap>
-<h3 id=7-generate-artifactsdocslearnworkflowgenerate_everything>
-<a class=gdoc-markdown__link href=../../../docs/learn/workflow/generate_everything>7. Generate artifacts</a>
-<a data-clipboard-text=/docs/learn/workflow/#7-generate-artifactsdocslearnworkflowgenerate_everything class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 7. Generate artifacts" href=#7-generate-artifactsdocslearnworkflowgenerate_everything><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h3 id=7-generate-artifactsgenerate_everything>
+<a class=gdoc-markdown__link href=./generate_everything>7. Generate artifacts</a>
+<a data-clipboard-text=/docs/learn/workflow/#7-generate-artifactsgenerate_everything class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor 7. Generate artifacts" href=#7-generate-artifactsgenerate_everything><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h3>
 </div><p>Now you have a fully working language. You can generate whatever you want from the input. This can be code, documentation, or anything else. You can use the AST to traverse the input and generate the output.</p>
 <div class=gdoc-page__anchorwrap>
-<h2 id=find-advanced-topicsdocsrecipes>
-<a class=gdoc-markdown__link href=../../../docs/recipes>Find advanced topics</a>
-<a data-clipboard-text=/docs/learn/workflow/#find-advanced-topicsdocsrecipes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Find advanced topics" href=#find-advanced-topicsdocsrecipes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+<h2 id=find-advanced-topicsrecipes>
+<a class=gdoc-markdown__link href=../../recipes>Find advanced topics</a>
+<a data-clipboard-text=/docs/learn/workflow/#find-advanced-topicsrecipes class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Find advanced topics" href=#find-advanced-topicsrecipes><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
 </a>
 </h2>
 </div><p>Everything that is out of the scope of the common workflow is covered in the recipes. Here you can find answers to specific questions or problems that you might encounter during the development of your language.</p>
