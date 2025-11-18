@@ -3,7 +3,7 @@
 <meta charset=utf-8>
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=color-scheme content="light dark">
-<meta name=description content="Language Declaration  Import of other grammar languages   Terminal Rules  Return Types Hidden Terminal Rules   Parser Rules  Declaration The Entry Rule Extended Backus-Naur Form Expressions  Cardinalities Groups Alternatives Keywords Assignments Cross-References Unassigned Rule Calls Unordered Groups Simple Actions Tree-Rewriting Actions   Data Type Rules Rule Fragments Guard Conditions Infix operators More Examples   More on Terminal Rules  Extended Backus-Naur Form Terminals  Terminal Groups Terminal Alternatives Character Range Wildcard Token Until Token Negated Token Terminal Rule Calls   Terminal Fragments       The grammar language describes the syntax and structure of your language.">
+<meta name=description content="Language Declaration  Import of other grammar languages   Terminal Rules  Return Types Hidden Terminal Rules   Parser Rules  Declaration The Entry Rule Extended Backus-Naur Form Expressions  Cardinalities Groups Alternatives Keywords Assignments Cross-References  Multi-Target Cross-References   Unassigned Rule Calls Unordered Groups Simple Actions Tree-Rewriting Actions   Data Type Rules Rule Fragments Guard Conditions Infix operators More Examples   More on Terminal Rules  Extended Backus-Naur Form Terminals  Terminal Groups Terminal Alternatives Character Range Wildcard Token Until Token Negated Token Terminal Rule Calls   Terminal Fragments       The grammar language describes the syntax and structure of your language.">
 <title>Grammar Language | Langium</title>
 <link rel=icon type=image/svg+xml href=../../../assets/nib.svg>
 <link rel=icon type=image/png sizes=32x32 href=../../../favicon/32px.png>
@@ -555,7 +555,11 @@ Edit this page
 <li><a href=#alternatives>Alternatives</a></li>
 <li><a href=#keywords>Keywords</a></li>
 <li><a href=#assignments>Assignments</a></li>
-<li><a href=#cross-references>Cross-References</a></li>
+<li><a href=#cross-references>Cross-References</a>
+<ul>
+<li><a href=#multi-target-cross-references>Multi-Target Cross-References</a></li>
+</ul>
+</li>
 <li><a href=#unassigned-rule-calls>Unassigned Rule Calls</a></li>
 <li><a href=#unordered-groups>Unordered Groups</a></li>
 <li><a href=#simple-actions>Simple Actions</a></li>
@@ -791,6 +795,28 @@ Hello Bob !
 Hello Sara !
 </code></pre>
 <p>will result in an error message since the cross reference resolution will fail because a <code>Person</code> object with the name &lsquo;Sara&rsquo; has not been defined, even though &lsquo;Sara&rsquo; is a valid <code>ID</code>.</p>
+<div class=gdoc-page__anchorwrap>
+<h5 id=multi-target-cross-references>
+Multi-Target Cross-References
+<a data-clipboard-text=/docs/reference/grammar-language/#multi-target-cross-references class="gdoc-page__anchor gdoc-page__anchor--right clip" aria-label="Anchor Multi-Target Cross-References" href=#multi-target-cross-references><svg class="icon gdoc_link"><use xlink:href="#gdoc_link"/></svg>
+</a>
+</h5>
+</div><p>Some language concepts are able to be defined multiple times, for example namespaces or partial classes - symbols that are the same, but are normally distributed over multiple files or locations in the same file. In such cases, it is useful to be able to reference all definitions of such a symbol instead of just one.</p>
+<p>Langium supports multi-target cross-references by using the <code>[+Type:ID]</code> syntax:</p>
+<pre><code class=language-langium>entry Model:
+    (persons+=Person | greetings+=Greeting)*;
+Person:
+    'person' name=ID;
+Greeting:
+    'Hello' person=[+Person:ID] '!';
+</code></pre>
+<p>Given the following file content you will get two <code>Person</code> objects created, both named &ldquo;Bob&rdquo;, and a <code>Greeting</code> object that references both of them:</p>
+<pre><code class=language-plain>person Bob
+person Bob
+Hello Bob !
+</code></pre>
+<p>Programmatically, the <code>person</code> property of the <code>Greeting</code> object will be an array of references to both <code>Person</code> objects <code>greeting.person.items[0].ref</code> and <code>greeting.person.items[1].ref</code>.</p>
+<p>Resolution-wise, single-target and multi-target cross-references behave the same: if no matching target is found, a diagnostic error is reported. The resolution itself uses the <code>ScopeProvider</code> and the <code>ScopeComputation</code> services, which can be customized as needed.</p>
 <div class=gdoc-page__anchorwrap>
 <h4 id=unassigned-rule-calls>
 Unassigned Rule Calls
