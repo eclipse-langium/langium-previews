@@ -24486,14 +24486,14 @@ For Further details.`;
 
   // node_modules/langium/lib/workspace/documents.js
   var DocumentState;
-  (function(DocumentState3) {
-    DocumentState3[DocumentState3["Changed"] = 0] = "Changed";
-    DocumentState3[DocumentState3["Parsed"] = 1] = "Parsed";
-    DocumentState3[DocumentState3["IndexedContent"] = 2] = "IndexedContent";
-    DocumentState3[DocumentState3["ComputedScopes"] = 3] = "ComputedScopes";
-    DocumentState3[DocumentState3["Linked"] = 4] = "Linked";
-    DocumentState3[DocumentState3["IndexedReferences"] = 5] = "IndexedReferences";
-    DocumentState3[DocumentState3["Validated"] = 6] = "Validated";
+  (function(DocumentState2) {
+    DocumentState2[DocumentState2["Changed"] = 0] = "Changed";
+    DocumentState2[DocumentState2["Parsed"] = 1] = "Parsed";
+    DocumentState2[DocumentState2["IndexedContent"] = 2] = "IndexedContent";
+    DocumentState2[DocumentState2["ComputedScopes"] = 3] = "ComputedScopes";
+    DocumentState2[DocumentState2["Linked"] = 4] = "Linked";
+    DocumentState2[DocumentState2["IndexedReferences"] = 5] = "IndexedReferences";
+    DocumentState2[DocumentState2["Validated"] = 6] = "Validated";
   })(DocumentState || (DocumentState = {}));
   var DefaultLangiumDocumentFactory = class {
     constructor(services) {
