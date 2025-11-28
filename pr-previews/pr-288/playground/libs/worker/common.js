@@ -31513,11 +31513,11 @@ var init_main = __esm({
       }
       DocumentUri3.is = is2;
     })(DocumentUri || (DocumentUri = {}));
-    (function(URI5) {
+    (function(URI6) {
       function is2(value) {
         return typeof value === "string";
       }
-      URI5.is = is2;
+      URI6.is = is2;
     })(URI || (URI = {}));
     (function(integer3) {
       integer3.MIN_VALUE = -2147483648;
@@ -39717,11 +39717,11 @@ var init_main2 = __esm({
       }
       DocumentUri3.is = is2;
     })(DocumentUri2 || (DocumentUri2 = {}));
-    (function(URI5) {
+    (function(URI6) {
       function is2(value) {
         return typeof value === "string";
       }
-      URI5.is = is2;
+      URI6.is = is2;
     })(URI3 || (URI3 = {}));
     (function(integer3) {
       integer3.MIN_VALUE = -2147483648;
@@ -313589,10 +313589,6 @@ var currentGrammarContent = "";
 var currentDSLContent = "";
 var dslWrapper = void 0;
 var languageUpdateDelay = 150;
-var nextIdCounter = 0;
-function nextId() {
-  return (nextIdCounter++).toString();
-}
 function getPlaygroundState() {
   return {
     grammar: currentGrammarContent,
@@ -313644,7 +313640,7 @@ async function setupPlayground(leftEditor, rightEditor, encodedGrammar, encodedC
     });
   });
   async function setupDSLWrapper() {
-    dslWrapper = await getFreshDSLWrapper(rightEditor, nextId(), currentDSLContent, currentGrammarContent);
+    dslWrapper = await getFreshDSLWrapper(rightEditor, "txt", currentDSLContent, currentGrammarContent);
     dslClient = dslWrapper?.getLanguageClient();
     if (!dslClient) {
       throw new Error("Failed to retrieve fresh DSL LS client");
@@ -313658,13 +313654,8 @@ async function setupPlayground(leftEditor, rightEditor, encodedGrammar, encodedC
   overlay(false, false);
 }
 async function getFreshDSLWrapper(htmlElement, languageId, code, grammarText) {
-  const languageMetaData = {
-    caseInsensitive: false,
-    fileExtensions: [`.${languageId}`],
-    languageId,
-    mode: "development"
-  };
-  const { Grammar: Grammar3 } = await createServicesForGrammar({ grammar: grammarText, languageMetaData });
+  const languageMetaData = getLanguageMetaData(languageId);
+  const { Grammar: Grammar3, shared } = await createServicesForGrammar({ grammar: grammarText, languageMetaData });
   const worker = await getLSWorkerForGrammar(grammarText);
   const wrapper = new f4t();
   const textmateGrammar = JSON.parse(generateTextMate(Grammar3, { id: languageId, grammar: "UserGrammar" }));
@@ -313727,9 +313718,18 @@ async function getLSWorkerForGrammar(grammar) {
     };
   });
 }
+function getLanguageMetaData(languageId) {
+  return {
+    caseInsensitive: false,
+    fileExtensions: [`.${languageId}`],
+    languageId,
+    mode: "development"
+  };
+}
 export {
   f4t as MonacoEditorLanguageClientWrapper,
   V7t as addMonacoStyles,
+  getLanguageMetaData,
   getPlaygroundState,
   overlay,
   setupPlayground,
